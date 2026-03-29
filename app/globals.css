@@ -1,26 +1,78 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Main colors */
+  --color-primary: #2C1A0E;
+  --color-surface: #F5EDE3;
+  --color-secondary: #7A5C42;
+  --color-muted: #EDE0D0;
+
+  /* Accent colors */
+  --color-accent-1: #C17A3A;
+  --color-accent-2: #4A7C59;
+  --color-accent-3: #9C4A2A;
+
+  /* Light tints */
+  --color-accent-1-light: #FFF3E0;
+  --color-accent-2-light: #E8F5E9;
+  --color-accent-3-light: #FFF0EB;
+
+  /* Typography */
+  --font-heading: var(--font-jakarta-sans);
+  --font-body: var(--font-lora);
+  --font-ui: var(--font-jakarta-sans);
+
+  /* Spacing Variables according to brand guidelines */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-primary);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: var(--color-primary);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Button & Card Utilities */
+@layer components {
+  .btn-primary {
+    @apply bg-accent-1 text-[#FFF8F0] border-none rounded-[10px] font-ui font-semibold py-3 px-6 transition-all duration-200 cursor-pointer;
+  }
+  .btn-primary:hover {
+    @apply opacity-90 -translate-y-[1px];
+  }
+  .btn-secondary {
+    @apply bg-transparent text-primary border-[1.5px] border-secondary rounded-[10px] font-ui font-medium py-[11px] px-[22px] transition-all duration-200 cursor-pointer;
+  }
+  .btn-secondary:hover {
+    @apply bg-muted;
+  }
+  .btn-danger {
+    @apply bg-accent-3 text-[#FFF0EB] border-none rounded-[10px] font-ui font-semibold py-3 px-6 cursor-pointer;
+  }
+  
+  .card-default {
+    @apply bg-white border border-muted rounded-[14px] p-[18px] shadow-[0_4px_6px_rgba(0,0,0,0.05)] transition-all duration-200;
+  }
+  .card-muted {
+    @apply bg-muted border-none rounded-[14px] p-[18px] transition-all duration-200;
+  }
+  .card-dark {
+    @apply bg-primary text-surface border-none rounded-[14px] p-[18px] transition-all duration-200;
+  }
 }
