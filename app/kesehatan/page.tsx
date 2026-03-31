@@ -9,19 +9,18 @@ export const metadata = {
   description: 'Koleksi lengkap kalkulator kesehatan dan kebugaran: BMI, Kalori, Masa Subur, dan lainnya.',
 };
 
-const KESEHATAN_TOOLS = [
+export const KESEHATAN_TOOLS = [
   { id: 'bmi', name: 'Kalkulator BMI', category: 'Kesehatan', icon: Activity, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: '/kesehatan/bmi', desc: 'Hitung tingkat ideal massa tubuh secara akurat berdasarkan standar metrik Asia-Pasifik.', hot: true },
-  { id: 'masa-subur', name: 'Kalkulator Masa Subur', category: 'Kesehatan', icon: Activity, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: '#', desc: 'Kalkulasi siklus menstruasi dan prediksi jendela masa subur wanita.', hot: true },
-  { id: 'kalori', name: 'Kalkulator Kalori Harian', category: 'Kesehatan', icon: Activity, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: '#', desc: 'Hitung kebutuhan kalori harian (TDEE) untuk mencapai target berat badan.', hot: false },
-  { id: 'air', name: 'Kalkulator Kebutuhan Air', category: 'Kesehatan', icon: Activity, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: '#', desc: 'Estimasi asupan cairan yang wajib dipenuhi per hari berdasarkan level rutinitas.', hot: false },
-  { id: 'sleep', name: 'Sleep Cycle Calculator', category: 'Kesehatan', icon: Moon, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: '#', desc: 'Temukan jam tidur dan bangun ideal untuk menghindari rasa lelah.', hot: true },
-  { id: 'ideal-weight', name: 'Cek Berat Badan Ideal', category: 'Kesehatan', icon: Activity, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: '#', desc: 'Ketahui rentang berat badan ideal berdasarkan tinggi tubuh dan usia.', hot: false },
-  { id: '1rm', name: 'Kalkulator 1RM', category: 'Kesehatan', icon: Activity, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: '#', desc: 'Hitung porsi beban maksimum untuk satu repetisi latihan angkat beban.', hot: false },
-  { id: 'kafein', name: 'Kalkulator Kafein Aman', category: 'Kesehatan', icon: Activity, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: '#', desc: 'Batas asupan kopi dan minuman berkafein harian sesuai kondisi tubuh.', hot: false },
+  { id: 'masa-subur', name: 'Kalkulator Masa Subur', category: 'Kesehatan', icon: Activity, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: '/kesehatan/masa-subur', desc: 'Kalkulasi siklus menstruasi dan prediksi jendela masa subur wanita.', hot: true },
+  { id: 'kalori', name: 'Kalkulator Kalori Harian', category: 'Kesehatan', icon: Activity, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: '/kesehatan/kalori', desc: 'Hitung kebutuhan kalori harian (TDEE) untuk mencapai target berat badan.', hot: false },
+  { id: 'air', name: 'Kalkulator Kebutuhan Air', category: 'Kesehatan', icon: Activity, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: '/kesehatan/air', desc: 'Estimasi asupan cairan yang wajib dipenuhi per hari berdasarkan level rutinitas.', hot: false },
+  { id: 'sleep', name: 'Sleep Cycle Calculator', category: 'Kesehatan', icon: Moon, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: '/kesehatan/tidur', desc: 'Temukan jam tidur dan bangun ideal untuk menghindari rasa lelah.', hot: true },
+  { id: '1rm', name: 'Kalkulator 1RM', category: 'Kesehatan', icon: Activity, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: '/kesehatan/1rm', desc: 'Hitung porsi beban maksimum untuk satu repetisi latihan angkat beban.', hot: false },
+  { id: 'kafein', name: 'Kalkulator Kafein Aman', category: 'Kesehatan', icon: Activity, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: '/kesehatan/kafein', desc: 'Batas asupan kopi dan minuman berkafein harian sesuai kondisi tubuh.', hot: false },
   { id: 'hpl', name: 'Prediksi HPL', category: 'Kesehatan', icon: Activity, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: 'kesehatan/kehamilan', desc: 'Kalkulator Hari Perkiraan Lahir untuk memantau kehamilan.', hot: true },
-  { id: 'grafik-bayi', name: 'Grafik Pertumbuhan Bayi', category: 'Kesehatan', icon: Activity, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: '#', desc: 'Pantau kurva pertumbuhan tinggi dan berat badan anak sesuai standar WHO.', hot: false },
-  { id: 'tekanan-darah', name: 'Kalkulator Tekanan Darah', category: 'Kesehatan', icon: Activity, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: '#', desc: 'Evaluasi hasil tensi darah dan pahami kategori kesehatannya.', hot: false },
-  { id: 'diabetes', name: 'Risiko Diabetes', category: 'Kesehatan', icon: Activity, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: '#', desc: 'Skrining awal tingkat risiko diabetes berdasarkan gaya hidup dan keturunan.', hot: false },
+  { id: 'grafik-bayi', name: 'Grafik Pertumbuhan Bayi', category: 'Kesehatan', icon: Activity, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: '/kesehatan/grafik-bayi', desc: 'Pantau kurva pertumbuhan tinggi dan berat badan anak sesuai standar WHO.', hot: false },
+  { id: 'tekanan-darah', name: 'Kalkulator Tekanan Darah', category: 'Kesehatan', icon: Activity, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: '/kesehatan/tekanan-darah', desc: 'Evaluasi hasil tensi darah dan pahami kategori kesehatannya.', hot: false },
+  { id: 'diabetes', name: 'Risiko Diabetes', category: 'Kesehatan', icon: Activity, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: '/kesehatan/diabetes', desc: 'Skrining awal tingkat risiko diabetes berdasarkan gaya hidup dan keturunan.', hot: false },
 ];
 
 const OTHER_CATEGORIES = [
