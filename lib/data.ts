@@ -15,12 +15,10 @@ export const TOOLS = [
   { id: 'diabetes', name: 'Risiko Diabetes', category: 'Kesehatan', categoryId: 'kesehatan', icon: Activity, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: '/kesehatan/diabetes', desc: 'Skrining awal tingkat risiko diabetes berdasarkan gaya hidup dan keturunan.', hot: false },
 
   // Religi
-  { id: 'sholat', name: 'Jadwal Sholat', category: 'Religi', categoryId: 'religi', icon: Moon, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: '#', desc: 'Kalkulasi waktu masuk ibadah tersinkronisasi lintang bujur otomatis.', hot: true },
-  { id: 'zakat', name: 'Kalkulator Zakat', category: 'Religi', categoryId: 'religi', icon: Calculator, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: '#', desc: 'Simulasikan tercapainya batas minimum nisab harta maal & persentase penghasilan.', hot: true },
-  { id: 'kiblat', name: 'Arah Kiblat', category: 'Religi', categoryId: 'religi', icon: Moon, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: '#', desc: 'Kompas digital penunjuk arah Kakbah real-time sesuai lokasi.', hot: false },
-  { id: 'hijriyah', name: 'Konversi Hijriyah', category: 'Religi', categoryId: 'religi', icon: Moon, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: '#', desc: 'Konversi penanggalan kalender Masehi ke Hijriyah dan sebaliknya.', hot: false },
-  { id: 'warisan', name: 'Kalkulator Warisan', category: 'Religi', categoryId: 'religi', icon: Calculator, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: '#', desc: 'Perhitungan harta waris (Faraidh) berdasarkan syariat Islam.', hot: false },
-
+  { id: 'sholat', name: 'Kalkulator Sholat', category: 'Religi', categoryId: 'religi', icon: Moon, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: '/religi/sholat', desc: 'Kalkulasi waktu masuk ibadah tersinkronisasi lintang bujur otomatis.', hot: true },
+  { id: 'zakat', name: 'Kalkulator Zakat', category: 'Religi', categoryId: 'religi', icon: Calculator, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: '/religi/zakat', desc: 'Simulasikan tercapainya batas minimum nisab harta maal & persentase penghasilan.', hot: true },
+  { id: 'hijriyah', name: 'Konversi Hijriyah', category: 'Religi', categoryId: 'religi', icon: Moon, color: 'text-[#4A7C59]', bg: 'bg-[#E8F5E9]', path: '/religi/hijriyah', desc: 'Konversi penanggalan kalender Masehi ke Hijriyah dan sebaliknya.', hot: false },
+  
   // Finansial
   { id: 'gajibersih', name: 'Kalkulator Gaji Bersih', category: 'Finansial', categoryId: 'finansial', icon: Wallet, color: 'text-[#9C4A2A]', bg: 'bg-[#FFF0EB]', path: '#', desc: 'Kalkulator proyeksi slip gaji usai pemotongan BPJS, JHT, dan PPh 21.', hot: true },
   { id: 'lembur', name: 'Kalkulator Lembur', category: 'Finansial', categoryId: 'finansial', icon: Wallet, color: 'text-[#9C4A2A]', bg: 'bg-[#FFF0EB]', path: '#', desc: 'Hitung upah jam lembur (overtime) sesuai regulasi Depnaker terbaru.', hot: false },
