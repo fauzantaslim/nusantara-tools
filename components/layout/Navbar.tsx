@@ -3,9 +3,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Menu, Search, ChevronDown, X, Activity, Wallet, Moon, CheckCircle2, HeartPulse, Wrench, ImageIcon } from 'lucide-react';
+import { Menu, Search, ChevronDown, X, Wallet, Moon, CheckCircle2, HeartPulse, Wrench, ImageIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { TOOLS } from '@/lib/data';
+import Fuse from 'fuse.js';
 
 const TOOL_CATEGORIES = [
   { 
@@ -60,6 +61,25 @@ export function Navbar() {
   const [isMobileCategoriesOpen, setIsMobileCategoriesOpen] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
 
+  // Initialize Fuse for fuzzy search
+  const fuse = React.useMemo(() => {
+    return new Fuse(TOOLS, {
+      keys: [
+        { name: 'name', weight: 1.5 },
+        { name: 'keywords', weight: 1.2 },
+        { name: 'desc', weight: 0.8 }
+      ],
+      threshold: 0.4, // lower threshold is stricter, higher is fuzzier
+      includeScore: true,
+      shouldSort: true,
+    });
+  }, []);
+
+  const searchResults = React.useMemo(() => {
+    if (!searchQuery.trim()) return [];
+    return fuse.search(searchQuery).map(result => result.item).slice(0, 5);
+  }, [searchQuery, fuse]);
+
   // Efek shrink header saat di gulir (opsional elegan)
   useEffect(() => {
     const handleScroll = () => {
@@ -79,10 +99,6 @@ export function Navbar() {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
-
-  const searchResults = TOOLS.filter(tool => 
-    searchQuery && (tool.name.toLowerCase().includes(searchQuery.toLowerCase()) || tool.desc.toLowerCase().includes(searchQuery.toLowerCase()))
-  ).slice(0, 5); // limit to 5 results
 
   return (
     <>
