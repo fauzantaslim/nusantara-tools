@@ -1,0 +1,9 @@
+
+echo "🔍 Running Pre-Commit Checks on Staged Files"
+
+echo ""
+echo "✨ 1. Formatting Staged Files"
+npx pretty-quick --staged || { echo "❌ Pretty Quick Failed!"; exit 1; }
+
+echo ""
+echo "✅ All Pre-Commit Checks Passed! Ready to commit 🎉"

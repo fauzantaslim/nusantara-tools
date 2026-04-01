@@ -12,14 +12,34 @@ import { Breadcrumbs } from "@/ui/Breadcrumbs";
 import { TOOLS } from "@/lib/data";
 
 export const metadata = {
-  title: "Tools Kesehatan & Kebugaran | NusantaraTools",
+  title: "Tools Utilitas & Lainnya | NusantaraTools",
   description:
-    "Koleksi lengkap kalkulator kesehatan dan kebugaran: BMI, Kalori, Masa Subur, dan lainnya.",
+    "Koleksi lengkap alat utilitas: URL Shortener, QR Generator, dan lainnya.",
 };
 
-const KESEHATAN_TOOLS = TOOLS.filter((t) => t.categoryId === "kesehatan");
+const UTILITAS_TOOLS = TOOLS.filter((t) => t.categoryId === "utilitas");
 
 const OTHER_CATEGORIES = [
+  {
+    id: "kesehatan",
+    name: "Kesehatan & Kebugaran",
+    icon: Activity,
+    color: "text-[#4A7C59]",
+    bg: "bg-[#E8F5E9]",
+    path: "/kesehatan",
+    desc: "Kalkulator BMI, Kalori, Masa Subur, dan pantauan kesehatan harian.",
+    hoverBorder: "hover:border-[#4A7C59]/40",
+  },
+  {
+    id: "religi",
+    name: "Religi & Ibadah",
+    icon: Moon,
+    color: "text-[#4A7C59]",
+    bg: "bg-[#E8F5E9]",
+    path: "/religi",
+    desc: "Jadwal sholat akurat, kompas arah kiblat, kalkulator zakat & warisan.",
+    hoverBorder: "hover:border-[#4A7C59]/40",
+  },
   {
     id: "finansial",
     name: "Finansial & Keuangan",
@@ -40,60 +60,40 @@ const OTHER_CATEGORIES = [
     desc: "Generator CV ATS, pomodoro timer, dan utilitas penunjang karir.",
     hoverBorder: "hover:border-[#C17A3A]/40",
   },
-  {
-    id: "religi",
-    name: "Religi & Ibadah",
-    icon: Moon,
-    color: "text-[#4A7C59]",
-    bg: "bg-[#E8F5E9]",
-    path: "/religi",
-    desc: "Jadwal sholat akurat, kompas arah kiblat, kalkulator zakat & warisan.",
-    hoverBorder: "hover:border-[#4A7C59]/40",
-  },
-  {
-    id: "utilitas",
-    name: "Utilitas Ekstra & Gambar",
-    icon: Activity,
-    color: "text-[#7A5C42]",
-    bg: "bg-[#EDE0D0]/60",
-    path: "/utilitas",
-    desc: "URL shortener, QR generator, serta alat konversi dan resize gambar massal.",
-    hoverBorder: "hover:border-[#7A5C42]/40",
-  },
 ];
 
-export default function KesehatanIndex() {
+export default function UtilitasIndex() {
   return (
     <div className="max-w-7xl mx-auto flex flex-col gap-12 w-full mt-4 pb-24 px-4">
       {/* Header Bar */}
       <div className="flex flex-col gap-6 pt-6 pb-4 border-b border-muted/50">
-        <Breadcrumbs items={[{ label: "Kesehatan & Kebugaran" }]} />
+        <Breadcrumbs items={[{ label: "Utilitas & Lainnya" }]} />
         <div>
           <div className="flex items-center gap-3 mb-2">
-            <span className="px-3 py-1 bg-[#E8F5E9] text-[#4A7C59] text-xs font-bold rounded-full tracking-wider uppercase border border-[#4A7C59]/20">
+            <span className="px-3 py-1 bg-[#EDE0D0] text-[#7A5C42] text-xs font-bold rounded-full tracking-wider uppercase border border-[#7A5C42]/20">
               Kategori
             </span>
           </div>
           <h1 className="text-4xl sm:text-5xl font-black text-primary font-heading tracking-tight">
-            Kesehatan & Kebugaran
+            Utilitas & Lainnya
           </h1>
           <p className="text-lg text-secondary font-body mt-3 max-w-2xl leading-relaxed">
-            Kumpulan kalkulator medis dan kebugaran berbasis standar sains untuk
-            memantau kualitas kesehatan harian Anda secara mandiri.
+            Berbagai perangkat bantu serbaguna untuk mempermudah tugas-tugas
+            teknis dan kebutuhan digital spesifik Anda.
           </p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 relative z-10">
-        {KESEHATAN_TOOLS.map((tool) => {
+        {UTILITAS_TOOLS.map((tool) => {
           const Icon = tool.icon;
           return (
             <Link
               href={tool.path}
               key={tool.id}
-              className="group bg-white rounded-[1.5rem] border border-[#EDE0D0]/80 p-6 flex flex-col justify-between transition-all duration-300 hover:border-[#4A7C59]/40 hover:shadow-xl hover:shadow-[#4A7C59]/5 hover:-translate-y-1 relative overflow-hidden"
+              className="group bg-white rounded-[1.5rem] border border-[#EDE0D0]/80 p-6 flex flex-col justify-between transition-all duration-300 hover:border-[#7A5C42]/40 hover:shadow-xl hover:shadow-[#7A5C42]/5 hover:-translate-y-1 relative overflow-hidden"
             >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#4A7C59]/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[#7A5C42]/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
 
               <div className="relative z-10">
                 <div className="flex items-start justify-between mb-5">
@@ -113,7 +113,7 @@ export default function KesehatanIndex() {
                 </div>
 
                 <div className="mb-2">
-                  <h3 className="font-heading font-extrabold text-xl text-primary group-hover:text-[#4A7C59] transition-colors line-clamp-1">
+                  <h3 className="font-heading font-extrabold text-xl text-primary group-hover:text-[#7A5C42] transition-colors line-clamp-1">
                     {tool.name}
                   </h3>
                 </div>
@@ -127,7 +127,7 @@ export default function KesehatanIndex() {
                 <span className="text-xs font-bold text-secondary uppercase tracking-widest group-hover:text-primary transition-colors">
                   Buka Tool
                 </span>
-                <div className="w-8 h-8 rounded-full bg-surface group-hover:bg-[#4A7C59] flex flex-col items-center justify-center transition-colors">
+                <div className="w-8 h-8 rounded-full bg-surface group-hover:bg-[#7A5C42] flex flex-col items-center justify-center transition-colors">
                   <ChevronRight className="w-4 h-4 text-primary group-hover:text-white transition-colors" />
                 </div>
               </div>
@@ -144,8 +144,8 @@ export default function KesehatanIndex() {
               Kategori Terkait Lainnya
             </h2>
             <p className="text-secondary font-body mt-2">
-              Jelajahi portofolio kalkulator kami untuk kebutuhan finansial
-              hingga produktivitas.
+              Jelajahi portofolio kalkulator kami untuk kebutuhan kesehatan
+              hingga finansial.
             </p>
           </div>
         </div>
