@@ -1,0 +1,104 @@
+oke sekarang lanjut buatkan fitur untuk pomodoro
+berikut user stories dan acceptance criteria nya 
+🧩 USER STORY — ADVANCED POMODORO TIMER
+📝 Title
+
+Pomodoro Timer with Notifications & Custom Focus Levels
+
+👤 User Story
+
+As a user
+I want to customize my Pomodoro sessions and receive notifications
+So that I can adapt the timer to my focus style and stay consistent
+
+✅ ACCEPTANCE CRITERIA (UPDATED — ADVANCED FEATURE)
+🎯 Focus Level Presets
+System provides predefined focus levels:
+🍼 Baby Step
+Focus: 10 min
+Short Break: 5 min
+Long Break: 10 min
+🔥 Popular (default)
+Focus: 20 min
+Short Break: 5 min
+Long Break: 15 min
+⚖️ Medium
+Focus: 40 min
+Short Break: 8 min
+Long Break: 20 min
+🚀 Extended
+Focus: 60 min
+Short Break: 10 min
+Long Break: 25 min
+⚙️ Custom Mode
+User can manually set:
+Focus duration
+Short break duration
+Long break duration
+System updates timer instantly based on custom input
+🔔 Notification System
+System requests browser notification permission
+When session ends:
+Show browser notification
+Show UI alert
+Play sound alarm
+🔊 Alarm Functionality
+System plays sound when:
+Focus session ends
+Break session ends
+User can:
+Enable/disable sound
+Adjust volume (optional advanced)
+⏱ Timer Behavior
+Timer supports:
+Start / Pause / Resume / Reset
+Timer auto-switch:
+Focus → Break → Focus
+🔄 Session Flow
+After defined cycles:
+Trigger long break
+📊 Progress Tracking
+System tracks:
+Completed sessions
+System displays:
+Daily Pomodoro count
+💾 Persistence
+System stores:
+Selected focus level
+Custom settings
+Session count (optional)
+🎨 UI Behavior
+System highlights:
+Current mode:
+Focus 🔥
+Break 🌿
+Countdown displayed clearly (mm:ss)
+🔁 User Interaction
+User can:
+Switch preset anytime
+Switch to custom mode
+Skip session
+Reset timer
+⚠️ Validation
+Custom values must be:
+Positive numbers
+Within reasonable range (e.g. 1–120 minutes)
+❗ Edge Cases
+Notification permission denied → fallback to UI + sound
+Tab inactive → timer remains accurate
+Multiple tab → prevent duplicate timer
+🧠 BONUS (PRODUCT THINKING 🔥)
+💡 UX Improvement
+Highlight selected preset:
+“Popular ⭐”
+Show:
+“You completed 4 focus sessions today 🎉”
+💡 Advanced Feature (NEXT LEVEL)
+🔔 Auto-start next session
+🎵 Background sound (lofi, rain)
+📅 Weekly stats
+🔗 Task integration
+
+ikuti pola layout Kalkulator Siklus Tidur PS C:\Users\fauza\Documents\About Me\nusantara-tools> & 'c:\Users\fauza\Documents\About Me\nusantara-tools\app\kesehatan\tidur\layout.tsx'
+jadi ada form dikiri dan timer nya disebelah kanan
+

@@ -537,7 +537,7 @@ export const TOOLS: Tool[] = [
     icon: Timer,
     color: "text-[#C17A3A]",
     bg: "bg-[#FFF3E0]",
-    path: "#",
+    path: "/produktivitas/pomodoro",
     desc: "Tingkatkan retensi fokus kerja tanpa distraksi menggunakan interval waktu sains.",
     hot: true,
     keywords: [
