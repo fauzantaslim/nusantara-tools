@@ -16,6 +16,7 @@ import {
   Bell,
   Volume2,
   Play,
+  Music,
 } from "lucide-react";
 
 interface PomodoroSettingsProps {
@@ -264,6 +265,23 @@ export const PomodoroSettings: React.FC<PomodoroSettingsProps> = ({
               </div>
             )}
           </div>
+        </div>
+
+        <div className="flex flex-col gap-4 pt-4 border-t border-muted/50">
+          <div className="flex items-center gap-2 text-primary font-heading font-bold">
+            <Music className="w-5 h-5" />
+            <span>Fokus dengan Musik</span>
+          </div>
+          <iframe
+            style={{ borderRadius: "16px" }}
+            src="https://open.spotify.com/embed/playlist/4Zjli1P13J5mmSCD5iKAXK?utm_source=generator&theme=0"
+            width="100%"
+            height="152"
+            frameBorder="0"
+            allowFullScreen={false}
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+          ></iframe>
         </div>
       </div>
     </Card>
