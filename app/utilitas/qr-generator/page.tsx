@@ -1,60 +1,103 @@
 "use client";
 
-import React from "react";
+import React, { Suspense, useEffect } from "react";
 import { Breadcrumbs } from "@/ui/Breadcrumbs";
-import { useUrlShortener } from "@/features/url-shortener/hooks/useUrlShortener";
-import { UrlForm } from "@/features/url-shortener/components/UrlForm";
-import { UrlList } from "@/features/url-shortener/components/UrlList";
+import { useQrGenerator } from "@/features/qr-generator/hooks/useQrGenerator";
+import { QrForm } from "@/features/qr-generator/components/QrForm";
+import { QrPreview } from "@/features/qr-generator/components/QrPreview";
+import { useSearchParams } from "next/navigation";
 import {
   Info,
   CheckCircle2,
-  Link,
-  Zap,
-  BarChart3,
-  ShieldCheck,
+  QrCode,
+  Smartphone,
+  Download,
+  Palette,
 } from "lucide-react";
 
-export default function UrlShortenerPage() {
-  const { urls, shortenUrl, deleteUrl, copyToClipboard, isCopied } =
-    useUrlShortener();
+function GeneratorContent() {
+  const searchParams = useSearchParams();
+  const initialUrl = searchParams.get("url") || undefined;
 
+  const {
+    activeTab,
+    setActiveTab,
+    inputData,
+    updateInput,
+    options,
+    updateOptions,
+    encodedPayload,
+    errors,
+    resetForm,
+    handleDownload,
+  } = useQrGenerator(initialUrl);
+
+  // Auto-set tab to URL if param exists and isn't the active tab on mount
+  useEffect(() => {
+    if (initialUrl && activeTab !== "url") {
+      setActiveTab("url");
+    }
+  }, [initialUrl, activeTab, setActiveTab]);
+
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch relative my-4">
+      {/* Left Side: Form */}
+      <div className="lg:col-span-5 flex flex-col gap-6">
+        <QrForm
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          inputData={inputData}
+          updateInput={updateInput}
+          options={options}
+          updateOptions={updateOptions}
+          errors={errors}
+          resetForm={resetForm}
+        />
+      </div>
+
+      {/* Right Side: Preview */}
+      <div className="lg:col-span-7">
+        <QrPreview
+          payload={encodedPayload}
+          options={options}
+          onDownload={handleDownload}
+        />
+      </div>
+    </div>
+  );
+}
+
+export default function QrGeneratorPage() {
   return (
     <div className="flex flex-col gap-12 w-full pb-20">
       {/* Header */}
       <div className="flex flex-col gap-4">
         <Breadcrumbs
           items={[
-            { label: "Produktivitas", href: "/produktivitas" },
-            { label: "URL Shortener" },
+            { label: "Utilitas", href: "/utilitas" },
+            { label: "QR Generator" },
           ]}
         />
         <div className="mt-2">
           <h1 className="text-3xl sm:text-4xl font-black text-primary font-heading tracking-tight">
-            URL Shortener
+            QR Generator
           </h1>
           <p className="text-base sm:text-lg text-secondary font-body mt-1">
-            Persingkat link Anda, bagikan dengan mudah, dan pantau
-            penggunaannya.
+            Buat kode QR khusus dari berbagai jenis data lalu unduh dengan
+            cepat.
           </p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch relative my-4">
-        {/* Left Side: Form */}
-        <div className="lg:col-span-5 flex flex-col gap-6">
-          <UrlForm onShorten={shortenUrl} />
-        </div>
-
-        {/* Right Side: List & Stats */}
-        <div className="lg:col-span-7">
-          <UrlList
-            urls={urls}
-            onCopy={copyToClipboard}
-            onDelete={deleteUrl}
-            copiedCode={isCopied}
-          />
-        </div>
-      </div>
+      <Suspense
+        fallback={
+          <div className="w-full h-64 flex items-center justify-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
+          </div>
+        }
+      >
+        <GeneratorContent />
+      </Suspense>
 
       {/* Educational Content */}
       <div className="mt-16 mb-24">
@@ -70,26 +113,26 @@ export default function UrlShortenerPage() {
               {/* Header Section */}
               <div className="flex flex-col items-center text-center max-w-3xl mx-auto">
                 <span className="text-[#C17A3A] font-bold tracking-widest uppercase text-xs mb-4 block">
-                  Manajemen Tautan Digital
+                  Jembatan Fisik ke Digital
                 </span>
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-heading text-white leading-tight tracking-tight mb-6">
-                  Apa itu URL Shortener?
+                  Mengapa Membutuhkan QR Code?
                 </h2>
                 <p className="text-lg text-[#EDE0D0] font-body leading-relaxed mb-10 opacity-90">
-                  URL Shortener adalah alat yang mengonversi tautan web yang
-                  panjang, rumit, dan sulit diingat menjadi versi yang jauh
-                  lebih singkat dan estetis. Alat ini merupakan kebutuhan wajib
-                  dalam strategi digital marketing dan berbagi informasi di
-                  media sosial.
+                  QR Code (Quick Response Code) adalah standar industri modern
+                  untuk menjembatani dunia fisik dan digital. Cukup dengan satu
+                  pemindaian dari kamera smartphone, pengguna dapat langsung
+                  diarahkan ke form, situs web, atau menyimpan rincian kontak
+                  secara otomatis.
                 </p>
 
                 <div className="flex p-6 sm:p-8 rounded-3xl bg-[#1A0E07]/40 border border-[#7A5C42]/30 flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 backdrop-blur-sm mx-auto text-left shadow-inner">
                   <Info className="w-8 h-8 sm:w-10 sm:h-10 text-[#C17A3A] shrink-0" />
                   <div className="flex flex-col gap-3">
                     <p className="text-[#F5EDE3] font-heading font-medium text-lg leading-snug">
-                      Gunakan tautan pendek untuk memberikan kesan yang
-                      profesional, sambil mengumpulkan data berharga tentang
-                      siapa yang mengklik tautan Anda.
+                      Berikan pengalaman instan tanpa gangguan. Hilangkan
+                      rintangan proses mengetik URL secara manual atau
+                      memasukkan digit nomor secara lambat!
                     </p>
                   </div>
                 </div>
@@ -99,24 +142,24 @@ export default function UrlShortenerPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {[
                   {
-                    icon: Link,
-                    title: "Salin Tautan",
-                    desc: "Tempelkan tautan URL original Anda yang panjang ke dalam kolom input.",
+                    icon: QrCode,
+                    title: "Pilih Format",
+                    desc: "Berbagai tipe tersedia mulai dari Tautan, Email, Teks hingga Nomor Telepon.",
                   },
                   {
-                    icon: Zap,
-                    title: "Kecilkan Seketika",
-                    desc: "Sistem merotasi deretan kode unik acak untuk menjadi ID URL baru.",
+                    icon: Palette,
+                    title: "Kustomisasi Tema",
+                    desc: "Ubah gaya dan perpaduan warna untuk mencocokkan identitas merek secara bebas.",
                   },
                   {
-                    icon: BarChart3,
-                    title: "Bagikan & Pantau",
-                    desc: "Lacak jumlah klik, lokasi pengunjung, dan tipe perangkat otomatis.",
+                    icon: Smartphone,
+                    title: "Uji Pindai",
+                    desc: "Pratinjau antarmuka langsung bagaimana tampilan QR akan bekerja sebelum diunduh.",
                   },
                   {
-                    icon: ShieldCheck,
-                    title: "Aman Sepenuhnya",
-                    desc: "Proses validasi dan perlindungan bawaan memastikan tautan berfungsi benar.",
+                    icon: Download,
+                    title: "Unduh Siap Pakai",
+                    desc: "Simpan dalam format file vektor berkualitas tinggi (SVG) atau pixel ringan (PNG).",
                   },
                 ].map((step, i) => (
                   <div
@@ -138,42 +181,40 @@ export default function UrlShortenerPage() {
               <section className="space-y-8">
                 <div className="flex items-center gap-4 border-b border-[#7A5C42]/30 pb-4">
                   <h3 className="text-2xl font-bold font-heading text-white">
-                    Mengapa Membutuhkan Tautan Pendek?
+                    Keuntungan Signifikan QR Code
                   </h3>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-8 items-center bg-[#1A0E07]/40 p-6 sm:p-10 rounded-[2.5rem] border border-[#7A5C42]/30 shadow-sm">
                   <div className="space-y-6">
                     <p className="text-[#EDE0D0] font-body text-sm leading-relaxed opacity-90">
-                      Tautan yang bersih menunjukkan bahwa Anda peduli terhadap
-                      detail dan memprioritaskan kenyamanan audiens Anda saat
-                      menjelajahi dunia maya.
+                      Anda mungkin berpikir stiker sederhana bukanlah revolusi
+                      marketing teknologi paling canggih, namun keuntungannya
+                      berbicara lain.
                     </p>
                     <ul className="space-y-4 font-body text-[#EDE0D0] text-sm">
                       <li className="flex items-start gap-3">
                         <CheckCircle2 className="w-5 h-5 text-[#C17A3A] shrink-0 mt-0.5" />
                         <span>
-                          <strong>Lebih Estetis & Profesional:</strong> URL
-                          pendek terlihat lebih rapi di deskripsi media sosial,
-                          email, atau poster.
+                          <strong>Interaksi Ultra-Cepat:</strong> Bebas proses
+                          mengetik manual sehingga cocok ditaruh di kartu nama
+                          digital atau banner acara.
                         </span>
                       </li>
                       <li className="flex items-start gap-3">
                         <CheckCircle2 className="w-5 h-5 text-[#C17A3A] shrink-0 mt-0.5" />
                         <span>
-                          <strong>Analytics & Tracking:</strong> URL asli tidak
-                          akan memberitahu Anda dari negara mana pengguna
-                          berasal atau waktu mereka klik.
+                          <strong>Dukungan Lintas Platform Bawaan:</strong>{" "}
+                          Mayoritas OS smartphone (Android & iOS) kini memindai
+                          QR secara langsung lewat kamera bawaan!
                         </span>
                       </li>
                       <li className="flex items-start gap-3">
                         <CheckCircle2 className="w-5 h-5 text-[#C17A3A] shrink-0 mt-0.5" />
                         <span>
-                          <strong>
-                            Meningkatkan Click-Through Rate (CTR):
-                          </strong>{" "}
-                          URL ramah dipercaya memperbesar angka konversi karena
-                          tampak tak mencurigakan.
+                          <strong>Terkoneksi O2O Pemasaran:</strong> QR
+                          merupakan nyawa dari model sistem periklanan
+                          *Offline-to-Online* yang sangat terukur.
                         </span>
                       </li>
                     </ul>
@@ -181,17 +222,14 @@ export default function UrlShortenerPage() {
                   <div className="flex justify-center">
                     <div className="relative w-full max-w-[300px] aspect-square">
                       <div className="absolute inset-0 bg-[#C17A3A] blur-[60px] opacity-20 animate-pulse" />
-                      <div className="relative z-10 w-full h-full border-4 border-[#C17A3A]/20 rounded-full flex flex-col items-center justify-center p-8 text-center bg-[#1A0E07]/40 backdrop-blur-xl gap-2 hover:scale-[1.02] transition-transform duration-500">
-                        <div className="flex items-center text-3xl font-black font-heading text-[#C17A3A] tabular-nums">
-                          <span>/s/</span>
-                          <span className="text-white">qK9xB</span>
-                        </div>
+                      <div className="relative z-10 w-full h-full border-4 border-[#C17A3A]/20 rounded-[2rem] flex flex-col items-center justify-center p-8 text-center bg-[#1A0E07]/40 backdrop-blur-xl gap-2 hover:scale-[1.02] transition-transform duration-500">
+                        <QrCode className="w-20 h-20 text-[#C17A3A]" />
                         <span className="text-xs font-bold text-white tracking-widest uppercase mt-4">
-                          NusantaraTools
+                          Siap Di Scan
                         </span>
                         <p className="text-[10px] text-[#EDE0D0] opacity-60 mt-4 leading-relaxed italic">
-                          "Solusi sederhana untuk memotong panjang URL mencapai
-                          lebih dari 90%."
+                          "Integrasikan pemasaran tanpa batas pada setiap materi
+                          promosi produk Anda"
                         </p>
                       </div>
                     </div>

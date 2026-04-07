@@ -8,11 +8,11 @@ import {
   Copy,
   Check,
   ExternalLink,
-  TrendingUp,
   Trash2,
   BarChart3,
   Calendar,
   MousePointerClick,
+  QrCode,
 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { id } from "date-fns/locale";
@@ -143,6 +143,13 @@ export const UrlList: React.FC<UrlListProps> = ({
                       >
                         <BarChart3 className="w-4 h-4" />
                       </button>
+                      <a
+                        href={`/utilitas/qr-generator?url=${encodeURIComponent(shortUrl)}`}
+                        className="p-2 rounded-lg border border-[#7A5C42]/30 hover:bg-[#7A5C42]/20 transition-colors text-white"
+                        title="Buat QR Code"
+                      >
+                        <QrCode className="w-4 h-4" />
+                      </a>
                       <a
                         href={shortUrl}
                         target="_blank"

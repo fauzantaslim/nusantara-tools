@@ -580,7 +580,7 @@ export const TOOLS: Tool[] = [
     icon: Activity,
     color: "text-[#7A5C42]",
     bg: "bg-[#EDE0D0]",
-    path: "#",
+    path: "/utilitas/qr-generator",
     desc: "Buat kode QR kustom untuk link, teks, atau kontak.",
     hot: true,
     keywords: [
