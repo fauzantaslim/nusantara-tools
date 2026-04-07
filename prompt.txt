@@ -1,0 +1,73 @@
+oke sekarang lanjut buatkan fitur untuk password generator
+🧩 USER STORY — PASSWORD GENERATOR
+📝 Title
+
+Secure Password Generator
+
+👤 User Story
+
+As a user
+I want to generate strong and secure passwords
+So that I can protect my accounts from unauthorized access
+
+✅ ACCEPTANCE CRITERIA (PRODUCTION READY)
+🎯 Password Configuration
+User can configure:
+Password length (e.g. 4–64 characters)
+User can toggle:
+Include uppercase letters (A–Z)
+Include lowercase letters (a–z)
+Include numbers (0–9)
+Include symbols (!@#$%^&*)
+🔒 Password Generation
+System generates password based on selected options
+System ensures:
+At least one character from each selected category is included
+📊 Result Display
+System displays:
+Generated password
+📋 Copy Functionality
+User can:
+Click “Copy”
+System:
+Copies password to clipboard
+Shows feedback (“Copied!”)
+🔁 Regeneration
+User can:
+Click “Generate” multiple times
+Instantly get new password
+⚠️ Validation
+Password length must be within allowed range
+At least one character type must be selected
+🔐 Security Considerations
+Password is generated:
+Client-side (no server storage)
+System must:
+Not store generated passwords
+Not log password data
+🧠 BONUS (LEVEL SENIOR 🔥)
+💡 Strength Indicator
+System shows:
+Password strength:
+Weak
+Medium
+Strong
+Based on:
+Length
+Variety of characters
+💡 UX Improvement
+Show:
+“Strong password 🔐” indicator
+Add:
+Hide/show password toggle
+💡 Advanced Feature (NEXT LEVEL 🚀)
+🧠 Passphrase generator (e.g. 4 random words)
+📊 Entropy score display
+🔐 Password history (optional, local only)
+💡 Accessibility
+Easy to copy
+Clear visual feedback
+
+ikuti pola layout Kalkulator Siklus Tidur PS C:\Users\fauza\Documents\About Me\nusantara-tools> & 'c:\Users\fauza\Documents\About Me\nusantara-tools\app\kesehatan\tidur\layout.tsx'
+jadi ada form dikiri dan timer nya disebelah kanan
+

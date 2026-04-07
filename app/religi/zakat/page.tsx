@@ -22,6 +22,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Breadcrumbs } from "@/ui/Breadcrumbs";
 import { RelatedReligiTools } from "../components/RelatedReligiTools";
+import { CurrencyInput } from "@/ui/CurrencyInput";
 
 // Helper Format Rupiah
 function formatRupiah(value: number): string {
@@ -31,59 +32,6 @@ function formatRupiah(value: number): string {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(value);
-}
-
-// Komponen Input Mata Uang
-function CurrencyInput({
-  label,
-  value,
-  onChange,
-  placeholder,
-  desc,
-}: {
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
-  placeholder: string;
-  desc?: string;
-}) {
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Hanya ambil angka
-    const rawValue = e.target.value.replace(/[^0-9]/g, "");
-    onChange(rawValue);
-  };
-
-  const displayValue = value
-    ? new Intl.NumberFormat("id-ID").format(Number(value))
-    : "";
-
-  return (
-    <div className="flex flex-col gap-1.5">
-      <div className="flex items-baseline justify-between">
-        <label className="text-xs font-bold font-ui text-secondary uppercase tracking-wider">
-          {label}
-        </label>
-      </div>
-      <div className="relative flex items-center border-2 border-muted rounded-xl h-14 focus-within:border-[#C17A3A] focus-within:ring-2 focus-within:ring-[#C17A3A]/20 overflow-hidden transition-all shadow-sm bg-white">
-        <span className="pl-4 pr-2 text-sm font-bold text-secondary opacity-60">
-          Rp
-        </span>
-        <input
-          type="text"
-          inputMode="numeric"
-          placeholder={placeholder}
-          value={displayValue}
-          onChange={handleInput}
-          className="flex-1 h-full bg-transparent pr-4 text-xl sm:text-2xl font-black text-primary outline-none font-heading"
-        />
-      </div>
-      {desc && (
-        <span className="text-[11px] font-body text-secondary mt-1">
-          {desc}
-        </span>
-      )}
-    </div>
-  );
 }
 
 export default function KalkulatorZakat() {
@@ -388,10 +336,10 @@ export default function KalkulatorZakat() {
                     <text
                       x="200"
                       y="40"
-                      text-anchor="middle"
-                      font-family="'Plus Jakarta Sans', sans-serif"
-                      font-weight="700"
-                      font-size="20"
+                      textAnchor="middle"
+                      fontFamily="'Plus Jakarta Sans', sans-serif"
+                      fontWeight="700"
+                      fontSize="20"
                       fill="#2C1A0E"
                     >
                       KALKULATOR ZAKAT MAL
@@ -419,10 +367,10 @@ export default function KalkulatorZakat() {
                         <text
                           x="40"
                           y="100"
-                          text-anchor="middle"
-                          font-family="'Plus Jakarta Sans', sans-serif"
-                          font-weight="600"
-                          font-size="12"
+                          textAnchor="middle"
+                          fontFamily="'Plus Jakarta Sans', sans-serif"
+                          fontWeight="600"
+                          fontSize="12"
                           fill="#2C1A0E"
                         >
                           TOTAL HARTA
@@ -459,10 +407,10 @@ export default function KalkulatorZakat() {
                         <text
                           x="0"
                           y="45"
-                          text-anchor="middle"
-                          font-family="'Plus Jakarta Sans', sans-serif"
-                          font-weight="600"
-                          font-size="10"
+                          textAnchor="middle"
+                          fontFamily="'Plus Jakarta Sans', sans-serif"
+                          fontWeight="600"
+                          fontSize="10"
                           fill="#2C1A0E"
                         >
                           JUMLAH ZAKAT
@@ -471,10 +419,10 @@ export default function KalkulatorZakat() {
                         <text
                           x="0"
                           y="65"
-                          text-anchor="middle"
-                          font-family="'Plus Jakarta Sans', sans-serif"
-                          font-weight="800"
-                          font-size="18"
+                          textAnchor="middle"
+                          fontFamily="'Plus Jakarta Sans', sans-serif"
+                          fontWeight="800"
+                          fontSize="18"
                           fill="#2C1A0E"
                         >
                           Rp 2.500.000
@@ -525,10 +473,10 @@ export default function KalkulatorZakat() {
                         <text
                           x="35"
                           y="53"
-                          text-anchor="middle"
-                          font-family="'Plus Jakarta Sans', sans-serif"
-                          font-weight="700"
-                          font-size="8"
+                          textAnchor="middle"
+                          fontFamily="'Plus Jakarta Sans', sans-serif"
+                          fontWeight="700"
+                          fontSize="8"
                           fill="#2C1A0E"
                         >
                           Z
@@ -537,10 +485,10 @@ export default function KalkulatorZakat() {
                         <text
                           x="35"
                           y="100"
-                          text-anchor="middle"
-                          font-family="'Plus Jakarta Sans', sans-serif"
-                          font-weight="600"
-                          font-size="12"
+                          textAnchor="middle"
+                          fontFamily="'Plus Jakarta Sans', sans-serif"
+                          fontWeight="600"
+                          fontSize="12"
                           fill="#4A7C59"
                         >
                           ZAKAT ANDA
@@ -566,10 +514,10 @@ export default function KalkulatorZakat() {
                       <text
                         x="0"
                         y="5"
-                        text-anchor="middle"
-                        font-family="'Plus Jakarta Sans', sans-serif"
-                        font-weight="700"
-                        font-size="14"
+                        textAnchor="middle"
+                        fontFamily="'Plus Jakarta Sans', sans-serif"
+                        fontWeight="700"
+                        fontSize="14"
                         fill="#F5EDE3"
                       >
                         HITUNG ZAKAT

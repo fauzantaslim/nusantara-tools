@@ -1,4 +1,11 @@
-import { Activity, Wallet, Moon, Timer, Calculator } from "lucide-react";
+import {
+  Activity,
+  Wallet,
+  Moon,
+  Timer,
+  Calculator,
+  ShieldCheck,
+} from "lucide-react";
 
 export interface Tool {
   id: string;
@@ -597,10 +604,10 @@ export const TOOLS: Tool[] = [
     name: "Password Generator",
     category: "Lainnya",
     categoryId: "utilitas",
-    icon: Activity,
+    icon: ShieldCheck,
     color: "text-[#7A5C42]",
     bg: "bg-[#EDE0D0]",
-    path: "#",
+    path: "/utilitas/password-generator",
     desc: "Buat password yang kuat dan aman untuk berbagai keperluan.",
     hot: true,
     keywords: [
