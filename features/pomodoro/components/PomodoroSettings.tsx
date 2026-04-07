@@ -23,7 +23,7 @@ interface PomodoroSettingsProps {
   preset: FocusPreset;
   updatePreset: (p: FocusPreset) => void;
   updateCustomSettings: (s: Partial<ISettings>) => void;
-  requestPermission: () => void;
+  requestPermission: () => Promise<NotificationPermission>;
 }
 
 export const PomodoroSettings: React.FC<PomodoroSettingsProps> = ({
@@ -162,8 +162,8 @@ export const PomodoroSettings: React.FC<PomodoroSettingsProps> = ({
 
           <div className="space-y-3">
             <button
-              onClick={() => {
-                requestPermission();
+              onClick={async () => {
+                const status = await requestPermission();
                 updateCustomSettings({
                   notificationEnabled: !settings.notificationEnabled,
                 });
@@ -184,9 +184,19 @@ export const PomodoroSettings: React.FC<PomodoroSettingsProps> = ({
                       : "text-secondary",
                   )}
                 />
-                <span className="text-sm font-bold font-ui">
-                  Notifikasi Browser
-                </span>
+                <div className="flex flex-col">
+                  <span className="text-sm font-bold font-ui text-left">
+                    Notifikasi Browser
+                  </span>
+                  {typeof window !== "undefined" &&
+                    "Notification" in window &&
+                    Notification.permission === "denied" &&
+                    settings.notificationEnabled && (
+                      <span className="text-[10px] text-red-500 font-medium text-left animate-pulse">
+                        Izin diblokir. Aktifkan di setelan browser.
+                      </span>
+                    )}
+                </div>
               </div>
               <div
                 className={cn(

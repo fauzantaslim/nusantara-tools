@@ -19,4 +19,12 @@
       - [x] Unit tests for `utils.ts` (formatting, labels, colors)
       - [x] Unit tests for `usePomodoro.ts` (timer logic, transitions, persistence)
       - [x] Integration tests for `PomodoroPage.tsx` (interactions and layout)
-  - **Branch**: `/feat/pomodoro`
+- [x] **Fix Pomodoro Browser Notification**
+  - **Title**: Fix Pomodoro Browser Notification
+  - **Description**: Browser notifications are currently not working. Needs Permission handling and SSR guarding.
+  - **Acceptance Criteria**:
+    - [ ] Notification shows correctly when session ends.
+    - [ ] Permission is requested appropriately.
+    - [ ] SSR and browser compatibility checks.
+    - [ ] Fixed missing icon path.
+  - **Branch**: `/feat/fix-pomodoro-notification`

@@ -100,10 +100,19 @@ export const usePomodoro = () => {
   const showNotification = useCallback(
     (title: string, body: string) => {
       if (
+        typeof window !== "undefined" &&
+        "Notification" in window &&
         settings.notificationEnabled &&
         Notification.permission === "granted"
       ) {
-        new Notification(title, { body, icon: "/favicon.ico" });
+        try {
+          new Notification(title, {
+            body,
+            icon: "/logo.png",
+          });
+        } catch (error) {
+          console.error("Failed to show notification:", error);
+        }
       }
     },
     [settings.notificationEnabled],
@@ -154,7 +163,12 @@ export const usePomodoro = () => {
     showNotification,
   ]);
 
-  const toggleTimer = () => setIsActive(!isActive);
+  const toggleTimer = async () => {
+    if (!isActive && settings.notificationEnabled) {
+      await requestPermission();
+    }
+    setIsActive(!isActive);
+  };
 
   const resetTimer = () => {
     setIsActive(false);
@@ -193,9 +207,18 @@ export const usePomodoro = () => {
   };
 
   const requestPermission = async () => {
-    if (Notification.permission !== "granted") {
-      await Notification.requestPermission();
+    if (typeof window !== "undefined" && "Notification" in window) {
+      try {
+        if (Notification.permission === "default") {
+          return await Notification.requestPermission();
+        }
+        return Notification.permission;
+      } catch (error) {
+        console.error("Error requesting notification permission:", error);
+        return "denied";
+      }
     }
+    return "denied";
   };
 
   return {
