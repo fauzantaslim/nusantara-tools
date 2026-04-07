@@ -1,72 +1,103 @@
 oke sekarang lanjut buatkan fitur untuk password generator
-🧩 USER STORY — PASSWORD GENERATOR
+🧩 USER STORY — TAX DEPRECIATION CALCULATOR (INDONESIA)
 📝 Title
 
-Secure Password Generator
+Tax Depreciation & Amortization Calculator (DJP Standard)
 
 👤 User Story
 
-As a user
-I want to generate strong and secure passwords
-So that I can protect my accounts from unauthorized access
+As a business owner or taxpayer
+I want to calculate asset depreciation based on Indonesian tax regulations
+So that I can accurately report financial data and comply with tax rules
 
-✅ ACCEPTANCE CRITERIA (PRODUCTION READY)
-🎯 Password Configuration
-User can configure:
-Password length (e.g. 4–64 characters)
-User can toggle:
-Include uppercase letters (A–Z)
-Include lowercase letters (a–z)
-Include numbers (0–9)
-Include symbols (!@#$%^&*)
-🔒 Password Generation
-System generates password based on selected options
-System ensures:
-At least one character from each selected category is included
+✅ ACCEPTANCE CRITERIA (COMPLIANT WITH DJP)
+🎯 Asset Input
+User can input:
+Asset type:
+Tangible (Harta Berwujud)
+Intangible (Harta Tak Berwujud)
+Asset category:
+Non-building
+Building (permanent / non-permanent)
+Acquisition cost (IDR)
+⚙️ Asset Classification
+📌 Non-Building Assets
+User selects group:
+Group	Useful Life	Straight-Line	Declining
+1	4 years	25%	50%
+2	8 years	12.5%	25%
+3	16 years	6.25%	12.5%
+4	20 years	5%	10%
+🏢 Building Assets
+Permanent:
+20 years (5%)
+Non-permanent:
+10 years (10%)
+⚙️ Method Selection
+User can select:
+Straight-Line (default)
+Declining Balance
+🧮 Calculation Logic
+📌 Straight-Line
+Depreciation per year:
+Cost × rate
+📌 Declining Balance
+Depreciation:
+Book value × rate
+Final year:
+Remaining value fully depreciated
 📊 Result Display
 System displays:
-Generated password
-📋 Copy Functionality
+Annual depreciation
+Book value per year
+Total depreciation
+📈 Visualization
+System displays:
+Table (year-by-year breakdown)
+Optional chart (value decline)
+⏱ Start Time Logic
+Default:
+Depreciation starts:
+👉 month of acquisition
+Optional (advanced):
+Start when asset is used
+Start when asset produces income
+🔁 User Interaction
 User can:
-Click “Copy”
-System:
-Copies password to clipboard
-Shows feedback (“Copied!”)
-🔁 Regeneration
-User can:
-Click “Generate” multiple times
-Instantly get new password
+Select asset group
+Change method
+Recalculate instantly
+Reset form
 ⚠️ Validation
-Password length must be within allowed range
-At least one character type must be selected
-🔐 Security Considerations
-Password is generated:
-Client-side (no server storage)
-System must:
-Not store generated passwords
-Not log password data
+Cost must be positive
+Asset group must be selected
+Method must be selected
+📌 Informational Content
+System explains:
+Difference between methods
+Meaning of asset groups
+Basis (PMK No.72/2023)
+❗ Disclaimer (WAJIB BANGET 🔥)
+System displays:
+
+Calculation is based on Indonesian tax regulations and is for estimation purposes only.
+Please consult a tax professional or refer to official guidelines for reporting.
+
 🧠 BONUS (LEVEL SENIOR 🔥)
-💡 Strength Indicator
-System shows:
-Password strength:
-Weak
-Medium
-Strong
-Based on:
-Length
-Variety of characters
+💡 Edge Cases
+Asset not listed → default Group 3
+Switching method mid-way (not allowed → show warning)
+Partial year depreciation
 💡 UX Improvement
 Show:
-“Strong password 🔐” indicator
-Add:
-Hide/show password toggle
+“Your asset will be fully depreciated in X years”
+Highlight:
+Remaining book value
 💡 Advanced Feature (NEXT LEVEL 🚀)
-🧠 Passphrase generator (e.g. 4 random words)
-📊 Entropy score display
-🔐 Password history (optional, local only)
-💡 Accessibility
-Easy to copy
-Clear visual feedback
+📅 Monthly depreciation
+📊 Multiple assets tracking
+📁 Export (Excel/PDF)
+🧾 Tax report format
 
 ikuti pola layout Kalkulator Siklus Tidur PS C:\Users\fauza\Documents\About Me\nusantara-tools> & 'c:\Users\fauza\Documents\About Me\nusantara-tools\app\kesehatan\tidur\layout.tsx'
 jadi ada form dikiri dan timer nya disebelah kanan

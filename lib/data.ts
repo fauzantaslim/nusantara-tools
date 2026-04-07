@@ -315,6 +315,29 @@ export const TOOLS: Tool[] = [
 
   // Finansial
   {
+    id: "depresiasi",
+    name: "Kalkulator Depresiasi Aset",
+    category: "Finansial",
+    categoryId: "finansial",
+    icon: Calculator,
+    color: "text-[#9C4A2A]",
+    bg: "bg-[#FFF0EB]",
+    path: "/finansial/depresiasi",
+    desc: "Kalkulasi penyusutan aset pajak sesuai standar DJP (PMK No.72/2023).",
+    hot: true,
+    keywords: [
+      "depresiasi",
+      "pajak",
+      "amortisasi",
+      "penyusutan",
+      "harta",
+      "aset",
+      "depreciation calculator",
+      "حاسبة الاستهلاك",
+      "Калькулятор амортизации",
+    ],
+  },
+  {
     id: "lembur",
     name: "Kalkulator Lembur",
     category: "Finansial",
