@@ -1,9 +1,20 @@
-import { WHO_LMS, Gender, GrowthIndicator, LMSPoint, VALID_BOUNDS } from './who-data';
+import {
+  WHO_LMS,
+  Gender,
+  GrowthIndicator,
+  LMSPoint,
+  VALID_BOUNDS,
+} from "./who-data";
 
-export type WeightUnit = 'kg' | 'lbs';
-export type LengthUnit = 'cm' | 'in';
+export type WeightUnit = "kg" | "lbs";
+export type LengthUnit = "cm" | "in";
 
-export type GrowthCategory = 'severe_low' | 'low' | 'normal' | 'high' | 'severe_high';
+export type GrowthCategory =
+  | "severe_low"
+  | "low"
+  | "normal"
+  | "high"
+  | "severe_high";
 
 export interface MetricResult {
   zScore: number;
@@ -37,7 +48,10 @@ export interface SavedMeasurement {
 
 // ─── LMS Interpolation ────────────────────────────────────────────────────────
 
-function interpolateLMS(data: LMSPoint[], ageMonths: number): { L: number; M: number; S: number } {
+function interpolateLMS(
+  data: LMSPoint[],
+  ageMonths: number,
+): { L: number; M: number; S: number } {
   if (ageMonths <= data[0].month) return data[0];
   const last = data[data.length - 1];
   if (ageMonths >= last.month) return last;
@@ -77,19 +91,25 @@ function normalCDF(z: number): number {
   const sign = z >= 0 ? 1 : -1;
   const x = Math.abs(z) / Math.sqrt(2);
   const t = 1 / (1 + 0.3275911 * x);
-  const erf = 1 - (0.254829592 * t - 0.284496736 * t * t + 1.421413741 * t * t * t
-    - 1.453152027 * t * t * t * t + 1.061405429 * t * t * t * t * t) * Math.exp(-x * x);
+  const erf =
+    1 -
+    (0.254829592 * t -
+      0.284496736 * t * t +
+      1.421413741 * t * t * t -
+      1.453152027 * t * t * t * t +
+      1.061405429 * t * t * t * t * t) *
+      Math.exp(-x * x);
   return 0.5 * (1 + sign * erf);
 }
 
 // ─── Category ─────────────────────────────────────────────────────────────────
 
 function classifyZ(z: number): GrowthCategory {
-  if (z < -3) return 'severe_low';
-  if (z < -2) return 'low';
-  if (z <= 2) return 'normal';
-  if (z <= 3) return 'high';
-  return 'severe_high';
+  if (z < -3) return "severe_low";
+  if (z < -2) return "low";
+  if (z <= 2) return "normal";
+  if (z <= 3) return "high";
+  return "severe_high";
 }
 
 // ─── Validation bounds check ─────────────────────────────────────────────────
@@ -106,7 +126,7 @@ function evaluate(
   gender: Gender,
   indicator: GrowthIndicator,
   ageMonths: number,
-  unit: string
+  unit: string,
 ): MetricResult | null {
   if (!value || value <= 0) return null;
 
@@ -176,31 +196,72 @@ export function calculateGrowth(input: GrowthInput): GrowthResult {
     ageMonths,
     correctedAgeMonths,
     gender: input.gender,
-    weight:   evaluate(input.weight,   input.gender, 'weight',   ageForCalc, 'kg'),
-    length:   evaluate(input.length,   input.gender, 'length',   ageForCalc, 'cm'),
-    headCirc: evaluate(input.headCirc, input.gender, 'headCirc', ageForCalc, 'cm'),
+    weight: evaluate(input.weight, input.gender, "weight", ageForCalc, "kg"),
+    length: evaluate(input.length, input.gender, "length", ageForCalc, "cm"),
+    headCirc: evaluate(
+      input.headCirc,
+      input.gender,
+      "headCirc",
+      ageForCalc,
+      "cm",
+    ),
   };
 }
 
 // ─── Unit conversion ──────────────────────────────────────────────────────────
 
-export function convertWeight(val: number, from: WeightUnit, to: WeightUnit): number {
+export function convertWeight(
+  val: number,
+  from: WeightUnit,
+  to: WeightUnit,
+): number {
   if (from === to) return val;
-  return from === 'kg' ? val * 2.20462 : val / 2.20462;
+  return from === "kg" ? val * 2.20462 : val / 2.20462;
 }
 
-export function convertLength(val: number, from: LengthUnit, to: LengthUnit): number {
+export function convertLength(
+  val: number,
+  from: LengthUnit,
+  to: LengthUnit,
+): number {
   if (from === to) return val;
-  return from === 'cm' ? val / 2.54 : val * 2.54;
+  return from === "cm" ? val / 2.54 : val * 2.54;
 }
 
 // ─── Category config ──────────────────────────────────────────────────────────
 
-export const CATEGORY_CONFIG: Record<GrowthCategory, { label: string; color: string; bg: string; border: string }> = {
-  severe_low: { label: 'Sangat Kurang',    color: 'text-red-400',     bg: 'bg-red-900/20',     border: 'border-red-500/40'      },
-  low:        { label: 'Di Bawah Normal',  color: 'text-[#FF8A65]',   bg: 'bg-[#9C4A2A]/15',   border: 'border-[#9C4A2A]/30'    },
-  normal:     { label: 'Normal',           color: 'text-[#4A7C59]',   bg: 'bg-[#4A7C59]/15',   border: 'border-[#4A7C59]/30'    },
-  high:       { label: 'Di Atas Normal',   color: 'text-[#C17A3A]',   bg: 'bg-[#C17A3A]/15',   border: 'border-[#C17A3A]/30'    },
-  severe_high:{ label: 'Jauh Di Atas Normal', color: 'text-red-400',  bg: 'bg-red-900/20',     border: 'border-red-500/40'      },
+export const CATEGORY_CONFIG: Record<
+  GrowthCategory,
+  { label: string; color: string; bg: string; border: string }
+> = {
+  severe_low: {
+    label: "Sangat Kurang",
+    color: "text-red-400",
+    bg: "bg-red-900/20",
+    border: "border-red-500/40",
+  },
+  low: {
+    label: "Di Bawah Normal",
+    color: "text-[#FF8A65]",
+    bg: "bg-[#9C4A2A]/15",
+    border: "border-[#9C4A2A]/30",
+  },
+  normal: {
+    label: "Normal",
+    color: "text-[#4A7C59]",
+    bg: "bg-[#4A7C59]/15",
+    border: "border-[#4A7C59]/30",
+  },
+  high: {
+    label: "Di Atas Normal",
+    color: "text-[#C17A3A]",
+    bg: "bg-[#C17A3A]/15",
+    border: "border-[#C17A3A]/30",
+  },
+  severe_high: {
+    label: "Jauh Di Atas Normal",
+    color: "text-red-400",
+    bg: "bg-red-900/20",
+    border: "border-red-500/40",
+  },
 };
-

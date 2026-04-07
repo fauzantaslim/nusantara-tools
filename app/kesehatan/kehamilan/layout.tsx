@@ -1,8 +1,8 @@
-import { Metadata } from 'next';
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Kalkulator HPL | NusantaraTools',
-  description: 'Hitung Hari Perkiraan Lahir (HPL).',
+  title: "Kalkulator HPL | NusantaraTools",
+  description: "Hitung Hari Perkiraan Lahir (HPL).",
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

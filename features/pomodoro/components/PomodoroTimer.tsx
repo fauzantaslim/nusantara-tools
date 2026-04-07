@@ -2,8 +2,7 @@
 
 import React from "react";
 import { Card } from "@/ui/Card";
-import { Button } from "@/ui/Button";
-import { PomodoroMode, formatTime, getModeLabel, getModeColor } from "../utils";
+import { PomodoroMode, formatTime, getModeLabel } from "../utils";
 import { cn } from "@/lib/utils";
 import {
   Play,
@@ -36,8 +35,6 @@ export const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
   sessionsToday,
   completedSessions,
 }) => {
-  const modeColor = getModeColor(mode);
-
   const getIcon = () => {
     switch (mode) {
       case "focus":

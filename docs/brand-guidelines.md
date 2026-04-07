@@ -15,7 +15,8 @@ To access NusantaraTools' official brand identity and style resources, use this 
 
 ## Brand Philosophy
 
-NusantaraTools is built *for* Indonesia. The visual identity draws from the natural landscape of the archipelago:
+NusantaraTools is built _for_ Indonesia. The visual identity draws from the natural landscape of the archipelago:
+
 - **Tanah Tua** (aged soil) — depth, trust, authority
 - **Pasir Putih** (white sand) — clarity, openness, space
 - **Kunyit Emas** (golden turmeric) — energy, warmth, action
@@ -32,30 +33,30 @@ Tone: **Trustworthy, modern, warm, and proudly local.** Not cold tech startup. N
 
 **Main Colors:**
 
-| Token | Hex | Name | Usage |
-|---|---|---|---|
-| `--color-primary` | `#2C1A0E` | Tanah Tua | Primary text, dark backgrounds |
-| `--color-surface` | `#F5EDE3` | Pasir Putih | Light backgrounds, text on dark |
-| `--color-secondary` | `#7A5C42` | Tanah Merah | Secondary elements, subheadings |
-| `--color-muted` | `#EDE0D0` | Linen Tua | Subtle backgrounds, dividers, cards |
+| Token               | Hex       | Name        | Usage                               |
+| ------------------- | --------- | ----------- | ----------------------------------- |
+| `--color-primary`   | `#2C1A0E` | Tanah Tua   | Primary text, dark backgrounds      |
+| `--color-surface`   | `#F5EDE3` | Pasir Putih | Light backgrounds, text on dark     |
+| `--color-secondary` | `#7A5C42` | Tanah Merah | Secondary elements, subheadings     |
+| `--color-muted`     | `#EDE0D0` | Linen Tua   | Subtle backgrounds, dividers, cards |
 
 **Accent Colors:**
 
-| Token | Hex | Name | Usage |
-|---|---|---|---|
-| `--color-accent-1` | `#C17A3A` | Kunyit Emas | Primary accent — CTA buttons, links, active states |
-| `--color-accent-2` | `#4A7C59` | Hijau Hutan | Secondary accent — success states, religi & kesehatan category |
-| `--color-accent-3` | `#9C4A2A` | Merah Bata | Tertiary accent — badges, tags, "HOT" labels, finansial category |
+| Token              | Hex       | Name        | Usage                                                            |
+| ------------------ | --------- | ----------- | ---------------------------------------------------------------- |
+| `--color-accent-1` | `#C17A3A` | Kunyit Emas | Primary accent — CTA buttons, links, active states               |
+| `--color-accent-2` | `#4A7C59` | Hijau Hutan | Secondary accent — success states, religi & kesehatan category   |
+| `--color-accent-3` | `#9C4A2A` | Merah Bata  | Tertiary accent — badges, tags, "HOT" labels, finansial category |
 
 **Category Color Mapping:**
 
-| Category | Color | Hex |
-|---|---|---|
-| Kesehatan | Hijau Hutan | `#4A7C59` |
-| Religi | Hijau Hutan | `#4A7C59` |
-| Finansial | Merah Bata | `#9C4A2A` |
+| Category              | Color       | Hex       |
+| --------------------- | ----------- | --------- |
+| Kesehatan             | Hijau Hutan | `#4A7C59` |
+| Religi                | Hijau Hutan | `#4A7C59` |
+| Finansial             | Merah Bata  | `#9C4A2A` |
 | Karir & Produktivitas | Kunyit Emas | `#C17A3A` |
-| Utilitas | Tanah Merah | `#7A5C42` |
+| Utilitas              | Tanah Merah | `#7A5C42` |
 
 ---
 
@@ -63,15 +64,15 @@ Tone: **Trustworthy, modern, warm, and proudly local.** Not cold tech startup. N
 
 All color combinations meet WCAG 2.1 standards. Never use color combinations not listed here for body text.
 
-| Foreground | Background | Contrast Ratio | Level |
-|---|---|---|---|
-| `#2C1A0E` | `#F5EDE3` | 16.8 : 1 | **AAA** |
-| `#F5EDE3` | `#2C1A0E` | 16.8 : 1 | **AAA** |
-| `#2C1A0E` | `#EDE0D0` | 13.2 : 1 | **AAA** |
-| `#C17A3A` | `#F5EDE3` | 4.6 : 1 | **AA** |
-| `#4A7C59` | `#F5EDE3` | 4.8 : 1 | **AA** |
-| `#9C4A2A` | `#F5EDE3` | 5.1 : 1 | **AA** |
-| `#7A5C42` | `#F5EDE3` | 5.8 : 1 | **AA** |
+| Foreground | Background | Contrast Ratio | Level   |
+| ---------- | ---------- | -------------- | ------- |
+| `#2C1A0E`  | `#F5EDE3`  | 16.8 : 1       | **AAA** |
+| `#F5EDE3`  | `#2C1A0E`  | 16.8 : 1       | **AAA** |
+| `#2C1A0E`  | `#EDE0D0`  | 13.2 : 1       | **AAA** |
+| `#C17A3A`  | `#F5EDE3`  | 4.6 : 1        | **AA**  |
+| `#4A7C59`  | `#F5EDE3`  | 4.8 : 1        | **AA**  |
+| `#9C4A2A`  | `#F5EDE3`  | 5.1 : 1        | **AA**  |
+| `#7A5C42`  | `#F5EDE3`  | 5.8 : 1        | **AA**  |
 
 > **Rule**: For normal body text (below 18pt / non-bold), always target AA minimum (4.5:1). For large text (18pt+ or bold 14pt+), AA large (3:1) is the minimum. Aim for AAA wherever possible.
 
@@ -80,16 +81,19 @@ All color combinations meet WCAG 2.1 standards. Never use color combinations not
 ### Typography
 
 **Headings:** `Plus Jakarta Sans` (with `Trebuchet MS`, `Arial` fallback)
+
 - Weight: 700 (h1), 600 (h2), 600 (h3)
 - Letter spacing: -0.5px to -1.5px for large headings
 - Color: `#2C1A0E` on light backgrounds, `#F5EDE3` on dark backgrounds
 
 **Body Text:** `Lora` (with `Georgia`, `serif` fallback)
+
 - Weight: 400 regular, 500 medium
 - Line height: 1.7
 - Color: `#2C1A0E` primary, `#7A5C42` secondary/muted
 
 **UI Labels & Captions:** `Plus Jakarta Sans`
+
 - Weight: 500
 - Size: 11–13px
 - Letter spacing: 0.3–1px for uppercase labels
@@ -97,16 +101,21 @@ All color combinations meet WCAG 2.1 standards. Never use color combinations not
 **Code / Monospace:** `JetBrains Mono`, `Courier New` fallback
 
 **Google Fonts import:**
+
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+<link
+  href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:wght@400;500&display=swap"
+  rel="stylesheet"
+/>
 ```
 
 **CSS font stack:**
+
 ```css
---font-heading: 'Plus Jakarta Sans', 'Trebuchet MS', Arial, sans-serif;
---font-body: 'Lora', Georgia, serif;
---font-ui: 'Plus Jakarta Sans', Arial, sans-serif;
---font-mono: 'JetBrains Mono', 'Courier New', monospace;
+--font-heading: "Plus Jakarta Sans", "Trebuchet MS", Arial, sans-serif;
+--font-body: "Lora", Georgia, serif;
+--font-ui: "Plus Jakarta Sans", Arial, sans-serif;
+--font-mono: "JetBrains Mono", "Courier New", monospace;
 ```
 
 ---
@@ -124,9 +133,10 @@ All color combinations meet WCAG 2.1 standards. Never use color combinations not
 ### Button Styles
 
 **Primary Button** (CTA):
+
 ```css
-background: #C17A3A;
-color: #FFF8F0;
+background: #c17a3a;
+color: #fff8f0;
 border: none;
 border-radius: 10px;
 font-family: var(--font-ui);
@@ -135,10 +145,11 @@ padding: 12px 24px;
 ```
 
 **Secondary Button** (Ghost):
+
 ```css
 background: transparent;
-color: #2C1A0E;
-border: 1.5px solid #7A5C42;
+color: #2c1a0e;
+border: 1.5px solid #7a5c42;
 border-radius: 10px;
 font-family: var(--font-ui);
 font-weight: 500;
@@ -146,9 +157,10 @@ padding: 11px 22px;
 ```
 
 **Danger / Warning Button:**
+
 ```css
-background: #9C4A2A;
-color: #FFF0EB;
+background: #9c4a2a;
+color: #fff0eb;
 border: none;
 border-radius: 10px;
 font-weight: 600;
@@ -157,44 +169,47 @@ font-weight: 600;
 ### Card Styles
 
 **Default Card:**
+
 ```css
-background: #FFFFFF;
-border: 1px solid #EDE0D0;
+background: #ffffff;
+border: 1px solid #ede0d0;
 border-radius: 14px;
 padding: 18px;
 ```
 
 **Muted / Subtle Card:**
+
 ```css
-background: #EDE0D0;
+background: #ede0d0;
 border: none;
 border-radius: 14px;
 padding: 18px;
 ```
 
 **Dark Card:**
+
 ```css
-background: #2C1A0E;
+background: #2c1a0e;
 border: none;
 border-radius: 14px;
 padding: 18px;
-color: #F5EDE3;
+color: #f5ede3;
 ```
 
 ### Badge / Tag Styles
 
 ```css
 /* HOT badge */
-background: #FFF0EB;
-color: #9C4A2A;
+background: #fff0eb;
+color: #9c4a2a;
 font-size: 10px;
 font-weight: 700;
 padding: 2px 8px;
 border-radius: 20px;
 
 /* Category badge */
-background: #EDE0D0;
-color: #7A5C42;
+background: #ede0d0;
+color: #7a5c42;
 font-size: 11px;
 font-weight: 600;
 padding: 4px 12px;
@@ -208,45 +223,45 @@ border-radius: 20px;
 ```css
 :root {
   /* Main colors */
-  --color-primary:    #2C1A0E;  /* Tanah Tua */
-  --color-surface:    #F5EDE3;  /* Pasir Putih */
-  --color-secondary:  #7A5C42;  /* Tanah Merah */
-  --color-muted:      #EDE0D0;  /* Linen Tua */
+  --color-primary: #2c1a0e; /* Tanah Tua */
+  --color-surface: #f5ede3; /* Pasir Putih */
+  --color-secondary: #7a5c42; /* Tanah Merah */
+  --color-muted: #ede0d0; /* Linen Tua */
 
   /* Accent colors */
-  --color-accent-1:   #C17A3A;  /* Kunyit Emas */
-  --color-accent-2:   #4A7C59;  /* Hijau Hutan */
-  --color-accent-3:   #9C4A2A;  /* Merah Bata */
+  --color-accent-1: #c17a3a; /* Kunyit Emas */
+  --color-accent-2: #4a7c59; /* Hijau Hutan */
+  --color-accent-3: #9c4a2a; /* Merah Bata */
 
   /* Light tints (for backgrounds on accent) */
-  --color-accent-1-light: #FFF3E0;
-  --color-accent-2-light: #E8F5E9;
-  --color-accent-3-light: #FFF0EB;
+  --color-accent-1-light: #fff3e0;
+  --color-accent-2-light: #e8f5e9;
+  --color-accent-3-light: #fff0eb;
 
   /* Typography */
-  --font-heading: 'Plus Jakarta Sans', 'Trebuchet MS', Arial, sans-serif;
-  --font-body:    'Lora', Georgia, serif;
-  --font-ui:      'Plus Jakarta Sans', Arial, sans-serif;
-  --font-mono:    'JetBrains Mono', 'Courier New', monospace;
+  --font-heading: "Plus Jakarta Sans", "Trebuchet MS", Arial, sans-serif;
+  --font-body: "Lora", Georgia, serif;
+  --font-ui: "Plus Jakarta Sans", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "Courier New", monospace;
 
   /* Spacing scale */
-  --space-xs:  4px;
-  --space-sm:  8px;
-  --space-md:  16px;
-  --space-lg:  24px;
-  --space-xl:  40px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
   --space-2xl: 64px;
 
   /* Border radius */
-  --radius-sm:  6px;
-  --radius-md:  10px;
-  --radius-lg:  14px;
-  --radius-xl:  20px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
   --radius-full: 9999px;
 
   /* Border */
-  --border-default: 1px solid #EDE0D0;
-  --border-strong:  1px solid #7A5C42;
+  --border-default: 1px solid #ede0d0;
+  --border-strong: 1px solid #7a5c42;
 }
 ```
 
@@ -255,6 +270,7 @@ border-radius: 20px;
 ## Do's and Don'ts
 
 **Do:**
+
 - ✅ Use Tanah Tua (`#2C1A0E`) as the default text color on light backgrounds
 - ✅ Use Kunyit Emas (`#C17A3A`) for primary CTAs and interactive elements
 - ✅ Apply Hijau Hutan (`#4A7C59`) for positive/success states and health/religion categories
@@ -263,6 +279,7 @@ border-radius: 20px;
 - ✅ Use Lora for long-form body text and editorial content
 
 **Don't:**
+
 - ❌ Use pure black (`#000000`) or pure white (`#FFFFFF`) — always use brand equivalents
 - ❌ Place `#7A5C42` text on `#EDE0D0` background for body text (insufficient contrast)
 - ❌ Use more than 3 accent colors in a single view

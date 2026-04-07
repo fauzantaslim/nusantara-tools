@@ -5,16 +5,7 @@ import { Breadcrumbs } from "@/ui/Breadcrumbs";
 import { usePomodoro } from "@/features/pomodoro/hooks/usePomodoro";
 import { PomodoroSettings } from "@/features/pomodoro/components/PomodoroSettings";
 import { PomodoroTimer } from "@/features/pomodoro/components/PomodoroTimer";
-import {
-  Info,
-  CheckCircle2,
-  Flame,
-  Target,
-  Zap,
-  Clock,
-  Music,
-} from "lucide-react";
-import Image from "next/image";
+import { Info, CheckCircle2, Flame, Target, Zap, Clock } from "lucide-react";
 
 export default function PomodoroPage() {
   const {
@@ -63,8 +54,6 @@ export default function PomodoroPage() {
             updateCustomSettings={updateCustomSettings}
             requestPermission={requestPermission}
           />
-
-          {/* Spotify Player */}
         </div>
 
         {/* Right Side: Timer */}

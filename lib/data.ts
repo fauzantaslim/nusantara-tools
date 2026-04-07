@@ -560,7 +560,7 @@ export const TOOLS: Tool[] = [
     icon: Activity,
     color: "text-[#7A5C42]",
     bg: "bg-[#EDE0D0]",
-    path: "#",
+    path: "/utilitas/url-shortener",
     desc: "Pendekkan tautan panjang menjadi link ringkas siap sebar.",
     hot: true,
     keywords: [

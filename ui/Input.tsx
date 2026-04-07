@@ -1,5 +1,5 @@
-import React, { InputHTMLAttributes } from 'react';
-import { cn } from '@/lib/utils';
+import React, { InputHTMLAttributes } from "react";
+import { cn } from "@/lib/utils";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -10,23 +10,27 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   min?: number;
 }
 
-export function Input({ 
-  label, 
-  error, 
-  suffix, 
-  fullWidth = true, 
-  className, 
+export function Input({
+  label,
+  error,
+  suffix,
+  fullWidth = true,
+  className,
   max,
   min,
   id,
-  ...props 
+  ...props
 }: InputProps) {
-  const generatedId = id || (label ? label.toLowerCase().replace(/\s+/g, '-') : undefined);
-  
+  const generatedId =
+    id || (label ? label.toLowerCase().replace(/\s+/g, "-") : undefined);
+
   return (
-    <div className={cn("flex flex-col gap-1.5", fullWidth ? 'w-full' : '')}>
+    <div className={cn("flex flex-col gap-1.5", fullWidth ? "w-full" : "")}>
       {label && (
-        <label htmlFor={generatedId} className="text-sm font-ui font-medium text-primary">
+        <label
+          htmlFor={generatedId}
+          className="text-sm font-ui font-medium text-primary"
+        >
           {label}
         </label>
       )}
@@ -40,9 +44,11 @@ export function Input({
             "bg-white text-primary font-ui text-base",
             "focus:outline-none focus:ring-2 focus:ring-accent-1 focus:border-transparent",
             "transition-all duration-200",
-            error ? 'border-accent-3 focus:ring-accent-3' : 'border-[#E2E8F0] hover:border-secondary',
-            suffix && 'pr-12',
-            className
+            error
+              ? "border-accent-3 focus:ring-accent-3"
+              : "border-[#E2E8F0] hover:border-secondary",
+            suffix && "pr-12",
+            className,
           )}
           {...props}
         />

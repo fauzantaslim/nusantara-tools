@@ -1,5 +1,5 @@
-export type WeightUnit = 'kg' | 'lbs';
-export type FormulaType = 'epley' | 'brzycki' | 'lombardi';
+export type WeightUnit = "kg" | "lbs";
+export type FormulaType = "epley" | "brzycki" | "lombardi";
 
 export interface OneRMInput {
   weight: number;
@@ -43,16 +43,19 @@ function calculateLombardi(weight: number, reps: number): number {
 
 function compute(formula: FormulaType, weight: number, reps: number): number {
   switch (formula) {
-    case 'epley': return calculateEpley(weight, reps);
-    case 'brzycki': return calculateBrzycki(weight, reps);
-    case 'lombardi': return calculateLombardi(weight, reps);
+    case "epley":
+      return calculateEpley(weight, reps);
+    case "brzycki":
+      return calculateBrzycki(weight, reps);
+    case "lombardi":
+      return calculateLombardi(weight, reps);
   }
 }
 
 const FORMULA_LABELS: Record<FormulaType, string> = {
-  epley: 'Epley',
-  brzycki: 'Brzycki',
-  lombardi: 'Lombardi',
+  epley: "Epley",
+  brzycki: "Brzycki",
+  lombardi: "Lombardi",
 };
 
 // Approximate rep ranges for % 1RM (standard powerlifting table)
@@ -68,9 +71,13 @@ const PERCENT_REP_MAP: { percent: number; reps: number }[] = [
   { percent: 60, reps: 15 },
 ];
 
-function convertWeight(value: number, from: WeightUnit, to: WeightUnit): number {
+function convertWeight(
+  value: number,
+  from: WeightUnit,
+  to: WeightUnit,
+): number {
   if (from === to) return value;
-  if (from === 'kg' && to === 'lbs') return value * 2.20462;
+  if (from === "kg" && to === "lbs") return value * 2.20462;
   return value / 2.20462; // lbs → kg
 }
 
@@ -78,23 +85,34 @@ export function calculateOneRM(input: OneRMInput): OneRMResult {
   const { weight, reps, unit, outputUnit, formula } = input;
 
   // Convert to kg for calculation, then output in desired unit
-  const weightInKg = unit === 'lbs' ? convertWeight(weight, 'lbs', 'kg') : weight;
+  const weightInKg =
+    unit === "lbs" ? convertWeight(weight, "lbs", "kg") : weight;
 
   const oneRMKg = compute(formula, weightInKg, reps);
-  const oneRM = Math.round(convertWeight(oneRMKg, 'kg', outputUnit) * 10) / 10;
+  const oneRM = Math.round(convertWeight(oneRMKg, "kg", outputUnit) * 10) / 10;
 
   // Percentage table
-  const percentageTable: PercentageRow[] = PERCENT_REP_MAP.map(({ percent, reps: r }) => ({
-    percent,
-    reps: r,
-    weight: Math.round(convertWeight((oneRMKg * percent) / 100, 'kg', outputUnit) * 10) / 10,
-  }));
+  const percentageTable: PercentageRow[] = PERCENT_REP_MAP.map(
+    ({ percent, reps: r }) => ({
+      percent,
+      reps: r,
+      weight:
+        Math.round(
+          convertWeight((oneRMKg * percent) / 100, "kg", outputUnit) * 10,
+        ) / 10,
+    }),
+  );
 
   // All-formula comparison
-  const comparisonResults = (['epley', 'brzycki', 'lombardi'] as FormulaType[]).map((f) => ({
+  const comparisonResults = (
+    ["epley", "brzycki", "lombardi"] as FormulaType[]
+  ).map((f) => ({
     formula: f,
     label: FORMULA_LABELS[f],
-    value: Math.round(convertWeight(compute(f, weightInKg, reps), 'kg', outputUnit) * 10) / 10,
+    value:
+      Math.round(
+        convertWeight(compute(f, weightInKg, reps), "kg", outputUnit) * 10,
+      ) / 10,
   }));
 
   return {

@@ -2,20 +2,20 @@
 
 @theme inline {
   /* Main colors */
-  --color-primary: #2C1A0E;
-  --color-surface: #F5EDE3;
-  --color-secondary: #7A5C42;
-  --color-muted: #EDE0D0;
+  --color-primary: #2c1a0e;
+  --color-surface: #f5ede3;
+  --color-secondary: #7a5c42;
+  --color-muted: #ede0d0;
 
   /* Accent colors */
-  --color-accent-1: #C17A3A;
-  --color-accent-2: #4A7C59;
-  --color-accent-3: #9C4A2A;
+  --color-accent-1: #c17a3a;
+  --color-accent-2: #4a7c59;
+  --color-accent-3: #9c4a2a;
 
   /* Light tints */
-  --color-accent-1-light: #FFF3E0;
-  --color-accent-2-light: #E8F5E9;
-  --color-accent-3-light: #FFF0EB;
+  --color-accent-1-light: #fff3e0;
+  --color-accent-2-light: #e8f5e9;
+  --color-accent-3-light: #fff0eb;
 
   /* Typography */
   --font-heading: var(--font-jakarta-sans);
@@ -41,8 +41,13 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
-  h1, h2, h3, h4, h5, h6 {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-heading);
     color: var(--color-primary);
   }
@@ -65,7 +70,7 @@
   .btn-danger {
     @apply bg-accent-3 text-[#FFF0EB] border-none rounded-[10px] font-ui font-semibold py-3 px-6 cursor-pointer;
   }
-  
+
   .card-default {
     @apply bg-white border border-muted rounded-[14px] p-[18px] shadow-[0_4px_6px_rgba(0,0,0,0.05)] transition-all duration-200;
   }

@@ -2,11 +2,7 @@
 
 import React from "react";
 import { Card } from "@/ui/Card";
-import {
-  FocusPreset,
-  PomodoroSettings as ISettings,
-  POMODORO_PRESETS,
-} from "../utils";
+import { FocusPreset, PomodoroSettings as ISettings } from "../utils";
 import { cn } from "@/lib/utils";
 import {
   Settings,
@@ -15,7 +11,6 @@ import {
   Wind,
   Bell,
   Volume2,
-  Play,
   Music,
 } from "lucide-react";
 
@@ -32,7 +27,6 @@ export const PomodoroSettings: React.FC<PomodoroSettingsProps> = ({
   preset,
   updatePreset,
   updateCustomSettings,
-  requestPermission,
 }) => {
   return (
     <Card
@@ -164,7 +158,6 @@ export const PomodoroSettings: React.FC<PomodoroSettingsProps> = ({
           <div className="space-y-3">
             <button
               onClick={async () => {
-                const status = await requestPermission();
                 updateCustomSettings({
                   notificationEnabled: !settings.notificationEnabled,
                 });

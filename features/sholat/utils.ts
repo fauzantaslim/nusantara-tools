@@ -5,26 +5,29 @@ import {
   Madhab,
   HighLatitudeRule,
   CalculationParameters,
-  Qibla
-} from 'adhan';
+  Qibla,
+} from "adhan";
 
 export type CalculationMethodOption =
-  | 'MuslimWorldLeague'
-  | 'Egyptian'
-  | 'Karachi'
-  | 'UmmAlQura'
-  | 'Dubai'
-  | 'MoonsightingCommittee'
-  | 'NorthAmerica'
-  | 'Kuwait'
-  | 'Qatar'
-  | 'Singapore'
-  | 'Tehran'
-  | 'Turkey'
-  | 'Other';
+  | "MuslimWorldLeague"
+  | "Egyptian"
+  | "Karachi"
+  | "UmmAlQura"
+  | "Dubai"
+  | "MoonsightingCommittee"
+  | "NorthAmerica"
+  | "Kuwait"
+  | "Qatar"
+  | "Singapore"
+  | "Tehran"
+  | "Turkey"
+  | "Other";
 
-export type AsrMethodOption = 'Standard' | 'Hanafi';
-export type HighLatitudeRuleOption = 'MiddleOfTheNight' | 'SeventhOfTheNight' | 'TwilightAngle';
+export type AsrMethodOption = "Standard" | "Hanafi";
+export type HighLatitudeRuleOption =
+  | "MiddleOfTheNight"
+  | "SeventhOfTheNight"
+  | "TwilightAngle";
 
 export interface PrayerTimeSettings {
   latitude: number;
@@ -33,7 +36,7 @@ export interface PrayerTimeSettings {
   method: CalculationMethodOption;
   asrMethod: AsrMethodOption;
   highLatitudeRule: HighLatitudeRuleOption;
-  timeFormat: '12h' | '24h';
+  timeFormat: "12h" | "24h";
 }
 
 export interface DailyPrayerTimes {
@@ -48,31 +51,33 @@ export interface DailyPrayerTimes {
   qiblaDirection: number; // Derajat dari utara sejati
 }
 
-function getCalculationParams(method: CalculationMethodOption): CalculationParameters {
+function getCalculationParams(
+  method: CalculationMethodOption,
+): CalculationParameters {
   switch (method) {
-    case 'MuslimWorldLeague':
+    case "MuslimWorldLeague":
       return CalculationMethod.MuslimWorldLeague();
-    case 'Egyptian':
+    case "Egyptian":
       return CalculationMethod.Egyptian();
-    case 'Karachi':
+    case "Karachi":
       return CalculationMethod.Karachi();
-    case 'UmmAlQura':
+    case "UmmAlQura":
       return CalculationMethod.UmmAlQura();
-    case 'Dubai':
+    case "Dubai":
       return CalculationMethod.Dubai();
-    case 'MoonsightingCommittee':
+    case "MoonsightingCommittee":
       return CalculationMethod.MoonsightingCommittee();
-    case 'NorthAmerica':
+    case "NorthAmerica":
       return CalculationMethod.NorthAmerica();
-    case 'Kuwait':
+    case "Kuwait":
       return CalculationMethod.Kuwait();
-    case 'Qatar':
+    case "Qatar":
       return CalculationMethod.Qatar();
-    case 'Singapore':
+    case "Singapore":
       return CalculationMethod.Singapore();
-    case 'Tehran':
+    case "Tehran":
       return CalculationMethod.Tehran();
-    case 'Turkey':
+    case "Turkey":
       return CalculationMethod.Turkey();
     default:
       // Default fallback MWL
@@ -82,27 +87,30 @@ function getCalculationParams(method: CalculationMethodOption): CalculationParam
 
 function getHighLatRule(rule: HighLatitudeRuleOption) {
   switch (rule) {
-    case 'MiddleOfTheNight':
+    case "MiddleOfTheNight":
       return HighLatitudeRule.MiddleOfTheNight;
-    case 'SeventhOfTheNight':
+    case "SeventhOfTheNight":
       return HighLatitudeRule.SeventhOfTheNight;
-    case 'TwilightAngle':
+    case "TwilightAngle":
       return HighLatitudeRule.TwilightAngle;
     default:
       return HighLatitudeRule.MiddleOfTheNight;
   }
 }
 
-export function calculatePrayerTimesData(settings: PrayerTimeSettings): DailyPrayerTimes | null {
+export function calculatePrayerTimesData(
+  settings: PrayerTimeSettings,
+): DailyPrayerTimes | null {
   try {
     const coordinates = new Coordinates(settings.latitude, settings.longitude);
-    
+
     // Konfigurasi Parameter
     const params = getCalculationParams(settings.method);
-    
+
     // Asr Method
-    params.madhab = settings.asrMethod === 'Hanafi' ? Madhab.Hanafi : Madhab.Shafi;
-    
+    params.madhab =
+      settings.asrMethod === "Hanafi" ? Madhab.Hanafi : Madhab.Shafi;
+
     // High Latitude Rules
     params.highLatitudeRule = getHighLatRule(settings.highLatitudeRule);
 
@@ -111,19 +119,22 @@ export function calculatePrayerTimesData(settings: PrayerTimeSettings): DailyPra
 
     // Kiblat
     const qibla = Qibla(coordinates);
-    
+
     // Imsak secara tradisional Indonesia/umumnya dianulir 10 menit sebelum subuh
     const imsak = new Date(prayerTimesList.fajr.getTime() - 10 * 60000);
 
     // Tengah Malam
-    // Cara awam kalkulasi midnight dalam adhan.js umumnya mid/night, 
+    // Cara awam kalkulasi midnight dalam adhan.js umumnya mid/night,
     // namun kita bisa asumsikan pertengahan maghrib ke subuh hari berikutnya
     // adhan.js menyediakan metode untuk ini, kita panggil sunnat calculation
-    // Sebaiknya pakai pendekatan sunnatic (tengah dari maghrib - fajr esok) 
+    // Sebaiknya pakai pendekatan sunnatic (tengah dari maghrib - fajr esok)
     // Jika tidak ada di API dasar, kita hitung kasar untuk fallback:
-    const fajrNextDay = new Date(prayerTimesList.fajr.getTime() + 24 * 60 * 60 * 1000);
+    const fajrNextDay = new Date(
+      prayerTimesList.fajr.getTime() + 24 * 60 * 60 * 1000,
+    );
     const maghribTime = prayerTimesList.maghrib.getTime();
-    const midnightTime = maghribTime + (fajrNextDay.getTime() - maghribTime) / 2;
+    const midnightTime =
+      maghribTime + (fajrNextDay.getTime() - maghribTime) / 2;
     const midnight = new Date(midnightTime);
 
     return {
@@ -135,21 +146,27 @@ export function calculatePrayerTimesData(settings: PrayerTimeSettings): DailyPra
       maghrib: prayerTimesList.maghrib,
       isha: prayerTimesList.isha,
       midnight,
-      qiblaDirection: qibla
+      qiblaDirection: qibla,
     };
   } catch (err) {
-    console.error('Error calculating prayer times:', err);
+    console.error("Error calculating prayer times:", err);
     return null;
   }
 }
 
-export function formatPrayerTime(date: Date | null, timeFormat: '12h' | '24h', timezoneId: string = Intl.DateTimeFormat().resolvedOptions().timeZone): string {
-  if (!date || isNaN(date.getTime())) return '--:--';
-  
-  return new Intl.DateTimeFormat('id-ID', {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: timeFormat === '12h',
-    timeZone: timezoneId
-  }).format(date).replace('.', ':');
+export function formatPrayerTime(
+  date: Date | null,
+  timeFormat: "12h" | "24h",
+  timezoneId: string = Intl.DateTimeFormat().resolvedOptions().timeZone,
+): string {
+  if (!date || isNaN(date.getTime())) return "--:--";
+
+  return new Intl.DateTimeFormat("id-ID", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: timeFormat === "12h",
+    timeZone: timezoneId,
+  })
+    .format(date)
+    .replace(".", ":");
 }

@@ -16,7 +16,8 @@ const lora = Lora({
 
 export const metadata: Metadata = {
   title: "NusantaraTools",
-  description: "Platform tools gratis berbasis web untuk warga Indonesia yang cepat dan akurat.",
+  description:
+    "Platform tools gratis berbasis web untuk warga Indonesia yang cepat dan akurat.",
 };
 
 export default function RootLayout({
