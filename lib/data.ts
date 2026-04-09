@@ -504,7 +504,7 @@ export const TOOLS: Tool[] = [
     icon: Calculator,
     color: "text-[#9C4A2A]",
     bg: "bg-[#FFF0EB]",
-    path: "#",
+    path: "/finansial/margin",
     desc: "Tentukan harga jual produk e-commerce dengan margin dan markup yang tepat.",
     hot: true,
     keywords: [
