@@ -46,31 +46,46 @@ export const useSplitBill = () => {
     setItems((prev) => prev.map((item) => ({ ...item, assignedTo: [] })));
   }, []);
 
-  const processReceipt = useCallback(async (file: File) => {
-    setIsProcessingOcr(true);
-    setOcrProgress(0);
-    setOcrError(null);
-    try {
-      const parsedItems = await parseReceiptImage(file, setOcrProgress);
-      if (parsedItems.length === 0) {
-        setOcrError("No items detected. Please input manually.");
-      } else {
-        setItems(parsedItems);
-        setMode("ocr");
+  const processReceipt = useCallback(
+    async (file: File) => {
+      setIsProcessingOcr(true);
+      setOcrProgress(0);
+      setOcrError(null);
+      try {
+        const parsedItems = await parseReceiptImage(file, setOcrProgress);
+        if (parsedItems.length === 0) {
+          setOcrError("No items detected. Please input manually.");
+        } else {
+          const assignedItems = parsedItems.map((item) => ({
+            ...item,
+            assignedTo: people.map((p) => p.id),
+          }));
+          setItems(assignedItems);
+          setMode("ocr");
+        }
+      } catch (err: any) {
+        setOcrError(err.message || "Failed to process image.");
+      } finally {
+        setIsProcessingOcr(false);
       }
-    } catch (err: any) {
-      setOcrError(err.message || "Failed to process image.");
-    } finally {
-      setIsProcessingOcr(false);
-    }
-  }, []);
+    },
+    [people],
+  );
 
-  const addItem = useCallback((name: string, price: number) => {
-    setItems((prev) => [
-      ...prev,
-      { id: crypto.randomUUID(), name, price, assignedTo: [] },
-    ]);
-  }, []);
+  const addItem = useCallback(
+    (name: string, price: number) => {
+      setItems((prev) => [
+        ...prev,
+        {
+          id: crypto.randomUUID(),
+          name,
+          price,
+          assignedTo: people.map((p) => p.id),
+        },
+      ]);
+    },
+    [people],
+  );
 
   const removeItem = useCallback((id: string) => {
     setItems((prev) => prev.filter((i) => i.id !== id));
@@ -146,7 +161,15 @@ export const useSplitBill = () => {
 
     // Distribute item costs
     items.forEach((item) => {
-      if (item.assignedTo.length === 0) return; // unassigned items are ignored in cost distribution
+      if (item.assignedTo.length === 0) {
+        if (people.length > 0) {
+          const splitPrice = item.price / people.length;
+          result.forEach((r) => {
+            r.itemsCost += splitPrice;
+          });
+        }
+        return;
+      }
 
       const splitPrice = item.price / item.assignedTo.length;
       item.assignedTo.forEach((personId) => {

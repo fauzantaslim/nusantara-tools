@@ -129,9 +129,15 @@ export const SplitBillResult: React.FC<SplitBillResultProps> = ({
         {/* Dynamic Item Assignment (Only in OCR mode) */}
         {mode === "ocr" && (
           <div className="flex flex-col gap-6">
-            <h3 className="text-lg font-bold font-heading text-[#C17A3A] flex items-center gap-2">
-              <Receipt className="w-5 h-5" /> Daftar Menu
-            </h3>
+            <div className="flex flex-col gap-1 mb-2">
+              <h3 className="text-lg font-bold font-heading text-[#C17A3A] flex items-center gap-2">
+                <Receipt className="w-5 h-5" /> Daftar Menu
+              </h3>
+              <p className="text-xs text-[#EDE0D0]/60">
+                Secara default semua orang ditambahkan. Hilangkan centang pada
+                nama jika tidak ikut membagi item tersebut.
+              </p>
+            </div>
 
             <div className="flex flex-col gap-4 max-h-[40vh] overflow-y-auto pr-2 custom-scrollbar">
               {items.map((item) => (
