@@ -386,8 +386,8 @@ export const TOOLS: Tool[] = [
     icon: Wallet,
     color: "text-[#9C4A2A]",
     bg: "bg-[#FFF0EB]",
-    path: "#",
-    desc: "Sistem bagi tagihan nongkrong bareng otomatis dengan kalkulasi pajak & servis.",
+    path: "/finansial/split-bill",
+    desc: "Sistem bagi tagihan nongkrong bareng otomatis dari foto struk (OCR).",
     hot: true,
     keywords: [
       "bayar bareng",

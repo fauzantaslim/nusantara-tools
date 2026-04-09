@@ -10,4 +10,4 @@
 
 # workflow
 
-- untuk setiap fitur workflow nya dimulai membuat plan setelah itu isi plan nya taruh di file issues.md dan buat branch baru /feat/nama-fitur sebelum mengeksekusi plan nya
+- untuk setiap fitur workflow nya dimulai membuat plan dan buat branch baru /feat/nama-fitur sebelum mengeksekusi plan nya jika belum commit, commit terlebih dahulu
