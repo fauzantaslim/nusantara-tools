@@ -466,7 +466,7 @@ export const TOOLS: Tool[] = [
     icon: Wallet,
     color: "text-[#9C4A2A]",
     bg: "bg-[#FFF0EB]",
-    path: "#",
+    path: "/finansial/dana-darurat",
     desc: "Target minimal dana aman sesuai status pernikahan dan tanggungan.",
     hot: false,
     keywords: [
