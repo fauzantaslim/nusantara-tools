@@ -471,7 +471,7 @@ export const TOOLS: Tool[] = [
     icon: Calculator,
     color: "text-[#9C4A2A]",
     bg: "bg-[#FFF0EB]",
-    path: "#",
+    path: "/finansial/cicilan",
     desc: "Simulasi pinjaman ringan dengan porsi pokok dan bunga flat/efektif.",
     hot: false,
     keywords: [
@@ -554,7 +554,7 @@ export const TOOLS: Tool[] = [
     icon: Activity,
     color: "text-[#C17A3A]",
     bg: "bg-[#FFF3E0]",
-    path: "#",
+    path: "/produktivitas/cv",
     desc: "Buat resume profesional anti-kick sistem Applicant Tracking System.",
     hot: true,
     keywords: [
@@ -568,13 +568,13 @@ export const TOOLS: Tool[] = [
   },
   {
     id: "lamaran",
-    name: "Generator Surat Lamaran",
+    name: "Generator Surat Lamaran Kerja",
     category: "Produktivitas",
     categoryId: "produktivitas",
     icon: Activity,
     color: "text-[#C17A3A]",
     bg: "bg-[#FFF3E0]",
-    path: "#",
+    path: "/produktivitas/surat-lamaran-kerja",
     desc: "Template cover letter instan terstruktur untuk berbagai bidang profesi.",
     hot: false,
     keywords: [

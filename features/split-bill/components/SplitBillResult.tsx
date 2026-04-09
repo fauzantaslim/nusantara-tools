@@ -275,7 +275,7 @@ export const SplitBillResult: React.FC<SplitBillResultProps> = ({
               </div>
               <div className="h-px bg-white/10 my-2" />
               <div className="flex justify-between items-center text-xl text-[#C17A3A] font-black font-heading">
-                <span>TOTAL AKhIR</span>
+                <span>TOTAL AKHIR</span>
                 <span>{formatIDR(grandTotal)}</span>
               </div>
             </div>
