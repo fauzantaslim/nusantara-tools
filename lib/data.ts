@@ -345,7 +345,7 @@ export const TOOLS: Tool[] = [
     icon: Wallet,
     color: "text-[#9C4A2A]",
     bg: "bg-[#FFF0EB]",
-    path: "#",
+    path: "/finansial/lembur",
     desc: "Hitung upah jam lembur (overtime) sesuai regulasi Depnaker terbaru.",
     hot: false,
     keywords: [
