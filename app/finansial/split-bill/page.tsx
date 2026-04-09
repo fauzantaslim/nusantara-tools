@@ -1,4 +1,5 @@
 "use client";
+import { RelatedTools } from "@/components/layout/RelatedTools";
 
 import React, { useEffect } from "react";
 import { Breadcrumbs } from "@/ui/Breadcrumbs";
@@ -201,6 +202,11 @@ export default function SplitBillPage() {
           </div>
         </div>
       </div>
+
+      <RelatedTools
+        currentPath="/finansial/split-bill"
+        categoryId="finansial"
+      />
     </div>
   );
 }

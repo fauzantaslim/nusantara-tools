@@ -2,13 +2,14 @@ import React from "react";
 import { cn } from "@/lib/utils";
 
 interface CurrencyInputProps {
-  label: string;
+  label?: string;
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
   desc?: string;
   error?: string;
   className?: string;
+  variant?: "default" | "mini";
 }
 
 export function CurrencyInput({
@@ -19,6 +20,7 @@ export function CurrencyInput({
   desc,
   error,
   className,
+  variant = "default",
 }: CurrencyInputProps) {
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     // Only allow numeric digits
@@ -31,18 +33,50 @@ export function CurrencyInput({
     ? new Intl.NumberFormat("id-ID").format(Number(value))
     : "";
 
-  const id = label.toLowerCase().replace(/\s+/g, "-");
+  const id =
+    label?.toLowerCase().replace(/\s+/g, "-") ||
+    Math.random().toString(36).substring(7);
+
+  if (variant === "mini") {
+    return (
+      <div
+        className={cn(
+          "relative flex items-center border rounded-xl overflow-hidden transition-all bg-white",
+          error
+            ? "border-red-500 ring-1 ring-red-500/20"
+            : "border-muted focus-within:border-[#9C4A2A] focus-within:ring-2 focus-within:ring-[#9C4A2A]/20",
+          className,
+        )}
+      >
+        <span className="pl-2 pr-1 text-[10px] font-bold text-secondary opacity-60 pointer-events-none select-none">
+          Rp
+        </span>
+        <input
+          id={id}
+          type="text"
+          inputMode="numeric"
+          placeholder={placeholder}
+          value={displayValue}
+          onChange={handleInput}
+          autoComplete="off"
+          className="flex-1 h-8 bg-transparent pr-2 text-xs font-bold text-primary text-right outline-none placeholder:opacity-20"
+        />
+      </div>
+    );
+  }
 
   return (
     <div className={cn("flex flex-col gap-1.5 w-full", className)}>
-      <div className="flex items-baseline justify-between">
-        <label
-          htmlFor={id}
-          className="text-xs font-bold font-ui text-secondary uppercase tracking-wider"
-        >
-          {label}
-        </label>
-      </div>
+      {label && (
+        <div className="flex items-baseline justify-between">
+          <label
+            htmlFor={id}
+            className="text-xs font-bold font-ui text-secondary uppercase tracking-wider"
+          >
+            {label}
+          </label>
+        </div>
+      )}
 
       <div
         className={cn(

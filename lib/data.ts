@@ -5,6 +5,7 @@ import {
   Timer,
   Calculator,
   ShieldCheck,
+  CheckCircle2,
 } from "lucide-react";
 
 export interface Tool {
@@ -20,6 +21,70 @@ export interface Tool {
   hot: boolean;
   keywords?: string[];
 }
+
+export interface Category {
+  id: string;
+  name: string;
+  icon: React.ElementType;
+  color: string;
+  bg: string;
+  path: string;
+  desc: string;
+  hoverBorder: string;
+}
+
+export const CATEGORIES: Category[] = [
+  {
+    id: "kesehatan",
+    name: "Kesehatan & Kebugaran",
+    icon: Activity,
+    color: "text-[#4A7C59]",
+    bg: "bg-[#E8F5E9]",
+    path: "/kesehatan",
+    desc: "Kalkulator BMI, Kalori, Masa Subur, dan lain-lain.",
+    hoverBorder: "hover:border-[#4A7C59]/40",
+  },
+  {
+    id: "finansial",
+    name: "Finansial & Keuangan",
+    icon: Wallet,
+    color: "text-[#9C4A2A]",
+    bg: "bg-[#FFF0EB]",
+    path: "/finansial",
+    desc: "Kalkulator gaji, cicilan, tabungan, split bill, dan lain-lain.",
+    hoverBorder: "hover:border-[#9C4A2A]/40",
+  },
+  {
+    id: "religi",
+    name: "Religi & Ibadah",
+    icon: Moon,
+    color: "text-[#4A7C59]",
+    bg: "bg-[#E8F5E9]",
+    path: "/religi",
+    desc: "Jadwal sholat akurat, kompas arah kiblat, kalkulator zakat dan lain-lain.",
+    hoverBorder: "hover:border-[#4A7C59]/40",
+  },
+  {
+    id: "produktivitas",
+    name: "Produktivitas Kerja",
+    icon: CheckCircle2,
+    color: "text-[#C17A3A]",
+    bg: "bg-[#FFF3E0]",
+    path: "/produktivitas",
+    desc: "Generator CV ATS, pomodoro timer, dan utilitas penunjang karir.",
+    hoverBorder: "hover:border-[#C17A3A]/40",
+  },
+  {
+    id: "utilitas",
+    name: "Utilitas Ekstra",
+    icon: Activity,
+    color: "text-[#7A5C42]",
+    bg: "bg-[#EDE0D0]/60",
+    path: "/utilitas",
+    desc: "URL shortener, QR generator dan lain-lain.",
+    hoverBorder: "hover:border-[#7A5C42]/40",
+  },
+];
 
 export const TOOLS: Tool[] = [
   // Kesehatan
@@ -426,7 +491,7 @@ export const TOOLS: Tool[] = [
     icon: Wallet,
     color: "text-[#9C4A2A]",
     bg: "bg-[#FFF0EB]",
-    path: "#",
+    path: "/finansial/pernikahan",
     desc: "Rencanakan budget resepsi impian dari vendor hingga ongkos tak terduga.",
     hot: false,
     keywords: [

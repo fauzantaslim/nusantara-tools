@@ -1,4 +1,5 @@
 "use client";
+import { RelatedTools } from "@/components/layout/RelatedTools";
 
 import React, { Suspense, useEffect } from "react";
 import { Breadcrumbs } from "@/ui/Breadcrumbs";
@@ -240,6 +241,11 @@ export default function QrGeneratorPage() {
           </div>
         </div>
       </div>
+
+      <RelatedTools
+        currentPath="/utilitas/qr-generator"
+        categoryId="utilitas"
+      />
     </div>
   );
 }

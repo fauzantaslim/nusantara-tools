@@ -1,9 +1,10 @@
 import React from "react";
 import Link from "next/link";
-import { Activity, ChevronRight, Wallet, CheckCircle2 } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Breadcrumbs } from "@/ui/Breadcrumbs";
 import { TOOLS } from "@/lib/data";
+import { CategoryRelated } from "@/components/layout/CategoryRelated";
 
 export const metadata = {
   title: "Tools Religi & Ibadah | NusantaraTools",
@@ -12,49 +13,6 @@ export const metadata = {
 };
 
 const RELIGI_TOOLS = TOOLS.filter((t) => t.category === "Religi");
-
-const OTHER_CATEGORIES = [
-  {
-    id: "kesehatan",
-    name: "Kesehatan & Kebugaran",
-    icon: Activity,
-    color: "text-[#4A7C59]",
-    bg: "bg-[#E8F5E9]",
-    path: "/kesehatan",
-    desc: "Kalkulator BMI, Kalori, Masa Subur, dan pantauan kesehatan harian.",
-    hoverBorder: "hover:border-[#4A7C59]/40",
-  },
-  {
-    id: "finansial",
-    name: "Finansial & Keuangan",
-    icon: Wallet,
-    color: "text-[#9C4A2A]",
-    bg: "bg-[#FFF0EB]",
-    path: "/finansial",
-    desc: "Kalkulator gaji, cicilan, tabungan, split bill, dan perencanaan dana.",
-    hoverBorder: "hover:border-[#9C4A2A]/40",
-  },
-  {
-    id: "produktivitas",
-    name: "Produktivitas Kerja",
-    icon: CheckCircle2,
-    color: "text-[#C17A3A]",
-    bg: "bg-[#FFF3E0]",
-    path: "/produktivitas",
-    desc: "Generator CV ATS, pomodoro timer, dan utilitas penunjang karir.",
-    hoverBorder: "hover:border-[#C17A3A]/40",
-  },
-  {
-    id: "utilitas",
-    name: "Utilitas Ekstra & Gambar",
-    icon: Activity,
-    color: "text-[#7A5C42]",
-    bg: "bg-[#EDE0D0]/60",
-    path: "/utilitas",
-    desc: "URL shortener, QR generator, serta alat konversi dan resize gambar massal.",
-    hoverBorder: "hover:border-[#7A5C42]/40",
-  },
-];
 
 export default function ReligiIndex() {
   return (
@@ -122,7 +80,7 @@ export default function ReligiIndex() {
                 <span className="text-xs font-bold text-secondary uppercase tracking-widest group-hover:text-primary transition-colors">
                   Buka Tool
                 </span>
-                <div className="w-8 h-8 rounded-full bg-surface group-hover:bg-[#4A7C59] flex flex-col items-center justify-center transition-colors">
+                <div className="w-8 h-8 rounded-full bg-surface flex flex-col items-center justify-center transition-colors group-hover:bg-[#4A7C59]">
                   <ChevronRight className="w-4 h-4 text-primary group-hover:text-white transition-colors" />
                 </div>
               </div>
@@ -132,67 +90,10 @@ export default function ReligiIndex() {
       </div>
 
       {/* Kategori Lainnya Section */}
-      <div className="mt-20 pt-16 border-t border-muted/50">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-          <div>
-            <h2 className="text-3xl font-black text-primary font-heading tracking-tight">
-              Kategori Terkait Lainnya
-            </h2>
-            <p className="text-secondary font-body mt-2">
-              Jelajahi portofolio kalkulator kami untuk kebutuhan finansial
-              hingga produktivitas.
-            </p>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {OTHER_CATEGORIES.map((cat) => {
-            const Icon = cat.icon;
-            return (
-              <Link
-                href={cat.path}
-                key={cat.id}
-                className={cn(
-                  "group bg-white rounded-3xl border border-[#EDE0D0]/80 p-6 flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative overflow-hidden",
-                  cat.hoverBorder,
-                )}
-              >
-                <div className="relative z-10 flex flex-col h-full">
-                  <div
-                    className={cn(
-                      "w-12 h-12 rounded-2xl flex items-center justify-center shadow-inner mb-5",
-                      cat.bg,
-                    )}
-                  >
-                    <Icon className={cn("w-6 h-6", cat.color)} />
-                  </div>
-
-                  <h3 className="font-heading font-extrabold text-lg text-primary group-hover:text-primary transition-colors mb-2">
-                    {cat.name}
-                  </h3>
-                  <p className="text-secondary font-body text-sm leading-relaxed mb-6 flex-grow">
-                    {cat.desc}
-                  </p>
-
-                  <div className="flex items-center justify-between pt-4 border-t border-muted/50 mt-auto">
-                    <span className="text-[11px] font-bold text-secondary uppercase tracking-widest group-hover:text-primary transition-colors">
-                      Eksplorasi
-                    </span>
-                    <div
-                      className={cn(
-                        "w-8 h-8 rounded-full flex items-center justify-center transition-colors",
-                        cat.bg,
-                      )}
-                    >
-                      <ChevronRight className={cn("w-4 h-4", cat.color)} />
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </div>
+      <CategoryRelated
+        currentCategoryId="religi"
+        description="Jelajahi portofolio kalkulator kami untuk kebutuhan finansial hingga produktivitas."
+      />
     </div>
   );
 }

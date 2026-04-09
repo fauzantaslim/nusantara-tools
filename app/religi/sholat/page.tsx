@@ -1,9 +1,9 @@
 "use client";
+import { RelatedTools } from "@/components/layout/RelatedTools";
 
 import React, { useState, useEffect } from "react";
 import { Card } from "@/ui/Card";
 import { Breadcrumbs } from "@/ui/Breadcrumbs";
-import { RelatedReligiTools } from "../components/RelatedReligiTools";
 import {
   ShieldAlert,
   MapPin,
@@ -802,7 +802,7 @@ export default function SholatCalculator() {
         </div>
       </div>
 
-      <RelatedReligiTools currentPath="/religi/sholat" />
+      <RelatedTools currentPath="/religi/sholat" categoryId="religi" />
     </div>
   );
 }

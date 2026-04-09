@@ -1,4 +1,5 @@
 "use client";
+import { RelatedTools } from "@/components/layout/RelatedTools";
 
 import React from "react";
 import { Breadcrumbs } from "@/ui/Breadcrumbs";
@@ -213,6 +214,11 @@ export default function PomodoroPage() {
           </div>
         </div>
       </div>
+
+      <RelatedTools
+        currentPath="/produktivitas/pomodoro"
+        categoryId="produktivitas"
+      />
     </div>
   );
 }

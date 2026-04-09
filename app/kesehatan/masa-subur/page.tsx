@@ -19,7 +19,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { RelatedHealthTools } from "../components/RelatedHealthTools";
+import { RelatedTools } from "@/components/layout/RelatedTools";
 import { Breadcrumbs } from "@/ui/Breadcrumbs";
 import {
   calculateMasaSubur,
@@ -893,7 +893,10 @@ export default function MasaSuburCalculator() {
         </div>
       </div>
 
-      <RelatedHealthTools currentPath="/kesehatan/masa-subur" />
+      <RelatedTools
+        currentPath="/kesehatan/masa-subur"
+        categoryId="kesehatan"
+      />
     </div>
   );
 }

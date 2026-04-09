@@ -1,10 +1,10 @@
 "use client";
+import { RelatedTools } from "@/components/layout/RelatedTools";
 
 import React, { useState, useEffect } from "react";
 import { Card } from "@/ui/Card";
 import { Button } from "@/ui/Button";
 import { Breadcrumbs } from "@/ui/Breadcrumbs";
-import { RelatedReligiTools } from "../components/RelatedReligiTools";
 import {
   ShieldAlert,
   ArrowRightLeft,
@@ -586,7 +586,7 @@ export default function HijriyahConverter() {
         </div>
       </div>
 
-      <RelatedReligiTools currentPath="/religi/hijriyah" />
+      <RelatedTools currentPath="/religi/hijriyah" categoryId="religi" />
     </div>
   );
 }

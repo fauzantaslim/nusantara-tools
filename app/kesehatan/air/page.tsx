@@ -34,7 +34,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { z } from "zod";
-import { RelatedHealthTools } from "../components/RelatedHealthTools";
+import { RelatedTools } from "@/components/layout/RelatedTools";
 import { Breadcrumbs } from "@/ui/Breadcrumbs";
 
 const airSchema = z.object({
@@ -864,7 +864,7 @@ export default function WaterIntakeCalculator() {
         </div>
       </div>
 
-      <RelatedHealthTools currentPath="/kesehatan/air" />
+      <RelatedTools currentPath="/kesehatan/air" categoryId="kesehatan" />
     </div>
   );
 }

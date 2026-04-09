@@ -30,7 +30,7 @@ import {
   Calculator,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { RelatedHealthTools } from "../components/RelatedHealthTools";
+import { RelatedTools } from "@/components/layout/RelatedTools";
 import { Breadcrumbs } from "@/ui/Breadcrumbs";
 import Image from "next/image";
 
@@ -938,7 +938,7 @@ export default function DiabetesRiskCalculator() {
         </div>
       </div>
 
-      <RelatedHealthTools currentPath="/kesehatan/diabetes" />
+      <RelatedTools currentPath="/kesehatan/diabetes" categoryId="kesehatan" />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 "use client";
+import { RelatedTools } from "@/components/layout/RelatedTools";
 
 import React from "react";
 import { Breadcrumbs } from "@/ui/Breadcrumbs";
@@ -404,6 +405,8 @@ export default function MarginPage() {
           </div>
         </div>
       </div>
+
+      <RelatedTools currentPath="/finansial/margin" categoryId="finansial" />
     </div>
   );
 }

@@ -30,7 +30,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { z } from "zod";
-import { RelatedHealthTools } from "../components/RelatedHealthTools";
+import { RelatedTools } from "@/components/layout/RelatedTools";
 import { Breadcrumbs } from "@/ui/Breadcrumbs";
 
 const kaloriSchema = z.object({
@@ -1148,7 +1148,7 @@ export default function CalorieCalculator() {
         </div>
       </div>
 
-      <RelatedHealthTools currentPath="/kesehatan/kalori" />
+      <RelatedTools currentPath="/kesehatan/kalori" categoryId="kesehatan" />
     </div>
   );
 }

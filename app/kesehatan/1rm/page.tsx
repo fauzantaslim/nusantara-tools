@@ -26,7 +26,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { z } from "zod";
-import { RelatedHealthTools } from "../components/RelatedHealthTools";
+import { RelatedTools } from "@/components/layout/RelatedTools";
 import { Breadcrumbs } from "@/ui/Breadcrumbs";
 import Image from "next/image";
 
@@ -824,7 +824,7 @@ export default function OneRepMaxCalculator() {
         </div>
       </div>
 
-      <RelatedHealthTools currentPath="/kesehatan/1rm" />
+      <RelatedTools currentPath="/kesehatan/1rm" categoryId="kesehatan" />
     </div>
   );
 }

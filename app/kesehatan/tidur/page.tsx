@@ -26,7 +26,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { z } from "zod";
-import { RelatedHealthTools } from "../components/RelatedHealthTools";
+import { RelatedTools } from "@/components/layout/RelatedTools";
 import { Breadcrumbs } from "@/ui/Breadcrumbs";
 import Image from "next/image";
 
@@ -918,7 +918,7 @@ export default function SleepCycleCalculator() {
         </div>
       </div>
 
-      <RelatedHealthTools currentPath="/kesehatan/tidur" />
+      <RelatedTools currentPath="/kesehatan/tidur" categoryId="kesehatan" />
     </div>
   );
 }

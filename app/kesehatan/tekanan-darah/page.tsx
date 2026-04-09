@@ -33,7 +33,7 @@ import {
   Activity,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { RelatedHealthTools } from "../components/RelatedHealthTools";
+import { RelatedTools } from "@/components/layout/RelatedTools";
 import { Breadcrumbs } from "@/ui/Breadcrumbs";
 import Image from "next/image";
 
@@ -973,7 +973,10 @@ export default function TekananDarahCalculator() {
         </div>
       </div>
 
-      <RelatedHealthTools currentPath="/kesehatan/tekanan-darah" />
+      <RelatedTools
+        currentPath="/kesehatan/tekanan-darah"
+        categoryId="kesehatan"
+      />
     </div>
   );
 }

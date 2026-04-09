@@ -1,4 +1,5 @@
 "use client";
+import { RelatedTools } from "@/components/layout/RelatedTools";
 
 import React from "react";
 import { useDanaDarurat } from "@/features/dana-darurat/hooks/useDanaDarurat";
@@ -299,6 +300,11 @@ export default function DanaDaruratPage() {
           </div>
         </div>
       </div>
+
+      <RelatedTools
+        currentPath="/finansial/dana-darurat"
+        categoryId="finansial"
+      />
     </div>
   );
 }

@@ -20,7 +20,7 @@ import {
   PregnancyMethod,
   calculatePregnancy,
 } from "@/features/kehamilan/utils";
-import { RelatedHealthTools } from "../components/RelatedHealthTools";
+import { RelatedTools } from "@/components/layout/RelatedTools";
 import { Breadcrumbs } from "@/ui/Breadcrumbs";
 import Image from "next/image";
 
@@ -848,7 +848,7 @@ export default function PregnancyCalculator() {
         </div>
       </div>
 
-      <RelatedHealthTools currentPath="/kesehatan/kehamilan" />
+      <RelatedTools currentPath="/kesehatan/kehamilan" categoryId="kesehatan" />
     </div>
   );
 }

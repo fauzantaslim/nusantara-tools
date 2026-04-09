@@ -1,4 +1,5 @@
 "use client";
+import { RelatedTools } from "@/components/layout/RelatedTools";
 
 import React, { useState } from "react";
 import { Card } from "@/ui/Card";
@@ -21,7 +22,6 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Breadcrumbs } from "@/ui/Breadcrumbs";
-import { RelatedReligiTools } from "../components/RelatedReligiTools";
 import { CurrencyInput } from "@/ui/CurrencyInput";
 
 // Helper Format Rupiah
@@ -960,7 +960,7 @@ export default function KalkulatorZakat() {
         </div>
       </div>
 
-      <RelatedReligiTools currentPath="/religi/zakat" />
+      <RelatedTools currentPath="/religi/zakat" categoryId="religi" />
     </div>
   );
 }

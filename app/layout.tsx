@@ -15,9 +15,45 @@ const lora = Lora({
 });
 
 export const metadata: Metadata = {
-  title: "NusantaraTools",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_BASE_URL || "https://nusantaratools.com",
+  ),
+  title: {
+    default: "NusantaraTools - Koleksi Alat Digital Gratis Indonesia",
+    template: "%s | NusantaraTools",
+  },
   description:
-    "Platform tools gratis berbasis web untuk warga Indonesia yang cepat dan akurat.",
+    "Platform tools gratis berbasis web untuk warga Indonesia yang cepat, akurat, dan lengkap mulai dari finansial, kesehatan, hingga religi.",
+  keywords: [
+    "NusantaraTools",
+    "kalkulator gratis",
+    "alat digital indonesia",
+    "kalkulator finansial",
+    "kalkulator kesehatan",
+    "jadwal sholat",
+    "zakat",
+    "split bill",
+  ],
+  authors: [{ name: "NusantaraTools" }],
+  openGraph: {
+    type: "website",
+    locale: "id_ID",
+    url: "https://nusantaratools.com",
+    siteName: "NusantaraTools",
+    title: "NusantaraTools - Koleksi Alat Digital Gratis Indonesia",
+    description:
+      "Platform tools gratis tercepat dan akurat untuk warga Indonesia.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "NusantaraTools - Koleksi Alat Digital Gratis Indonesia",
+    description:
+      "Platform tools gratis tercepat dan akurat untuk warga Indonesia.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({

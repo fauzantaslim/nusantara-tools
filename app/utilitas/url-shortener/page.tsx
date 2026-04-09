@@ -1,4 +1,5 @@
 "use client";
+import { RelatedTools } from "@/components/layout/RelatedTools";
 
 import React from "react";
 import { Breadcrumbs } from "@/ui/Breadcrumbs";
@@ -202,6 +203,11 @@ export default function UrlShortenerPage() {
           </div>
         </div>
       </div>
+
+      <RelatedTools
+        currentPath="/utilitas/url-shortener"
+        categoryId="utilitas"
+      />
     </div>
   );
 }
