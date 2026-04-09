@@ -109,9 +109,17 @@ export default function LemburPage() {
       <div className="mt-16 mb-24">
         <div className="relative">
           <div className="bg-[#2C1A0E] text-[#F5EDE3] rounded-[3rem] p-8 sm:p-12 md:p-16 lg:p-20 shadow-2xl relative border border-[#7A5C42]/30">
+            {/* Background Decorators */}
             <div className="absolute inset-0 overflow-hidden rounded-[3rem] pointer-events-none">
               <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#9C4A2A] rounded-full blur-[120px] opacity-10 -translate-y-1/2 translate-x-1/3" />
               <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#C17A3A] rounded-full blur-[100px] opacity-10 translate-y-1/2 -translate-x-1/3" />
+              <div
+                className="absolute inset-0 opacity-[0.03] mix-blend-overlay"
+                style={{
+                  backgroundImage:
+                    'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")',
+                }}
+              />
             </div>
 
             <div className="flex flex-col gap-16 lg:gap-24 relative z-10">
@@ -150,249 +158,273 @@ export default function LemburPage() {
                 </div>
               </div>
 
-              {/* Tarif lembur umum */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {[
-                  {
-                    title: "1.5× — Waktu & Setengah",
-                    desc: "Tarif paling umum; berlaku untuk jam kerja melebihi 40 jam seminggu. Di Indonesia: jam ke-1 pada hari kerja biasa.",
-                  },
-                  {
-                    title: "2× — Dua Kali Lipat",
-                    desc: "Untuk kerja malam, hari Minggu, atau hari libur nasional. Di Indonesia: jam 1–8 di hari libur.",
-                  },
-                  {
-                    title: "3× — Tiga Kali",
-                    desc: "Di Indonesia: jam ke-9 di hari libur (5-day week) atau jam ke-8 (6-day week). Juga untuk kondisi kontrak tertentu.",
-                  },
-                  {
-                    title: "4× — Empat Kali",
-                    desc: "Tarif tertinggi PP 35/2021: jam 10–12 di hari libur (5-day) atau jam 9–11 (6-day).",
-                  },
-                ].map((step, i) => (
-                  <div
-                    key={i}
-                    className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-[#9C4A2A]/30 transition-all group"
-                  >
-                    <Calculator className="w-8 h-8 text-[#C17A3A] mb-4 group-hover:scale-110 transition-transform" />
-                    <h4 className="text-base font-bold font-heading text-white mb-2">
-                      {step.title}
-                    </h4>
-                    <p className="text-[#EDE0D0]/70 font-body text-sm leading-relaxed">
-                      {step.desc}
+              <div className="flex flex-col gap-16 mx-auto w-full">
+                {/* 1. Tarif lembur umum */}
+                <section className="space-y-8">
+                  <div className="flex items-center gap-4 border-b border-[#7A5C42]/30 pb-4">
+                    <div className="w-10 h-10 rounded-full bg-[#9C4A2A] text-[#1A0E07] flex items-center justify-center font-bold shrink-0">
+                      1
+                    </div>
+                    <h3 className="text-2xl font-bold font-heading text-white">
+                      Tarif Dasar Berdasarkan Kelipatan
+                    </h3>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {[
+                      {
+                        title: "1.5× — Waktu & Setengah",
+                        desc: "Tarif paling umum; berlaku untuk jam kerja melebihi 40 jam seminggu. Di Indonesia: jam ke-1 pada hari kerja biasa.",
+                      },
+                      {
+                        title: "2× — Dua Kali Lipat",
+                        desc: "Untuk kerja malam, hari Minggu, atau hari libur nasional. Di Indonesia: jam 1–8 di hari libur.",
+                      },
+                      {
+                        title: "3× — Tiga Kali",
+                        desc: "Di Indonesia: jam ke-9 di hari libur (5-day week) atau jam ke-8 (6-day week). Juga untuk kondisi kontrak tertentu.",
+                      },
+                      {
+                        title: "4× — Empat Kali",
+                        desc: "Tarif tertinggi PP 35/2021: jam 10–12 di hari libur (5-day) atau jam 9–11 (6-day).",
+                      },
+                    ].map((step, i) => (
+                      <div
+                        key={i}
+                        className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-[#9C4A2A]/30 transition-all group"
+                      >
+                        <Calculator className="w-8 h-8 text-[#C17A3A] mb-4 group-hover:scale-110 transition-transform" />
+                        <h4 className="text-base font-bold font-heading text-white mb-2">
+                          {step.title}
+                        </h4>
+                        <p className="text-[#EDE0D0]/70 font-body text-sm leading-relaxed">
+                          {step.desc}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+
+                {/* 2. PP 35/2021 detail table */}
+                <section className="space-y-8">
+                  <div className="flex items-center gap-4 border-b border-[#7A5C42]/30 pb-4">
+                    <div className="w-10 h-10 rounded-full bg-[#9C4A2A] text-[#1A0E07] flex items-center justify-center font-bold shrink-0">
+                      2
+                    </div>
+                    <h3 className="text-2xl font-bold font-heading text-white">
+                      🇮🇩 Aturan PP No. 35 Tahun 2021
+                    </h3>
+                  </div>
+                  <div className="grid md:grid-cols-3 gap-4">
+                    {[
+                      {
+                        title: "Rumus Upah Per Jam",
+                        rows: [
+                          "Upah Per Jam = 1/173 × (Gaji Pokok + Tunjangan Tetap)",
+                          "Angka 173 = rata-rata jam kerja per bulan (40 jam × 52 minggu / 12 bulan ≈ 173)",
+                        ],
+                      },
+                      {
+                        title: "Hari Kerja Biasa",
+                        rows: [
+                          "Jam ke-1: 1.5× upah per jam",
+                          "Jam ke-2 dst: 2× upah per jam",
+                        ],
+                      },
+                      {
+                        title: "Hari Libur / Istirahat",
+                        rows: [
+                          "5 hari kerja: Jam 1–8 = 2×, Jam 9 = 3×, Jam 10–12 = 4×",
+                          "6 hari kerja: Jam 1–7 = 2×, Jam 8 = 3×, Jam 9–11 = 4×",
+                        ],
+                      },
+                    ].map((card) => (
+                      <div
+                        key={card.title}
+                        className="p-5 rounded-2xl bg-white/5 border border-white/10"
+                      >
+                        <p className="font-bold text-[#C17A3A] text-sm mb-3">
+                          {card.title}
+                        </p>
+                        <ul className="space-y-2">
+                          {card.rows.map((row) => (
+                            <li
+                              key={row}
+                              className="flex items-start gap-2 text-[#EDE0D0]/70 text-xs"
+                            >
+                              <CheckCircle2 className="w-4 h-4 text-[#9C4A2A] shrink-0 mt-0.5" />
+                              <span>{row}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex items-start gap-3 px-5 py-4 bg-[#9C4A2A]/10 border border-[#9C4A2A]/20 rounded-2xl">
+                    <Scale className="w-5 h-5 text-[#C17A3A] shrink-0 mt-0.5" />
+                    <p className="text-[#EDE0D0]/70 text-xs font-body leading-relaxed">
+                      <strong className="text-white">Batas Jam Lembur:</strong>{" "}
+                      Maksimal <strong>4 jam per hari</strong> dan{" "}
+                      <strong>18 jam per minggu</strong> sesuai PP No. 35 Tahun
+                      2021 Pasal 30. Kalkulator akan memberi peringatan jika
+                      batas ini terlampaui.
                     </p>
                   </div>
-                ))}
-              </div>
+                </section>
 
-              {/* PP 35/2021 detail table */}
-              <section className="space-y-8">
-                <div className="flex items-center gap-4 border-b border-[#7A5C42]/30 pb-4">
-                  <h3 className="text-2xl font-bold font-heading text-white">
-                    🇮🇩 Aturan PP No. 35 Tahun 2021
-                  </h3>
-                </div>
-                <div className="grid md:grid-cols-3 gap-4">
-                  {[
-                    {
-                      title: "Rumus Upah Per Jam",
-                      rows: [
-                        "Upah Per Jam = 1/173 × (Gaji Pokok + Tunjangan Tetap)",
-                        "Angka 173 = rata-rata jam kerja per bulan (40 jam × 52 minggu / 12 bulan ≈ 173)",
-                      ],
-                    },
-                    {
-                      title: "Hari Kerja Biasa",
-                      rows: [
-                        "Jam ke-1: 1.5× upah per jam",
-                        "Jam ke-2 dst: 2× upah per jam",
-                      ],
-                    },
-                    {
-                      title: "Hari Libur / Istirahat",
-                      rows: [
-                        "5 hari kerja: Jam 1–8 = 2×, Jam 9 = 3×, Jam 10–12 = 4×",
-                        "6 hari kerja: Jam 1–7 = 2×, Jam 8 = 3×, Jam 9–11 = 4×",
-                      ],
-                    },
-                  ].map((card) => (
-                    <div
-                      key={card.title}
-                      className="p-5 rounded-2xl bg-white/5 border border-white/10"
-                    >
-                      <p className="font-bold text-[#C17A3A] text-sm mb-3">
-                        {card.title}
-                      </p>
-                      <ul className="space-y-2">
-                        {card.rows.map((row) => (
+                {/* 3. Rumus */}
+                <section className="space-y-8">
+                  <div className="flex items-center gap-4 border-b border-[#7A5C42]/30 pb-4">
+                    <div className="w-10 h-10 rounded-full bg-[#9C4A2A] text-[#1A0E07] flex items-center justify-center font-bold shrink-0">
+                      3
+                    </div>
+                    <h3 className="text-2xl font-bold font-heading text-white">
+                      Rumus Perhitungan
+                    </h3>
+                  </div>
+                  <div className="grid md:grid-cols-2 gap-8 bg-[#1A0E07]/40 p-6 sm:p-10 rounded-[2.5rem] border border-[#7A5C42]/30">
+                    <div className="space-y-6">
+                      <ul className="space-y-4 font-body text-[#EDE0D0] text-sm">
+                        {[
+                          {
+                            label: "Upah/Jam (ID):",
+                            formula: "1/173 × (Gaji Pokok + Tunjangan Tetap)",
+                          },
+                          {
+                            label: "Gaji Reguler:",
+                            formula: "Jam Reguler × Tarif Per Jam",
+                          },
+                          {
+                            label: "Gaji Lembur:",
+                            formula: "Jam Lembur × (Tarif × Pengali)",
+                          },
+                          {
+                            label: "Gaji Kotor:",
+                            formula: "Reguler + Lembur + Bonus",
+                          },
+                          {
+                            label: "Gaji Bersih:",
+                            formula: "Kotor − (Pajak% × Kotor)",
+                          },
+                        ].map((item) => (
                           <li
-                            key={row}
-                            className="flex items-start gap-2 text-[#EDE0D0]/70 text-xs"
+                            key={item.label}
+                            className="flex items-start gap-3"
                           >
-                            <CheckCircle2 className="w-4 h-4 text-[#9C4A2A] shrink-0 mt-0.5" />
-                            <span>{row}</span>
+                            <CheckCircle2 className="w-5 h-5 text-[#C17A3A] shrink-0 mt-0.5" />
+                            <span>
+                              <strong>{item.label}</strong> {item.formula}
+                            </span>
                           </li>
                         ))}
                       </ul>
                     </div>
-                  ))}
-                </div>
-                <div className="flex items-start gap-3 px-5 py-4 bg-[#9C4A2A]/10 border border-[#9C4A2A]/20 rounded-2xl">
-                  <Scale className="w-5 h-5 text-[#C17A3A] shrink-0 mt-0.5" />
-                  <p className="text-[#EDE0D0]/70 text-xs font-body leading-relaxed">
-                    <strong className="text-white">Batas Jam Lembur:</strong>{" "}
-                    Maksimal <strong>4 jam per hari</strong> dan{" "}
-                    <strong>18 jam per minggu</strong> sesuai PP No. 35 Tahun
-                    2021 Pasal 30. Kalkulator akan memberi peringatan jika batas
-                    ini terlampaui.
-                  </p>
-                </div>
-              </section>
-
-              {/* Rumus */}
-              <section className="space-y-8">
-                <div className="flex items-center gap-4 border-b border-[#7A5C42]/30 pb-4">
-                  <h3 className="text-2xl font-bold font-heading text-white">
-                    Rumus Perhitungan
-                  </h3>
-                </div>
-                <div className="grid md:grid-cols-2 gap-8 bg-[#1A0E07]/40 p-6 sm:p-10 rounded-[2.5rem] border border-[#7A5C42]/30">
-                  <div className="space-y-6">
-                    <ul className="space-y-4 font-body text-[#EDE0D0] text-sm">
-                      {[
-                        {
-                          label: "Upah/Jam (ID):",
-                          formula: "1/173 × (Gaji Pokok + Tunjangan Tetap)",
-                        },
-                        {
-                          label: "Gaji Reguler:",
-                          formula: "Jam Reguler × Tarif Per Jam",
-                        },
-                        {
-                          label: "Gaji Lembur:",
-                          formula: "Jam Lembur × (Tarif × Pengali)",
-                        },
-                        {
-                          label: "Gaji Kotor:",
-                          formula: "Reguler + Lembur + Bonus",
-                        },
-                        {
-                          label: "Gaji Bersih:",
-                          formula: "Kotor − (Pajak% × Kotor)",
-                        },
-                      ].map((item) => (
-                        <li key={item.label} className="flex items-start gap-3">
-                          <CheckCircle2 className="w-5 h-5 text-[#C17A3A] shrink-0 mt-0.5" />
-                          <span>
-                            <strong>{item.label}</strong> {item.formula}
+                    <div className="flex justify-center items-center">
+                      <div className="relative w-full max-w-[280px] aspect-square">
+                        <div className="absolute inset-0 bg-[#9C4A2A] blur-[60px] opacity-20 animate-pulse" />
+                        <div className="relative z-10 w-full h-full border-4 border-[#9C4A2A]/20 rounded-full flex flex-col items-center justify-center p-8 text-center bg-[#1A0E07]/40 backdrop-blur-xl">
+                          <span className="text-3xl font-black font-heading text-[#C17A3A]">
+                            1/173
                           </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="flex justify-center items-center">
-                    <div className="relative w-full max-w-[280px] aspect-square">
-                      <div className="absolute inset-0 bg-[#9C4A2A] blur-[60px] opacity-20 animate-pulse" />
-                      <div className="relative z-10 w-full h-full border-4 border-[#9C4A2A]/20 rounded-full flex flex-col items-center justify-center p-8 text-center bg-[#1A0E07]/40 backdrop-blur-xl">
-                        <span className="text-3xl font-black font-heading text-[#C17A3A]">
-                          1/173
-                        </span>
-                        <span className="text-xs font-bold text-white tracking-widest uppercase mt-2">
-                          Faktor Upah/Jam
-                        </span>
-                        <p className="text-[10px] text-[#EDE0D0] opacity-60 mt-4 leading-relaxed italic">
-                          "40 jam × 52 minggu ÷ 12 bulan ≈ 173 jam/bulan — PP
-                          35/2021 Pasal 31"
-                        </p>
+                          <span className="text-xs font-bold text-white tracking-widest uppercase mt-2">
+                            Faktor Upah/Jam
+                          </span>
+                          <p className="text-[10px] text-[#EDE0D0] opacity-60 mt-4 leading-relaxed italic">
+                            "40 jam × 52 minggu ÷ 12 bulan ≈ 173 jam/bulan — PP
+                            35/2021 Pasal 31"
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </section>
+                </section>
 
-              {/* Regulasi internasional */}
-              <section className="space-y-8">
-                <div className="flex items-center gap-4 border-b border-[#7A5C42]/30 pb-4">
-                  <Globe className="w-6 h-6 text-[#C17A3A]" />
-                  <h3 className="text-2xl font-bold font-heading text-white">
-                    Regulasi Internasional
-                  </h3>
-                </div>
-                <div className="grid sm:grid-cols-2 gap-4">
-                  {[
-                    {
-                      country: "🇮🇩 Indonesia",
-                      rule: "PP No. 35 Tahun 2021: upah per jam = 1/173 × gaji. Lembur maks. 4 jam/hari & 18 jam/minggu.",
-                    },
-                    {
-                      country: "🇺🇸 Amerika Serikat",
-                      rule: "FLSA mengharuskan 1.5× untuk jam > 40/minggu bagi karyawan non-exempt.",
-                    },
-                    {
-                      country: "🇪🇺 Uni Eropa",
-                      rule: "Arahan Waktu Kerja membatasi jam kerja 48 jam/minggu. Tarif lembur ditentukan negara masing-masing.",
-                    },
-                    {
-                      country: "🇦🇺 Australia",
-                      rule: "Umumnya 1.5× untuk beberapa jam pertama, kemudian 2× setelahnya sesuai Modern Awards.",
-                    },
-                  ].map((item) => (
-                    <div
-                      key={item.country}
-                      className="p-5 rounded-2xl bg-white/5 border border-white/10"
-                    >
-                      <p className="font-bold text-base text-white mb-2">
-                        {item.country}
-                      </p>
-                      <p className="text-[#EDE0D0]/70 text-sm font-body leading-relaxed">
-                        {item.rule}
-                      </p>
+                {/* 4. Regulasi internasional */}
+                <section className="space-y-8">
+                  <div className="flex items-center gap-4 border-b border-[#7A5C42]/30 pb-4">
+                    <div className="w-10 h-10 rounded-full bg-[#9C4A2A] text-[#1A0E07] flex items-center justify-center font-bold shrink-0">
+                      4
                     </div>
-                  ))}
-                </div>
-              </section>
+                    <Globe className="w-6 h-6 text-[#C17A3A] hidden sm:block" />
+                    <h3 className="text-2xl font-bold font-heading text-white">
+                      Regulasi Internasional
+                    </h3>
+                  </div>
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    {[
+                      {
+                        country: "🇮🇩 Indonesia",
+                        rule: "PP No. 35 Tahun 2021: upah per jam = 1/173 × gaji. Lembur maks. 4 jam/hari & 18 jam/minggu.",
+                      },
+                      {
+                        country: "🇺🇸 Amerika Serikat",
+                        rule: "FLSA mengharuskan 1.5× untuk jam > 40/minggu bagi karyawan non-exempt.",
+                      },
+                      {
+                        country: "🇪🇺 Uni Eropa",
+                        rule: "Arahan Waktu Kerja membatasi jam kerja 48 jam/minggu. Tarif lembur ditentukan negara masing-masing.",
+                      },
+                      {
+                        country: "🇦🇺 Australia",
+                        rule: "Umumnya 1.5× untuk beberapa jam pertama, kemudian 2× setelahnya sesuai Modern Awards.",
+                      },
+                    ].map((item) => (
+                      <div
+                        key={item.country}
+                        className="p-5 rounded-2xl bg-white/5 border border-white/10"
+                      >
+                        <p className="font-bold text-base text-white mb-2">
+                          {item.country}
+                        </p>
+                        <p className="text-[#EDE0D0]/70 text-sm font-body leading-relaxed">
+                          {item.rule}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
 
-              {/* FAQ */}
-              <section className="space-y-8">
-                <div className="flex items-center gap-4 border-b border-[#7A5C42]/30 pb-4">
-                  <BookOpen className="w-6 h-6 text-[#C17A3A]" />
-                  <h3 className="text-2xl font-bold font-heading text-white">
-                    Pertanyaan Umum
-                  </h3>
-                </div>
-                <div className="flex flex-col gap-4">
-                  {[
-                    {
-                      q: "Mengapa angka 1/173 digunakan?",
-                      a: "Angka 173 adalah estimasi jam kerja per bulan: 40 jam/minggu × 52 minggu / 12 bulan ≈ 173 jam. Ini adalah standar yang ditetapkan PP No. 35 Tahun 2021.",
-                    },
-                    {
-                      q: "Berapa batas jam lembur di Indonesia?",
-                      a: "Menurut PP No. 35 Tahun 2021 Pasal 30: maksimal 4 jam per hari dan 18 jam per minggu. Kalkulator ini memberi peringatan otomatis jika batas ini terlampaui.",
-                    },
-                    {
-                      q: "Apa perbedaan mode Global vs Indonesia?",
-                      a: "Mode Global menggunakan tarif per jam dan pengali yang Anda tentukan sendiri. Mode Indonesia menghitung upah per jam otomatis dari gaji bulanan (1/173), lalu menerapkan aturan multiplier PP 35/2021.",
-                    },
-                    {
-                      q: "Apakah tunjangan tetap masuk perhitungan?",
-                      a: "Ya, di mode Indonesia Anda bisa mengaktifkan tunjangan tetap. Ini akan digabungkan dengan gaji pokok sebelum dikalikan 1/173, sesuai ketentuan PP No. 35 Tahun 2021.",
-                    },
-                  ].map((item) => (
-                    <div
-                      key={item.q}
-                      className="p-5 rounded-2xl bg-white/5 border border-white/10"
-                    >
-                      <p className="font-bold text-white text-sm mb-2">
-                        {item.q}
-                      </p>
-                      <p className="text-[#EDE0D0]/70 text-sm font-body leading-relaxed">
-                        {item.a}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </section>
+                {/* FAQ */}
+                <section className="space-y-8">
+                  <div className="flex items-center gap-4 border-b border-[#7A5C42]/30 pb-4">
+                    <BookOpen className="w-6 h-6 text-[#C17A3A]" />
+                    <h3 className="text-2xl font-bold font-heading text-white">
+                      Pertanyaan Umum
+                    </h3>
+                  </div>
+                  <div className="flex flex-col gap-4">
+                    {[
+                      {
+                        q: "Mengapa angka 1/173 digunakan?",
+                        a: "Angka 173 adalah estimasi jam kerja per bulan: 40 jam/minggu × 52 minggu / 12 bulan ≈ 173 jam. Ini adalah standar yang ditetapkan PP No. 35 Tahun 2021.",
+                      },
+                      {
+                        q: "Berapa batas jam lembur di Indonesia?",
+                        a: "Menurut PP No. 35 Tahun 2021 Pasal 30: maksimal 4 jam per hari dan 18 jam per minggu. Kalkulator ini memberi peringatan otomatis jika batas ini terlampaui.",
+                      },
+                      {
+                        q: "Apa perbedaan mode Global vs Indonesia?",
+                        a: "Mode Global menggunakan tarif per jam dan pengali yang Anda tentukan sendiri. Mode Indonesia menghitung upah per jam otomatis dari gaji bulanan (1/173), lalu menerapkan aturan multiplier PP 35/2021.",
+                      },
+                      {
+                        q: "Apakah tunjangan tetap masuk perhitungan?",
+                        a: "Ya, di mode Indonesia Anda bisa mengaktifkan tunjangan tetap. Ini akan digabungkan dengan gaji pokok sebelum dikalikan 1/173, sesuai ketentuan PP No. 35 Tahun 2021.",
+                      },
+                    ].map((item) => (
+                      <div
+                        key={item.q}
+                        className="p-5 rounded-2xl bg-white/5 border border-white/10"
+                      >
+                        <p className="font-bold text-white text-sm mb-2">
+                          {item.q}
+                        </p>
+                        <p className="text-[#EDE0D0]/70 text-sm font-body leading-relaxed">
+                          {item.a}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              </div>
 
               {/* Disclaimer */}
               <div className="flex items-start gap-4 p-5 rounded-2xl bg-[#9C4A2A]/10 border border-[#9C4A2A]/20">
