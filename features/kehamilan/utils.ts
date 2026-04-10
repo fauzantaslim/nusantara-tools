@@ -1,45 +1,5 @@
-export type PregnancyMethod =
-  | "LMP"
-  | "CONCEPTION"
-  | "IVF"
-  | "DUEDATE"
-  | "ULTRASOUND";
-
-export interface PregnancyInput {
-  method: PregnancyMethod;
-  dateStr: string; // YYYY-MM-DD
-  cycleLength?: number;
-  embryoAge?: number;
-  ultrasoundWeeks?: number;
-  ultrasoundDays?: number;
-}
-
-export interface PregnancyMilestones {
-  tri1Start: Date;
-  tri1End: Date;
-  tri2Start: Date;
-  tri2End: Date;
-  tri3Start: Date;
-  tri3End: Date;
-  viability: Date;
-  firstUltrasoundStart: Date;
-  firstUltrasoundEnd: Date;
-  anatomyScanStart: Date;
-  anatomyScanEnd: Date;
-  glucoseTestStart: Date;
-  glucoseTestEnd: Date;
-  fullTerm: Date;
-}
-
-export interface PregnancyResult {
-  edd: Date;
-  conceptionDate: Date;
-  currentWeeks: number;
-  currentDays: number;
-  trimester: 1 | 2 | 3;
-  progressPercent: number;
-  milestones: PregnancyMilestones;
-}
+import { PREGNANCY_METHOD } from "@/lib/constants";
+import { PregnancyInput, PregnancyResult, PregnancyMilestones } from "./types";
 
 export function parseLocalDate(dateString: string): Date {
   const [year, month, day] = dateString.split("-").map(Number);
@@ -71,23 +31,23 @@ export function calculateEDD(input: PregnancyInput): Date {
   const baseDate = parseLocalDate(input.dateStr);
 
   switch (input.method) {
-    case "LMP":
+    case PREGNANCY_METHOD.LMP:
       const cycleLength = input.cycleLength || 28;
       // EDD = LMP + 280 days + (Cycle Length - 28 days)
       return addDays(baseDate, 280 + (cycleLength - 28));
-    case "CONCEPTION":
+    case PREGNANCY_METHOD.CONCEPTION:
       // EDD = Conception + 266 days
       return addDays(baseDate, 266);
-    case "IVF":
+    case PREGNANCY_METHOD.IVF:
       const embryoAge = input.embryoAge || 3;
       // Tanggal Jatuh Tempo = Tanggal Transfer + (267 − Usia Embrio dalam Hari)
       return addDays(baseDate, 267 - embryoAge);
-    case "ULTRASOUND":
+    case PREGNANCY_METHOD.ULTRASOUND:
       const weeks = input.ultrasoundWeeks || 0;
       const days = input.ultrasoundDays || 0;
       const totalGestationalDays = weeks * 7 + days;
       return addDays(baseDate, 280 - totalGestationalDays);
-    case "DUEDATE":
+    case PREGNANCY_METHOD.DUEDATE:
       return baseDate;
     default:
       return baseDate;
@@ -101,7 +61,7 @@ export function calculatePregnancy(input: PregnancyInput): PregnancyResult {
   const estimatedLMP = addDays(edd, -280);
   const conceptionDate = addDays(estimatedLMP, 14); // Approximate conception date
 
-  const today = new Date(); // Or for reproducible tests, let this be passed in, but we'll use local 'now'
+  const today = new Date();
   const gestationalDays = getDaysDiff(estimatedLMP, today);
 
   // Progress clamping
@@ -121,28 +81,20 @@ export function calculatePregnancy(input: PregnancyInput): PregnancyResult {
   }
 
   const milestones: PregnancyMilestones = {
-    // Trimester 1: LMP to 13 weeks 6 days
     tri1Start: estimatedLMP,
     tri1End: addDays(estimatedLMP, 13 * 7 + 6),
-    // Trimester 2: 14 weeks to 27 weeks 6 days
     tri2Start: addDays(estimatedLMP, 14 * 7),
     tri2End: addDays(estimatedLMP, 27 * 7 + 6),
-    // Trimester 3: 28 weeks to EDD
     tri3Start: addDays(estimatedLMP, 28 * 7),
     tri3End: edd,
-
     viability: addDays(estimatedLMP, 24 * 7),
-
     firstUltrasoundStart: addDays(estimatedLMP, 8 * 7),
     firstUltrasoundEnd: addDays(estimatedLMP, 12 * 7),
-
     anatomyScanStart: addDays(estimatedLMP, 18 * 7),
     anatomyScanEnd: addDays(estimatedLMP, 22 * 7),
-
     glucoseTestStart: addDays(estimatedLMP, 24 * 7),
     glucoseTestEnd: addDays(estimatedLMP, 28 * 7),
-
-    fullTerm: addDays(estimatedLMP, 37 * 7), // full term is usually 37 weeks
+    fullTerm: addDays(estimatedLMP, 37 * 7),
   };
 
   return {

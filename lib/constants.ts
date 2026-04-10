@@ -52,6 +52,20 @@ export type CalorieFormula =
   (typeof CALORIE_FORMULA)[keyof typeof CALORIE_FORMULA];
 
 /**
+ * Pregnancy Specific
+ */
+export const PREGNANCY_METHOD = {
+  LMP: "LMP",
+  CONCEPTION: "CONCEPTION",
+  IVF: "IVF",
+  ULTRASOUND: "ULTRASOUND",
+  DUEDATE: "DUEDATE",
+} as const;
+
+export type PregnancyMethod =
+  (typeof PREGNANCY_METHOD)[keyof typeof PREGNANCY_METHOD];
+
+/**
  * BMI Specific
  */
 export const BMI_CATEGORY = {
