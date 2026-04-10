@@ -1,28 +1,18 @@
-export type WeightUnit = "kg" | "lbs";
-export type FormulaType = "epley" | "brzycki" | "lombardi";
+export type {
+  WeightUnit,
+  FormulaType,
+  OneRMInput,
+  PercentageRow,
+  OneRMResult,
+} from "./types";
 
-export interface OneRMInput {
-  weight: number;
-  reps: number;
-  unit: WeightUnit;
-  outputUnit: WeightUnit;
-  formula: FormulaType;
-}
-
-export interface PercentageRow {
-  percent: number;
-  weight: number;
-  reps: number;
-}
-
-export interface OneRMResult {
-  oneRM: number;
-  unit: WeightUnit;
-  formula: FormulaType;
-  formulaLabel: string;
-  percentageTable: PercentageRow[];
-  comparisonResults: { formula: FormulaType; label: string; value: number }[];
-}
+import {
+  WeightUnit,
+  FormulaType,
+  OneRMInput,
+  PercentageRow,
+  OneRMResult,
+} from "./types";
 
 // --- Formulas ---
 function calculateEpley(weight: number, reps: number): number {
