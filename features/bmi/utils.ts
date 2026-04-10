@@ -1,31 +1,13 @@
-export type BMICategory = "Kurus" | "Normal" | "Berlebih" | "Obesitas";
-export type SystemType = "metric" | "imperial";
-export type GenderType = "male" | "female";
-export type ActivityLevel =
-  | "sedentary"
-  | "light"
-  | "moderate"
-  | "active"
-  | "very_active";
+export type {
+  BMICategory,
+  SystemType,
+  GenderType,
+  ActivityLevel,
+  BMIInput,
+  BMIResult,
+} from "./types";
 
-export interface BMIInput {
-  system: SystemType;
-  weight: number;
-  heightRaw1: number; // cm if metric, ft if imperial
-  heightRaw2?: number; // unused if metric, in if imperial
-  gender: GenderType;
-  age: number;
-  activityLevel: ActivityLevel;
-}
-
-export interface BMIResult {
-  score: number;
-  category: BMICategory;
-  insight: string;
-  idealWeightRange: string;
-  bodyFatPercentage: number;
-  dailyCalories: number;
-}
+import { BMICategory, ActivityLevel, BMIInput, BMIResult } from "./types";
 
 export function calculateBMI(input: BMIInput): BMIResult {
   const {
