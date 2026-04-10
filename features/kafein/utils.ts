@@ -1,13 +1,13 @@
-export type WeightUnit = "kg" | "lbs";
-export type UserProfile = "adult" | "pregnant" | "teen";
-export type CaffeineStatus = "Safe" | "Moderate" | "High" | "Excessive";
-
-export interface CaffeineSource {
-  id: string;
-  name: string;
-  mgPerUnit: number; // caffeine per serving in mg
-  unit: string; // e.g. "per gelas (8oz)", "per shot"
-}
+import { WeightUnit } from "@/lib/constants";
+import {
+  UserProfile,
+  CaffeineStatus,
+  CaffeineSource,
+  CaffeineEntry,
+  CaffeineInput,
+  CaffeineEntryResult,
+  CaffeineResult,
+} from "./types";
 
 export const CAFFEINE_SOURCES: CaffeineSource[] = [
   { id: "kopi", name: "Kopi (8 oz)", mgPerUnit: 95, unit: "per gelas" },
@@ -69,38 +69,15 @@ export const CAFFEINE_SOURCES: CaffeineSource[] = [
   },
 ];
 
-export interface CaffeineEntry {
-  id: string;
-  sourceId: string;
-  quantity: number;
-  customMg?: number; // used only when sourceId === 'custom'
-}
-
-export interface CaffeineInput {
-  entries: CaffeineEntry[];
-  bodyWeight?: number;
-  bodyWeightUnit?: WeightUnit;
-  profile: UserProfile;
-}
-
-export interface CaffeineEntryResult {
-  name: string;
-  quantity: number;
-  mgPerUnit: number;
-  totalMg: number;
-}
-
-export interface CaffeineResult {
-  totalMg: number;
-  perBodyWeightMgKg: number | null;
-  recommendedLimitMg: number;
-  perBodyWeightLimit: number | null; // 6 × kg
-  status: CaffeineStatus;
-  statusColor: "green" | "yellow" | "orange" | "red";
-  insight: string;
-  breakdown: CaffeineEntryResult[];
-  profile: UserProfile;
-}
+export type {
+  UserProfile,
+  CaffeineStatus,
+  CaffeineSource,
+  CaffeineEntry,
+  CaffeineInput,
+  CaffeineEntryResult,
+  CaffeineResult,
+};
 
 const PROFILE_LIMITS: Record<UserProfile, number> = {
   adult: 400,
