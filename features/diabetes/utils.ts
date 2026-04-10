@@ -1,78 +1,54 @@
-// Finnish Diabetes Risk Score (FINDRISC) — Standard Implementation
-// Source: Lindström & Tuomilehto, Diabetes Care 2003
-// Max total score: 26 points | Validated for ~10-year T2D risk
-
-export type Gender = "male" | "female";
-export type AgeRange = "lt45" | "45_54" | "55_64" | "gte65";
-export type BMICategory = "lt25" | "25_30" | "gt30";
-export type WaistMale = "lt94" | "94_102" | "gt102";
-export type WaistFemale = "lt80" | "80_88" | "gt88";
-export type FamilyHistory = "none" | "distant" | "close"; // none / grandparent+aunt+cousin / parent+sibling+child
-export type RiskCategory =
-  | "low"
-  | "slightly_elevated"
-  | "moderate"
-  | "high"
-  | "very_high";
-
-export interface FindriscInput {
-  gender: Gender;
-  ageRange: AgeRange;
-  bmiCategory: BMICategory;
-  waistMale?: WaistMale; // required when gender === 'male'
-  waistFemale?: WaistFemale; // required when gender === 'female'
-  physicalActivity: boolean; // true = active (≥30 min/day)
-  eatsVegetables: boolean; // true = daily
-  bpMedication: boolean; // true = on BP meds
-  highBloodGlucoseHistory: boolean; // true = ever told high blood sugar
-  familyHistory: FamilyHistory;
-}
-
-export interface FindriscResult {
-  totalScore: number;
-  maxScore: 26;
-  riskPercent: number;
-  category: RiskCategory;
-  factors: FactorDetail[];
-  recommendations: string[];
-  topContributors: string[];
-}
-
-export interface FactorDetail {
-  label: string;
-  points: number;
-  maxPoints: number;
-  description: string;
-  isHighContributor: boolean;
-}
+import {
+  Gender,
+  AgeRange,
+  BMICategory,
+  WaistMale,
+  WaistFemale,
+  FamilyHistory,
+  RiskCategory,
+  FindriscInput,
+  FindriscResult,
+  FactorDetail,
+  AGE_RANGE,
+  BMI_CATEGORY,
+  WAIST_MALE,
+  WAIST_FEMALE,
+  FAMILY_HISTORY,
+  RISK_CATEGORY,
+  GENDER,
+} from "./types";
 
 // ─── Scoring tables ───────────────────────────────────────────────────────────
 
 const AGE_SCORES: Record<AgeRange, number> = {
-  lt45: 0,
-  "45_54": 2,
-  "55_64": 3,
-  gte65: 4,
+  [AGE_RANGE.LT45]: 0,
+  [AGE_RANGE.RANGE_45_54]: 2,
+  [AGE_RANGE.RANGE_55_64]: 3,
+  [AGE_RANGE.GTE65]: 4,
 };
+
 const BMI_SCORES: Record<BMICategory, number> = {
-  lt25: 0,
-  "25_30": 1,
-  gt30: 3,
+  [BMI_CATEGORY.LT25]: 0,
+  [BMI_CATEGORY.RANGE_25_30]: 1,
+  [BMI_CATEGORY.GT30]: 3,
 };
+
 const WAIST_MALE_SCORES: Record<WaistMale, number> = {
-  lt94: 0,
-  "94_102": 3,
-  gt102: 4,
+  [WAIST_MALE.LT94]: 0,
+  [WAIST_MALE.RANGE_94_102]: 3,
+  [WAIST_MALE.GT102]: 4,
 };
+
 const WAIST_FEMALE_SCORES: Record<WaistFemale, number> = {
-  lt80: 0,
-  "80_88": 3,
-  gt88: 4,
+  [WAIST_FEMALE.LT80]: 0,
+  [WAIST_FEMALE.RANGE_80_88]: 3,
+  [WAIST_FEMALE.GT88]: 4,
 };
+
 const FAMILY_SCORES: Record<FamilyHistory, number> = {
-  none: 0,
-  distant: 3,
-  close: 5,
+  [FAMILY_HISTORY.NONE]: 0,
+  [FAMILY_HISTORY.DISTANT]: 3,
+  [FAMILY_HISTORY.CLOSE]: 5,
 };
 
 // ─── Category configuration ───────────────────────────────────────────────────
@@ -95,7 +71,7 @@ export const CATEGORY_META: Record<
     maxPct: number;
   }
 > = {
-  low: {
+  [RISK_CATEGORY.LOW]: {
     label: "Risiko Rendah",
     scoreRange: "0–6",
     chance: "~1 dari 100 orang berisiko terkena diabetes dalam 10 tahun.",
@@ -111,7 +87,7 @@ export const CATEGORY_META: Record<
     minPct: 1,
     maxPct: 4,
   },
-  slightly_elevated: {
+  [RISK_CATEGORY.SLIGHTLY_ELEVATED]: {
     label: "Sedikit Meningkat",
     scoreRange: "7–11",
     chance: "~1 dari 25 orang berisiko terkena diabetes dalam 10 tahun.",
@@ -127,7 +103,7 @@ export const CATEGORY_META: Record<
     minPct: 4,
     maxPct: 17,
   },
-  moderate: {
+  [RISK_CATEGORY.MODERATE]: {
     label: "Risiko Sedang",
     scoreRange: "12–14",
     chance: "~1 dari 6 orang berisiko terkena diabetes dalam 10 tahun.",
@@ -143,7 +119,7 @@ export const CATEGORY_META: Record<
     minPct: 17,
     maxPct: 35,
   },
-  high: {
+  [RISK_CATEGORY.HIGH]: {
     label: "Risiko Tinggi ⚠️",
     scoreRange: "15–20",
     chance: "~1 dari 3 orang berisiko terkena diabetes dalam 10 tahun.",
@@ -159,7 +135,7 @@ export const CATEGORY_META: Record<
     minPct: 33,
     maxPct: 55,
   },
-  very_high: {
+  [RISK_CATEGORY.VERY_HIGH]: {
     label: "Risiko Sangat Tinggi ⚠️",
     scoreRange: "≥21",
     chance: "~1 dari 2 orang berisiko terkena diabetes dalam 10 tahun.",
@@ -178,11 +154,11 @@ export const CATEGORY_META: Record<
 };
 
 function getCategory(score: number): RiskCategory {
-  if (score <= 6) return "low";
-  if (score <= 11) return "slightly_elevated";
-  if (score <= 14) return "moderate";
-  if (score <= 20) return "high";
-  return "very_high";
+  if (score <= 6) return RISK_CATEGORY.LOW;
+  if (score <= 11) return RISK_CATEGORY.SLIGHTLY_ELEVATED;
+  if (score <= 14) return RISK_CATEGORY.MODERATE;
+  if (score <= 20) return RISK_CATEGORY.HIGH;
+  return RISK_CATEGORY.VERY_HIGH;
 }
 
 function scoreToPercent(score: number, cat: RiskCategory): number {
@@ -197,31 +173,31 @@ function scoreToPercent(score: number, cat: RiskCategory): number {
 // ─── Recommendations ──────────────────────────────────────────────────────────
 
 const RECOMMENDATIONS: Record<RiskCategory, string[]> = {
-  low: [
+  [RISK_CATEGORY.LOW]: [
     "Pertahankan berat badan ideal dan konsumsi sayur, buah, dan biji-bijian setiap hari.",
     "Lakukan aktivitas fisik ≥30 menit sehari, minimal 5 hari per minggu.",
     "Periksakan gula darah secara rutin setidaknya setiap 3 tahun.",
     "Hindari merokok dan batasi konsumsi alkohol.",
   ],
-  slightly_elevated: [
+  [RISK_CATEGORY.SLIGHTLY_ELEVATED]: [
     "Tingkatkan aktivitas fisik ke 150–300 menit per minggu secara konsisten.",
     "Kurangi porsi karbohidrat olahan dan ganti dengan sumber serat tinggi.",
     "Targetkan penurunan berat badan 5–7% jika lingkar pinggang di atas normal.",
     "Periksakan kadar gula darah dan HbA1c setiap tahun.",
   ],
-  moderate: [
+  [RISK_CATEGORY.MODERATE]: [
     "Konsultasikan dengan dokter untuk tes gula darah puasa dan HbA1c segera.",
     "Mulai program penurunan berat badan terstruktur dengan target realistis.",
     "Pantau tekanan darah secara rutin; tangani hipertensi jika ada.",
     "Ikuti pola makan Mediterania atau DASH yang terbukti mengurangi risiko diabetes.",
   ],
-  high: [
+  [RISK_CATEGORY.HIGH]: [
     "Temui dokter segera untuk evaluasi lengkap (gula darah puasa, HbA1c, OGTT).",
     "Pertimbangkan mengikuti Program Pencegahan Diabetes terstruktur.",
     "Target penurunan berat badan 7–10% dalam 6 bulan ke depan.",
     "Diskusikan dengan dokter apakah intervensi farmakologis (Metformin) diperlukan.",
   ],
-  very_high: [
+  [RISK_CATEGORY.VERY_HIGH]: [
     "Segera cari evaluasi medis—Anda mungkin sudah dalam kondisi prediabetes atau diabetes.",
     "Lakukan tes HbA1c, gula darah puasa, dan OGTT secepatnya.",
     "Pantau gula darah mandiri setiap hari jika tersedia alat.",
@@ -237,27 +213,18 @@ export function calcBMI(heightCm: number, weightKg: number): number {
 }
 
 export function bmiToCategory(bmi: number): BMICategory {
-  if (bmi < 25) return "lt25";
-  if (bmi <= 30) return "25_30";
-  return "gt30";
-}
-
-// ─── Unit helpers ──────────────────────────────────────────────────────────────
-
-export function ftInToCm(feet: number, inches: number): number {
-  return Math.round((feet * 30.48 + inches * 2.54) * 10) / 10;
-}
-export function lbsToKg(lbs: number): number {
-  return Math.round((lbs / 2.20462) * 10) / 10;
+  if (bmi < 25) return BMI_CATEGORY.LT25;
+  if (bmi <= 30) return BMI_CATEGORY.RANGE_25_30;
+  return BMI_CATEGORY.GT30;
 }
 
 // ─── Main calculation ──────────────────────────────────────────────────────────
 
 export function calculateFINDRISC(input: FindriscInput): FindriscResult {
   const waistPoints =
-    input.gender === "male"
-      ? WAIST_MALE_SCORES[input.waistMale ?? "lt94"]
-      : WAIST_FEMALE_SCORES[input.waistFemale ?? "lt80"];
+    input.gender === GENDER.MALE
+      ? WAIST_MALE_SCORES[input.waistMale ?? WAIST_MALE.LT94]
+      : WAIST_FEMALE_SCORES[input.waistFemale ?? WAIST_FEMALE.LT80];
 
   const scores = {
     age: AGE_SCORES[input.ageRange],
@@ -280,10 +247,11 @@ export function calculateFINDRISC(input: FindriscInput): FindriscResult {
       points: scores.age,
       maxPoints: 4,
       description: {
-        lt45: "Di bawah 45 tahun (risiko lebih rendah).",
-        "45_54": "45–54 tahun — usia mulai meningkatkan risiko.",
-        "55_64": "55–64 tahun — risiko meningkat lebih jauh.",
-        gte65: "≥65 tahun — grup usia tertinggi dalam risiko.",
+        [AGE_RANGE.LT45]: "Di bawah 45 tahun (risiko lebih rendah).",
+        [AGE_RANGE.RANGE_45_54]:
+          "45–54 tahun — usia mulai meningkatkan risiko.",
+        [AGE_RANGE.RANGE_55_64]: "55–64 tahun — risiko meningkat lebih jauh.",
+        [AGE_RANGE.GTE65]: "≥65 tahun — grup usia tertinggi dalam risiko.",
       }[input.ageRange],
       isHighContributor: scores.age >= 3,
     },
@@ -292,9 +260,10 @@ export function calculateFINDRISC(input: FindriscInput): FindriscResult {
       points: scores.bmi,
       maxPoints: 3,
       description: {
-        lt25: "BMI normal (< 25 kg/m²)",
-        "25_30": "Kelebihan berat badan (25–30 kg/m²)",
-        gt30: "Obesitas (> 30 kg/m²) — faktor risiko signifikan.",
+        [BMI_CATEGORY.LT25]: "BMI normal (< 25 kg/m²)",
+        [BMI_CATEGORY.RANGE_25_30]: "Kelebihan berat badan (25–30 kg/m²)",
+        [BMI_CATEGORY.GT30]:
+          "Obesitas (> 30 kg/m²) — faktor risiko signifikan.",
       }[input.bmiCategory],
       isHighContributor: scores.bmi >= 3,
     },
@@ -303,17 +272,18 @@ export function calculateFINDRISC(input: FindriscInput): FindriscResult {
       points: scores.waist,
       maxPoints: 4,
       description:
-        input.gender === "male"
+        input.gender === GENDER.MALE
           ? {
-              lt94: "Normal (< 94 cm).",
-              "94_102": "Elevated (94–102 cm) — perhatikan berat badan.",
-              gt102: "Sangat tinggi (> 102 cm) — risiko tinggi.",
-            }[input.waistMale ?? "lt94"]
+              [WAIST_MALE.LT94]: "Normal (< 94 cm).",
+              [WAIST_MALE.RANGE_94_102]:
+                "Elevated (94–102 cm) — perhatikan berat badan.",
+              [WAIST_MALE.GT102]: "Sangat tinggi (> 102 cm) — risiko tinggi.",
+            }[input.waistMale ?? WAIST_MALE.LT94]
           : {
-              lt80: "Normal (< 80 cm).",
-              "80_88": "Elevated (80–88 cm).",
-              gt88: "Sangat tinggi (> 88 cm) — risiko tinggi.",
-            }[input.waistFemale ?? "lt80"],
+              [WAIST_FEMALE.LT80]: "Normal (< 80 cm).",
+              [WAIST_FEMALE.RANGE_80_88]: "Elevated (80–88 cm).",
+              [WAIST_FEMALE.GT88]: "Sangat tinggi (> 88 cm) — risiko tinggi.",
+            }[input.waistFemale ?? WAIST_FEMALE.LT80],
       isHighContributor: scores.waist >= 4,
     },
     {
@@ -357,9 +327,10 @@ export function calculateFINDRISC(input: FindriscInput): FindriscResult {
       points: scores.family,
       maxPoints: 5,
       description: {
-        none: "Tidak ada kerabat dengan diabetes.",
-        distant: "Ada kerabat jauh (kakek/nenek, paman/bibi, sepupu).",
-        close:
+        [FAMILY_HISTORY.NONE]: "Tidak ada kerabat dengan diabetes.",
+        [FAMILY_HISTORY.DISTANT]:
+          "Ada kerabat jauh (kakek/nenek, paman/bibi, sepupu).",
+        [FAMILY_HISTORY.CLOSE]:
           "Ada kerabat dekat (orang tua, saudara, anak) — risiko genetik tinggi.",
       }[input.familyHistory],
       isHighContributor: scores.family >= 5,

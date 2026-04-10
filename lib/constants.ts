@@ -97,3 +97,63 @@ export const ONERM_FORMULA = {
 
 export type OneRMFormulaType =
   (typeof ONERM_FORMULA)[keyof typeof ONERM_FORMULA];
+
+/**
+ * Diabetes (FINDRISC) Specific
+ */
+export const DIABETES_AGE_RANGE = {
+  LT45: "lt45",
+  RANGE_45_54: "45_54",
+  RANGE_55_64: "55_64",
+  GTE65: "gte65",
+} as const;
+
+export type DiabetesAgeRange =
+  (typeof DIABETES_AGE_RANGE)[keyof typeof DIABETES_AGE_RANGE];
+
+export const DIABETES_BMI_CATEGORY = {
+  LT25: "lt25",
+  RANGE_25_30: "25_30",
+  GT30: "gt30",
+} as const;
+
+export type DiabetesBMICategory =
+  (typeof DIABETES_BMI_CATEGORY)[keyof typeof DIABETES_BMI_CATEGORY];
+
+export const DIABETES_WAIST_MALE = {
+  LT94: "lt94",
+  RANGE_94_102: "94_102",
+  GT102: "gt102",
+} as const;
+
+export type DiabetesWaistMale =
+  (typeof DIABETES_WAIST_MALE)[keyof typeof DIABETES_WAIST_MALE];
+
+export const DIABETES_WAIST_FEMALE = {
+  LT80: "lt80",
+  RANGE_80_88: "80_88",
+  GT88: "gt88",
+} as const;
+
+export type DiabetesWaistFemale =
+  (typeof DIABETES_WAIST_FEMALE)[keyof typeof DIABETES_WAIST_FEMALE];
+
+export const DIABETES_FAMILY_HISTORY = {
+  NONE: "none",
+  DISTANT: "distant",
+  CLOSE: "close",
+} as const;
+
+export type DiabetesFamilyHistory =
+  (typeof DIABETES_FAMILY_HISTORY)[keyof typeof DIABETES_FAMILY_HISTORY];
+
+export const DIABETES_RISK_CATEGORY = {
+  LOW: "low",
+  SLIGHTLY_ELEVATED: "slightly_elevated",
+  MODERATE: "moderate",
+  HIGH: "high",
+  VERY_HIGH: "very_high",
+} as const;
+
+export type DiabetesRiskCategory =
+  (typeof DIABETES_RISK_CATEGORY)[keyof typeof DIABETES_RISK_CATEGORY];
