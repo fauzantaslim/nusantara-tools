@@ -9,24 +9,19 @@ import {
   startOfDay,
 } from "date-fns";
 import { id } from "date-fns/locale";
+import { OVULATION_PHASE, DAY_TYPE } from "@/lib/constants";
+import {
+  MasaSuburInput,
+  CycleResult,
+  MasaSuburResult,
+  DayType,
+  OvulationPhase,
+  CycleSummary,
+} from "./types";
 
-export interface MasaSuburInput {
-  firstDayOfLastPeriod: string; // ISO string 'YYYY-MM-DD'
-  periodDuration: number;
-  averageCycleLength: number;
-}
-
-export interface CycleResult {
-  periodStart: Date;
-  periodEnd: Date;
-  ovulationDate: Date;
-  fertileWindowStart: Date;
-  fertileWindowEnd: Date;
-  nextPeriodStart: Date;
-}
-
-export interface MasaSuburResult {
-  cycles: CycleResult[];
+export function parseLocalDate(dateString: string): Date {
+  const parts = dateString.split("-");
+  return new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
 }
 
 export function calculateMasaSubur(input: MasaSuburInput): MasaSuburResult {
@@ -45,12 +40,7 @@ export function calculateMasaSubur(input: MasaSuburInput): MasaSuburResult {
   }
 
   const cycles: CycleResult[] = [];
-  const parts = firstDayOfLastPeriod.split("-");
-  let currentStart = new Date(
-    Number(parts[0]),
-    Number(parts[1]) - 1,
-    Number(parts[2]),
-  );
+  let currentStart = parseLocalDate(firstDayOfLastPeriod);
 
   for (let i = 0; i < 6; i++) {
     const periodEnd = addDays(currentStart, periodDuration - 1);
@@ -96,13 +86,11 @@ export function getDaysInMonth(year: number, month: number) {
   return days;
 }
 
-export type DayType = "normal" | "period" | "fertile" | "ovulation";
-
 export function getDayType(date: Date, cycles: CycleResult[]): DayType {
   for (const cycle of cycles) {
     // Check ovulation (highest priority)
     if (isSameDay(date, cycle.ovulationDate)) {
-      return "ovulation";
+      return DAY_TYPE.OVULATION;
     }
 
     // Check period
@@ -111,7 +99,7 @@ export function getDayType(date: Date, cycles: CycleResult[]): DayType {
         isAfter(date, cycle.periodStart)) &&
       (isSameDay(date, cycle.periodEnd) || isBefore(date, cycle.periodEnd))
     ) {
-      return "period";
+      return DAY_TYPE.PERIOD;
     }
 
     // Check fertile
@@ -121,19 +109,11 @@ export function getDayType(date: Date, cycles: CycleResult[]): DayType {
       (isSameDay(date, cycle.fertileWindowEnd) ||
         isBefore(date, cycle.fertileWindowEnd))
     ) {
-      return "fertile";
+      return DAY_TYPE.FERTILE;
     }
   }
 
-  return "normal";
-}
-
-export interface CycleSummary {
-  nextPeriod: { date: Date; daysIn: number };
-  nextFertileWindow: { start: Date; end: Date; daysIn: number };
-  nextOvulation: { date: Date; daysIn: number };
-  currentCycleDay: number;
-  currentPhase: string;
+  return DAY_TYPE.NORMAL;
 }
 
 export function getCurrentCycleInfo(
@@ -167,16 +147,16 @@ export function getCurrentCycleInfo(
   const currentCycleDay =
     differenceInDays(todayStart, currentCycle.periodStart) + 1;
 
-  let currentPhase = "Fase Folikuler";
+  let currentPhase: OvulationPhase = OVULATION_PHASE.FOLIKULER;
   const type = getDayType(todayStart, cycles);
-  if (type === "period") {
-    currentPhase = "Fase Menstruasi";
-  } else if (type === "ovulation") {
-    currentPhase = "Fase Ovulasi"; // Puncak
+  if (type === DAY_TYPE.PERIOD) {
+    currentPhase = OVULATION_PHASE.MENSTRUASI;
+  } else if (type === DAY_TYPE.OVULATION) {
+    currentPhase = OVULATION_PHASE.OVULASI; // Puncak
   } else if (isAfter(todayStart, currentCycle.ovulationDate)) {
-    currentPhase = "Fase Luteal";
+    currentPhase = OVULATION_PHASE.LUTEAL;
   } else {
-    currentPhase = "Fase Folikuler";
+    currentPhase = OVULATION_PHASE.FOLIKULER;
   }
 
   let nextPeriod = currentCycle.nextPeriodStart;

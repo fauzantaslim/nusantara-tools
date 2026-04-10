@@ -87,7 +87,7 @@ export function Select<T extends string = string>({
         {/* Dropdown Panel */}
         {isOpen && (
           <div className="absolute top-[calc(100%+0.375rem)] left-0 w-full bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.10)] border border-[#EDE0D0] overflow-hidden z-50 animate-in fade-in slide-in-from-top-1">
-            <div className="py-1.5 max-h-52 overflow-y-auto">
+            <div className="py-1.5 max-h-48 overflow-y-auto custom-scrollbar">
               {options.map((option) => (
                 <button
                   key={option.value}

@@ -66,6 +66,28 @@ export type PregnancyMethod =
   (typeof PREGNANCY_METHOD)[keyof typeof PREGNANCY_METHOD];
 
 /**
+ * Ovulation (Masa Subur) Specific
+ */
+export const OVULATION_PHASE = {
+  MENSTRUASI: "Fase Menstruasi",
+  FOLIKULER: "Fase Folikuler",
+  OVULASI: "Fase Ovulasi",
+  LUTEAL: "Fase Luteal",
+} as const;
+
+export type OvulationPhase =
+  (typeof OVULATION_PHASE)[keyof typeof OVULATION_PHASE];
+
+export const DAY_TYPE = {
+  NORMAL: "normal",
+  PERIOD: "period",
+  FERTILE: "fertile",
+  OVULATION: "ovulation",
+} as const;
+
+export type DayType = (typeof DAY_TYPE)[keyof typeof DAY_TYPE];
+
+/**
  * BMI Specific
  */
 export const BMI_CATEGORY = {
