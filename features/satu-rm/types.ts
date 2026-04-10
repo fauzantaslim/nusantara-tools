@@ -1,5 +1,12 @@
-export type WeightUnit = "kg" | "lbs";
-export type FormulaType = "epley" | "brzycki" | "lombardi";
+import {
+  WEIGHT_UNIT,
+  ONERM_FORMULA as FORMULA,
+  type WeightUnit,
+  type OneRMFormulaType as FormulaType,
+} from "@/lib/constants";
+
+export { WEIGHT_UNIT, FORMULA };
+export type { WeightUnit, FormulaType };
 
 export interface OneRMInput {
   weight: number;

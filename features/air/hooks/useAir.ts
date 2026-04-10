@@ -1,6 +1,17 @@
 import { useState, useCallback } from "react";
 import { z } from "zod";
-import { AirData, WaterResult, WaterInput, AirContextType } from "../types";
+import {
+  AirData,
+  WaterResult,
+  WaterInput,
+  AirContextType,
+  GENDER,
+  SYSTEM,
+  ACTIVITY_LEVEL,
+  CLIMATE,
+  ALTITUDE,
+  OUTPUT_UNIT,
+} from "../types";
 import { calculateWaterIntake } from "../utils";
 
 const airSchema = z.object({
@@ -16,20 +27,20 @@ const airSchema = z.object({
 });
 
 const initialData: AirData = {
-  system: "metric",
-  gender: "male",
+  system: SYSTEM.METRIC,
+  gender: GENDER.MALE,
   age: "",
   weight: "",
-  activityLevel: "moderate",
+  activityLevel: ACTIVITY_LEVEL.MODERATE,
   exerciseDuration: "",
-  climate: "normal",
-  altitude: "low",
+  climate: CLIMATE.NORMAL,
+  altitude: ALTITUDE.LOW,
   caffeine: false,
   alcohol: false,
   highProtein: false,
   pregnant: false,
   sick: false,
-  unit: "liter",
+  unit: OUTPUT_UNIT.LITER,
 };
 
 export const useAir = (): AirContextType => {

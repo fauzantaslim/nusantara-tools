@@ -1,20 +1,24 @@
-export type BMICategory = "Kurus" | "Normal" | "Berlebih" | "Obesitas";
-export type SystemType = "metric" | "imperial";
-export type GenderType = "male" | "female";
-export type ActivityLevel =
-  | "sedentary"
-  | "light"
-  | "moderate"
-  | "active"
-  | "very_active";
+import {
+  GENDER,
+  SYSTEM,
+  ACTIVITY_LEVEL,
+  BMI_CATEGORY,
+  type GenderType,
+  type SystemType,
+  type ActivityLevel,
+  type BMICategory,
+} from "@/lib/constants";
+
+export { GENDER, SYSTEM, ACTIVITY_LEVEL, BMI_CATEGORY };
+export type { GenderType, SystemType, ActivityLevel, BMICategory };
 
 export interface BMIInput {
   system: SystemType;
+  gender: GenderType;
+  age: number;
   weight: number;
   heightRaw1: number;
   heightRaw2?: number;
-  gender: GenderType;
-  age: number;
   activityLevel: ActivityLevel;
 }
 

@@ -1,19 +1,18 @@
 import {
   WaterInput,
   WaterResult,
-  SystemType,
-  GenderType,
-  ActivityLevel,
-  OutputUnitType,
-  ClimateType,
-  AltitudeType,
   HydrationSchedule,
+  SYSTEM,
+  ACTIVITY_LEVEL,
+  CLIMATE,
+  ALTITUDE,
+  OUTPUT_UNIT,
 } from "./types";
 
 export function calculateWaterIntake(input: WaterInput): WaterResult {
   // Convert basic metric
   let weightInKg = input.weight;
-  if (input.system === "imperial") {
+  if (input.system === SYSTEM.IMPERIAL) {
     weightInKg = input.weight * 0.453592;
   }
 
@@ -25,20 +24,20 @@ export function calculateWaterIntake(input: WaterInput): WaterResult {
   const tips: string[] = [];
 
   if (
-    input.activityLevel === "moderate" ||
-    input.activityLevel === "high" ||
+    input.activityLevel === ACTIVITY_LEVEL.MODERATE ||
+    input.activityLevel === ACTIVITY_LEVEL.HIGH ||
     input.exerciseDuration > 0
   ) {
     tips.push(
       "Aktivitas fisik ekstra meningkatkan kehilangan air melalui keringat. Pastikan Anda minum air tambahan di luar kebutuhan dasar ini setiap kali berolahraga.",
     );
   }
-  if (input.climate === "hot" || input.climate === "humid") {
+  if (input.climate === CLIMATE.HOT || input.climate === CLIMATE.HUMID) {
     tips.push(
       "Cuaca panas atau lembap mempercepat dehidrasi. Pertimbangkan untuk meningkatkan asupan air Anda hari ini.",
     );
   }
-  if (input.altitude === "high") {
+  if (input.altitude === ALTITUDE.HIGH) {
     tips.push(
       "Di dataran tinggi, Anda mungkin kehilangan air lebih cepat karena pernapasan. Tingkatkan hidrasi Anda.",
     );
@@ -75,13 +74,13 @@ export function calculateWaterIntake(input: WaterInput): WaterResult {
   let convertedIntake = totalIntakeMl;
   let unitLabel = "ml";
 
-  if (input.unit === "liter") {
+  if (input.unit === OUTPUT_UNIT.LITER) {
     convertedIntake = totalIntakeMl / 1000;
     unitLabel = "Liter";
-  } else if (input.unit === "cups") {
+  } else if (input.unit === OUTPUT_UNIT.CUPS) {
     convertedIntake = totalIntakeMl / 250; // Approximating 1 cup = 250ml
     unitLabel = "Gelas (250ml)";
-  } else if (input.unit === "oz") {
+  } else if (input.unit === OUTPUT_UNIT.OZ) {
     convertedIntake = totalIntakeMl / 29.5735;
     unitLabel = "oz";
   }
@@ -101,11 +100,11 @@ export function calculateWaterIntake(input: WaterInput): WaterResult {
     let slotAmount = (totalIntakeMl * slot.percentage) / 100;
 
     // Format presentation based on selected unit
-    if (input.unit === "liter") {
+    if (input.unit === OUTPUT_UNIT.LITER) {
       slotAmount = slotAmount / 1000;
-    } else if (input.unit === "cups") {
+    } else if (input.unit === OUTPUT_UNIT.CUPS) {
       slotAmount = slotAmount / 250;
-    } else if (input.unit === "oz") {
+    } else if (input.unit === OUTPUT_UNIT.OZ) {
       slotAmount = slotAmount / 29.5735;
     }
 
@@ -115,7 +114,7 @@ export function calculateWaterIntake(input: WaterInput): WaterResult {
       percentage: slot.percentage,
       // Round appropriately
       amount:
-        input.unit === "liter" || input.unit === "cups"
+        input.unit === OUTPUT_UNIT.LITER || input.unit === OUTPUT_UNIT.CUPS
           ? Math.round(slotAmount * 10) / 10
           : Math.round(slotAmount),
     };
@@ -125,7 +124,7 @@ export function calculateWaterIntake(input: WaterInput): WaterResult {
     baseIntakeMl,
     totalIntakeMl,
     convertedIntake:
-      input.unit === "liter" || input.unit === "cups"
+      input.unit === OUTPUT_UNIT.LITER || input.unit === OUTPUT_UNIT.CUPS
         ? Math.round(convertedIntake * 10) / 10
         : Math.round(convertedIntake),
     unitLabel,

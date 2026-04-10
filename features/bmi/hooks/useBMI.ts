@@ -1,6 +1,14 @@
 import { useState, useCallback } from "react";
 import { z } from "zod";
-import { BMIData, BMIResult, BMIInput, BMIContextType } from "../types";
+import {
+  BMIData,
+  BMIResult,
+  BMIInput,
+  BMIContextType,
+  GENDER,
+  SYSTEM,
+  ACTIVITY_LEVEL,
+} from "../types";
 import { calculateBMI } from "../utils";
 
 const bmiSchema = z.object({
@@ -20,13 +28,13 @@ const bmiSchema = z.object({
 });
 
 const initialData: BMIData = {
-  system: "metric",
-  gender: "male",
+  system: SYSTEM.METRIC,
+  gender: GENDER.MALE,
   age: "",
   weight: "",
   heightRaw1: "",
   heightRaw2: "",
-  activityLevel: "moderate",
+  activityLevel: ACTIVITY_LEVEL.MODERATE,
 };
 
 export const useBMI = (): BMIContextType => {
@@ -48,7 +56,9 @@ export const useBMI = (): BMIContextType => {
           weight: data.weight,
           heightRaw1: data.heightRaw1,
           heightRaw2:
-            data.system === "imperial" && data.heightRaw2 ? data.heightRaw2 : 0,
+            data.system === SYSTEM.IMPERIAL && data.heightRaw2
+              ? data.heightRaw2
+              : 0,
           age: data.age,
         });
 

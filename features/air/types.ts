@@ -1,9 +1,27 @@
-export type SystemType = "metric" | "imperial";
-export type GenderType = "male" | "female";
-export type ActivityLevel = "low" | "moderate" | "high";
-export type ClimateType = "normal" | "hot" | "humid";
-export type AltitudeType = "low" | "high";
-export type OutputUnitType = "ml" | "liter" | "cups" | "oz";
+import {
+  GENDER,
+  SYSTEM,
+  AIR_ACTIVITY_LEVEL as ACTIVITY_LEVEL,
+  CLIMATE,
+  ALTITUDE,
+  OUTPUT_UNIT,
+  type GenderType,
+  type SystemType,
+  type AirActivityLevel as ActivityLevel,
+  type ClimateType,
+  type AltitudeType,
+  type OutputUnitType,
+} from "@/lib/constants";
+
+export { GENDER, SYSTEM, ACTIVITY_LEVEL, CLIMATE, ALTITUDE, OUTPUT_UNIT };
+export type {
+  GenderType,
+  SystemType,
+  ActivityLevel,
+  ClimateType,
+  AltitudeType,
+  OutputUnitType,
+};
 
 export interface WaterInput {
   system: SystemType;

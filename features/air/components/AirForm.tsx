@@ -23,6 +23,12 @@ import {
   ClimateType,
   AltitudeType,
   OutputUnitType,
+  GENDER,
+  SYSTEM,
+  ACTIVITY_LEVEL,
+  CLIMATE,
+  ALTITUDE,
+  OUTPUT_UNIT,
 } from "../types";
 
 export const AirForm: React.FC<{ airHook: AirContextType }> = ({ airHook }) => {
@@ -55,8 +61,8 @@ export const AirForm: React.FC<{ airHook: AirContextType }> = ({ airHook }) => {
             value={data.system}
             onChange={(v) => updateData("system", v)}
             options={[
-              { value: "metric", label: "Metrik (kg, cm)" },
-              { value: "imperial", label: "Imperial (lb, ft)" },
+              { value: SYSTEM.METRIC, label: "Metrik (kg, cm)" },
+              { value: SYSTEM.IMPERIAL, label: "Imperial (lb, ft)" },
             ]}
           />
 
@@ -64,10 +70,10 @@ export const AirForm: React.FC<{ airHook: AirContextType }> = ({ airHook }) => {
           <div className="flex gap-4">
             <button
               type="button"
-              onClick={() => updateData("gender", "male")}
+              onClick={() => updateData("gender", GENDER.MALE)}
               className={cn(
                 "flex-1 flex flex-col items-center justify-center p-3 rounded-xl border-2 transition-all",
-                data.gender === "male"
+                data.gender === GENDER.MALE
                   ? "border-[#4A7C59] bg-[#4A7C59]/10 text-[#4A7C59]"
                   : "border-muted bg-white text-secondary hover:border-secondary/30",
               )}
@@ -77,10 +83,10 @@ export const AirForm: React.FC<{ airHook: AirContextType }> = ({ airHook }) => {
             </button>
             <button
               type="button"
-              onClick={() => updateData("gender", "female")}
+              onClick={() => updateData("gender", GENDER.FEMALE)}
               className={cn(
                 "flex-1 flex flex-col items-center justify-center p-3 rounded-xl border-2 transition-all",
-                data.gender === "female"
+                data.gender === GENDER.FEMALE
                   ? "border-[#4A7C59] bg-[#4A7C59]/10 text-[#4A7C59]"
                   : "border-muted bg-white text-secondary hover:border-secondary/30",
               )}
@@ -108,8 +114,8 @@ export const AirForm: React.FC<{ airHook: AirContextType }> = ({ airHook }) => {
               id="weight"
               label="Berat"
               type="number"
-              placeholder={data.system === "metric" ? "65" : "145"}
-              suffix={data.system === "metric" ? "kg" : "lb"}
+              placeholder={data.system === SYSTEM.METRIC ? "65" : "145"}
+              suffix={data.system === SYSTEM.METRIC ? "kg" : "lb"}
               value={data.weight}
               onChange={(e) => updateData("weight", e.target.value)}
               className="py-3 placeholder:opacity-40 rounded-xl"
@@ -127,9 +133,9 @@ export const AirForm: React.FC<{ airHook: AirContextType }> = ({ airHook }) => {
               value={data.activityLevel}
               onChange={(v) => updateData("activityLevel", v)}
               options={[
-                { value: "low", label: "Rendah (Sedentary)" },
-                { value: "moderate", label: "Sedang (Aktif)" },
-                { value: "high", label: "Tinggi (Fisik Berat)" },
+                { value: ACTIVITY_LEVEL.LOW, label: "Rendah (Sedentary)" },
+                { value: ACTIVITY_LEVEL.MODERATE, label: "Sedang (Aktif)" },
+                { value: ACTIVITY_LEVEL.HIGH, label: "Tinggi (Fisik Berat)" },
               ]}
             />
             <Input
@@ -152,10 +158,10 @@ export const AirForm: React.FC<{ airHook: AirContextType }> = ({ airHook }) => {
             value={data.unit}
             onChange={(v) => updateData("unit", v as OutputUnitType)}
             options={[
-              { value: "liter", label: "Liter" },
-              { value: "ml", label: "ML" },
-              { value: "cups", label: "Gelas" },
-              { value: "oz", label: "OZ" },
+              { value: OUTPUT_UNIT.LITER, label: "Liter" },
+              { value: OUTPUT_UNIT.ML, label: "ML" },
+              { value: OUTPUT_UNIT.CUPS, label: "Gelas" },
+              { value: OUTPUT_UNIT.OZ, label: "OZ" },
             ]}
           />
 
@@ -192,9 +198,9 @@ export const AirForm: React.FC<{ airHook: AirContextType }> = ({ airHook }) => {
                   value={data.climate}
                   onChange={(v) => updateData("climate", v)}
                   options={[
-                    { value: "normal", label: "Normal / Sedang" },
-                    { value: "hot", label: "Panas Terik" },
-                    { value: "humid", label: "Sangat Lembap" },
+                    { value: CLIMATE.NORMAL, label: "Normal / Sedang" },
+                    { value: CLIMATE.HOT, label: "Panas Terik" },
+                    { value: CLIMATE.HUMID, label: "Sangat Lembap" },
                   ]}
                 />
                 <Select<AltitudeType>
@@ -203,8 +209,8 @@ export const AirForm: React.FC<{ airHook: AirContextType }> = ({ airHook }) => {
                   value={data.altitude}
                   onChange={(v) => updateData("altitude", v)}
                   options={[
-                    { value: "low", label: "Rendah / Normal" },
-                    { value: "high", label: "Dataran Tinggi" },
+                    { value: ALTITUDE.LOW, label: "Rendah / Normal" },
+                    { value: ALTITUDE.HIGH, label: "Dataran Tinggi" },
                   ]}
                 />
               </div>
@@ -257,7 +263,7 @@ export const AirForm: React.FC<{ airHook: AirContextType }> = ({ airHook }) => {
                   Status Kesehatan / Khusus
                 </label>
                 <div className="flex flex-col gap-2">
-                  {data.gender === "female" && (
+                  {data.gender === GENDER.FEMALE && (
                     <label className="flex items-center gap-2 cursor-pointer bg-white px-3 py-2 rounded-lg border border-muted/50 transition-all">
                       <input
                         type="checkbox"

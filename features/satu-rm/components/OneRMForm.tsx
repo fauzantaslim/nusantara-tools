@@ -7,7 +7,13 @@ import { Input } from "@/ui/Input";
 import { SegmentedControl } from "@/ui/SegmentedControl";
 import { ArrowRight, ShieldAlert, Dumbbell, RefreshCw } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { OneRMContextType, FormulaType, FORMULA_INFO } from "../types";
+import {
+  OneRMContextType,
+  FormulaType,
+  FORMULA_INFO,
+  WEIGHT_UNIT,
+  FORMULA,
+} from "../types";
 
 export const OneRMForm: React.FC<{ hook: OneRMContextType }> = ({ hook }) => {
   const {
@@ -47,8 +53,8 @@ export const OneRMForm: React.FC<{ hook: OneRMContextType }> = ({ hook }) => {
             value={data.unit}
             onChange={(v) => updateData("unit", v)}
             options={[
-              { value: "kg", label: "KG" },
-              { value: "lbs", label: "LBS" },
+              { value: WEIGHT_UNIT.KG, label: "KG" },
+              { value: WEIGHT_UNIT.LBS, label: "LBS" },
             ]}
           />
 
@@ -87,8 +93,8 @@ export const OneRMForm: React.FC<{ hook: OneRMContextType }> = ({ hook }) => {
             value={data.outputUnit}
             onChange={(v) => updateData("outputUnit", v)}
             options={[
-              { value: "kg", label: "KG" },
-              { value: "lbs", label: "LBS" },
+              { value: WEIGHT_UNIT.KG, label: "KG" },
+              { value: WEIGHT_UNIT.LBS, label: "LBS" },
             ]}
           />
 
@@ -97,9 +103,9 @@ export const OneRMForm: React.FC<{ hook: OneRMContextType }> = ({ hook }) => {
             value={data.formula}
             onChange={(v) => handleFormulaChange(v as FormulaType)}
             options={[
-              { value: "epley", label: "Epley" },
-              { value: "brzycki", label: "Brzycki" },
-              { value: "lombardi", label: "Lombardi" },
+              { value: FORMULA.EPLEY, label: "Epley" },
+              { value: FORMULA.BRZYCKI, label: "Brzycki" },
+              { value: FORMULA.LOMBARDI, label: "Lombardi" },
             ]}
           />
 

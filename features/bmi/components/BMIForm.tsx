@@ -8,7 +8,13 @@ import { SegmentedControl } from "@/ui/SegmentedControl";
 import { Select } from "@/ui/Select";
 import { ArrowRight, ShieldAlert, Venus, Mars, Scale } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { BMIContextType, ActivityLevel } from "../types";
+import {
+  BMIContextType,
+  ActivityLevel,
+  GENDER,
+  SYSTEM,
+  ACTIVITY_LEVEL,
+} from "../types";
 
 export const BMIForm: React.FC<{ bmiHook: BMIContextType }> = ({ bmiHook }) => {
   const { data, updateData, error, handleCalculate } = bmiHook;
@@ -40,8 +46,8 @@ export const BMIForm: React.FC<{ bmiHook: BMIContextType }> = ({ bmiHook }) => {
             value={data.system}
             onChange={(v) => updateData("system", v)}
             options={[
-              { value: "metric", label: "Metrik (kg, cm)" },
-              { value: "imperial", label: "Imperial (lb, ft)" },
+              { value: SYSTEM.METRIC, label: "Metrik (kg, cm)" },
+              { value: SYSTEM.IMPERIAL, label: "Imperial (lb, ft)" },
             ]}
           />
 
@@ -49,10 +55,10 @@ export const BMIForm: React.FC<{ bmiHook: BMIContextType }> = ({ bmiHook }) => {
           <div className="flex gap-4">
             <button
               type="button"
-              onClick={() => updateData("gender", "male")}
+              onClick={() => updateData("gender", GENDER.MALE)}
               className={cn(
                 "flex-1 flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all",
-                data.gender === "male"
+                data.gender === GENDER.MALE
                   ? "border-accent-1 bg-accent-1/5 text-accent-1"
                   : "border-muted bg-white text-secondary hover:border-secondary/30",
               )}
@@ -62,10 +68,10 @@ export const BMIForm: React.FC<{ bmiHook: BMIContextType }> = ({ bmiHook }) => {
             </button>
             <button
               type="button"
-              onClick={() => updateData("gender", "female")}
+              onClick={() => updateData("gender", GENDER.FEMALE)}
               className={cn(
                 "flex-1 flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all",
-                data.gender === "female"
+                data.gender === GENDER.FEMALE
                   ? "border-accent-1 bg-accent-1/5 text-accent-1"
                   : "border-muted bg-white text-secondary hover:border-secondary/30",
               )}
@@ -93,8 +99,10 @@ export const BMIForm: React.FC<{ bmiHook: BMIContextType }> = ({ bmiHook }) => {
             id="weight"
             label="Berat Badan"
             type="number"
-            placeholder={data.system === "metric" ? "Misal: 65" : "Misal: 145"}
-            suffix={data.system === "metric" ? "kg" : "lb"}
+            placeholder={
+              data.system === SYSTEM.METRIC ? "Misal: 65" : "Misal: 145"
+            }
+            suffix={data.system === SYSTEM.METRIC ? "kg" : "lb"}
             value={data.weight}
             onChange={(e) => updateData("weight", e.target.value)}
             className="text-lg py-4 placeholder:opacity-40 rounded-xl"
@@ -103,7 +111,7 @@ export const BMIForm: React.FC<{ bmiHook: BMIContextType }> = ({ bmiHook }) => {
             max={500}
           />
 
-          {data.system === "metric" ? (
+          {data.system === SYSTEM.METRIC ? (
             <Input
               id="height1"
               label="Tinggi Badan"
@@ -153,15 +161,24 @@ export const BMIForm: React.FC<{ bmiHook: BMIContextType }> = ({ bmiHook }) => {
             value={data.activityLevel}
             onChange={(v) => updateData("activityLevel", v)}
             options={[
-              { value: "sedentary", label: "Jarang Berolahraga (Sedentary)" },
-              { value: "light", label: "Aktivitas Ringan (1-3 hari/minggu)" },
               {
-                value: "moderate",
+                value: ACTIVITY_LEVEL.SEDENTARY,
+                label: "Jarang Berolahraga (Sedentary)",
+              },
+              {
+                value: ACTIVITY_LEVEL.LIGHT,
+                label: "Aktivitas Ringan (1-3 hari/minggu)",
+              },
+              {
+                value: ACTIVITY_LEVEL.MODERATE,
                 label: "Aktivitas Sedang (3-5 hari/minggu)",
               },
-              { value: "active", label: "Aktivitas Tinggi (6-7 hari/minggu)" },
               {
-                value: "very_active",
+                value: ACTIVITY_LEVEL.ACTIVE,
+                label: "Aktivitas Tinggi (6-7 hari/minggu)",
+              },
+              {
+                value: ACTIVITY_LEVEL.VERY_ACTIVE,
                 label: "Aktivitas Sangat Tinggi (Atlet)",
               },
             ]}

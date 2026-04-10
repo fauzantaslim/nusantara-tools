@@ -1,17 +1,11 @@
-export type {
-  WeightUnit,
-  FormulaType,
-  OneRMInput,
-  PercentageRow,
-  OneRMResult,
-} from "./types";
-
 import {
   WeightUnit,
   FormulaType,
   OneRMInput,
   PercentageRow,
   OneRMResult,
+  WEIGHT_UNIT,
+  FORMULA,
 } from "./types";
 
 // --- Formulas ---
@@ -33,19 +27,19 @@ function calculateLombardi(weight: number, reps: number): number {
 
 function compute(formula: FormulaType, weight: number, reps: number): number {
   switch (formula) {
-    case "epley":
+    case FORMULA.EPLEY:
       return calculateEpley(weight, reps);
-    case "brzycki":
+    case FORMULA.BRZYCKI:
       return calculateBrzycki(weight, reps);
-    case "lombardi":
+    case FORMULA.LOMBARDI:
       return calculateLombardi(weight, reps);
   }
 }
 
 const FORMULA_LABELS: Record<FormulaType, string> = {
-  epley: "Epley",
-  brzycki: "Brzycki",
-  lombardi: "Lombardi",
+  [FORMULA.EPLEY]: "Epley",
+  [FORMULA.BRZYCKI]: "Brzycki",
+  [FORMULA.LOMBARDI]: "Lombardi",
 };
 
 // Approximate rep ranges for % 1RM (standard powerlifting table)
@@ -67,7 +61,7 @@ function convertWeight(
   to: WeightUnit,
 ): number {
   if (from === to) return value;
-  if (from === "kg" && to === "lbs") return value * 2.20462;
+  if (from === WEIGHT_UNIT.KG && to === WEIGHT_UNIT.LBS) return value * 2.20462;
   return value / 2.20462; // lbs → kg
 }
 
@@ -76,10 +70,13 @@ export function calculateOneRM(input: OneRMInput): OneRMResult {
 
   // Convert to kg for calculation, then output in desired unit
   const weightInKg =
-    unit === "lbs" ? convertWeight(weight, "lbs", "kg") : weight;
+    unit === WEIGHT_UNIT.LBS
+      ? convertWeight(weight, WEIGHT_UNIT.LBS, WEIGHT_UNIT.KG)
+      : weight;
 
   const oneRMKg = compute(formula, weightInKg, reps);
-  const oneRM = Math.round(convertWeight(oneRMKg, "kg", outputUnit) * 10) / 10;
+  const oneRM =
+    Math.round(convertWeight(oneRMKg, WEIGHT_UNIT.KG, outputUnit) * 10) / 10;
 
   // Percentage table
   const percentageTable: PercentageRow[] = PERCENT_REP_MAP.map(
@@ -88,20 +85,27 @@ export function calculateOneRM(input: OneRMInput): OneRMResult {
       reps: r,
       weight:
         Math.round(
-          convertWeight((oneRMKg * percent) / 100, "kg", outputUnit) * 10,
+          convertWeight((oneRMKg * percent) / 100, WEIGHT_UNIT.KG, outputUnit) *
+            10,
         ) / 10,
     }),
   );
 
   // All-formula comparison
-  const comparisonResults = (
-    ["epley", "brzycki", "lombardi"] as FormulaType[]
-  ).map((f) => ({
+  const comparisonResults = [
+    FORMULA.EPLEY,
+    FORMULA.BRZYCKI,
+    FORMULA.LOMBARDI,
+  ].map((f) => ({
     formula: f,
     label: FORMULA_LABELS[f],
     value:
       Math.round(
-        convertWeight(compute(f, weightInKg, reps), "kg", outputUnit) * 10,
+        convertWeight(
+          compute(f, weightInKg, reps),
+          WEIGHT_UNIT.KG,
+          outputUnit,
+        ) * 10,
       ) / 10,
   }));
 

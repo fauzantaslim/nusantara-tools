@@ -1,13 +1,22 @@
-export type {
+import {
   BMICategory,
-  SystemType,
-  GenderType,
   ActivityLevel,
   BMIInput,
   BMIResult,
+  SYSTEM,
+  GENDER,
+  BMI_CATEGORY,
+  ACTIVITY_LEVEL,
 } from "./types";
 
-import { BMICategory, ActivityLevel, BMIInput, BMIResult } from "./types";
+export type {
+  BMICategory,
+  ActivityLevel,
+  BMIInput,
+  BMIResult,
+  GenderType,
+  SystemType,
+} from "./types";
 
 export function calculateBMI(input: BMIInput): BMIResult {
   const {
@@ -28,7 +37,7 @@ export function calculateBMI(input: BMIInput): BMIResult {
   let heightM = 0;
   let heightCm = 0;
 
-  if (system === "metric") {
+  if (system === SYSTEM.METRIC) {
     weightKg = weight;
     heightCm = heightRaw1;
     heightM = heightCm / 100;
@@ -51,19 +60,19 @@ export function calculateBMI(input: BMIInput): BMIResult {
 
   // Menggunakan standar BMI secara umum (18.5 - 24.9 Normal)
   if (roundedScore < 18.5) {
-    category = "Kurus";
+    category = BMI_CATEGORY.KURUS;
     insight =
       "Berat badan kamu masih di bawah ideal. Coba tambah asupan makan bergizi dan jangan sering skip makan ya.";
   } else if (roundedScore <= 24.9) {
-    category = "Normal";
+    category = BMI_CATEGORY.NORMAL;
     insight =
       "Nice! Berat badan kamu udah di range ideal. Tinggal dijaga aja pola makan dan aktivitasnya.";
   } else if (roundedScore <= 29.9) {
-    category = "Berlebih";
+    category = BMI_CATEGORY.BERLEBIH;
     insight =
       "Berat badan kamu mulai naik nih. Bisa mulai dari hal kecil kayak kurangi gula dan lebih aktif bergerak.";
   } else {
-    category = "Obesitas";
+    category = BMI_CATEGORY.OBESITAS;
     insight =
       "Berat badan kamu sudah cukup tinggi. Sebaiknya mulai atur pola makan dan kalau perlu konsultasi ke tenaga kesehatan.";
   }
@@ -73,28 +82,28 @@ export function calculateBMI(input: BMIInput): BMIResult {
   const upperIdealKg = 24.9 * (heightM * heightM);
 
   let idealWeightRange = "";
-  if (system === "metric") {
+  if (system === SYSTEM.METRIC) {
     idealWeightRange = `${Math.round(lowerIdealKg)} - ${Math.round(upperIdealKg)} kg`;
   } else {
     idealWeightRange = `${Math.round(lowerIdealKg / 0.453592)} - ${Math.round(upperIdealKg / 0.453592)} lbs`;
   }
 
   // Persentase Lemak Tubuh (Deurenberg eq)
-  const genderValue = gender === "male" ? 1 : 0;
+  const genderValue = gender === GENDER.MALE ? 1 : 0;
   let bodyFatPercentage =
     1.2 * roundedScore + 0.23 * age - 10.8 * genderValue - 5.4;
   bodyFatPercentage = Math.max(0, Math.round(bodyFatPercentage * 10) / 10);
 
   // Kebutuhan Kalori Harian (Mifflin-St Jeor)
   let bmr = 10 * weightKg + 6.25 * heightCm - 5 * age;
-  bmr = gender === "male" ? bmr + 5 : bmr - 161;
+  bmr = gender === GENDER.MALE ? bmr + 5 : bmr - 161;
 
   const activityMultipliers: Record<ActivityLevel, number> = {
-    sedentary: 1.2,
-    light: 1.375,
-    moderate: 1.55,
-    active: 1.725,
-    very_active: 1.9,
+    [ACTIVITY_LEVEL.SEDENTARY]: 1.2,
+    [ACTIVITY_LEVEL.LIGHT]: 1.375,
+    [ACTIVITY_LEVEL.MODERATE]: 1.55,
+    [ACTIVITY_LEVEL.ACTIVE]: 1.725,
+    [ACTIVITY_LEVEL.VERY_ACTIVE]: 1.9,
   };
 
   const dailyCalories = Math.round(bmr * activityMultipliers[activityLevel]);

@@ -5,11 +5,11 @@ import Image from "next/image";
 import { Card } from "@/ui/Card";
 import { Scale, HeartPulse, ShieldAlert, Activity, User } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { BMIResult, BMICategory } from "../types";
+import { BMIResult, BMICategory, BMI_CATEGORY } from "../types";
 
 const getCategoryTheme = (category: BMICategory) => {
   switch (category) {
-    case "Normal":
+    case BMI_CATEGORY.NORMAL:
       return {
         cardBg: "bg-[#2C1A0E]",
         ring: "ring-[#4A7C59]/30",
@@ -19,7 +19,7 @@ const getCategoryTheme = (category: BMICategory) => {
         icon: HeartPulse,
         gradient: "from-[#4A7C59]/20 via-transparent to-transparent",
       };
-    case "Kurus":
+    case BMI_CATEGORY.KURUS:
       return {
         cardBg: "bg-[#2C1A0E]",
         ring: "ring-[#EDE0D0]/20",
@@ -29,7 +29,7 @@ const getCategoryTheme = (category: BMICategory) => {
         icon: Scale,
         gradient: "from-white/5 via-transparent to-transparent",
       };
-    case "Berlebih":
+    case BMI_CATEGORY.BERLEBIH:
       return {
         cardBg: "bg-[#2C1A0E]",
         ring: "ring-[#C17A3A]/30",
@@ -39,7 +39,7 @@ const getCategoryTheme = (category: BMICategory) => {
         icon: ShieldAlert,
         gradient: "from-[#C17A3A]/20 via-transparent to-transparent",
       };
-    case "Obesitas":
+    case BMI_CATEGORY.OBESITAS:
       return {
         cardBg: "bg-[#2C1A0E]",
         ring: "ring-[#9C4A2A]/30",

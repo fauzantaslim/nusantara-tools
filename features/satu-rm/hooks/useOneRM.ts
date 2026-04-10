@@ -6,6 +6,8 @@ import {
   OneRMInput,
   OneRMContextType,
   FormulaType,
+  WEIGHT_UNIT,
+  FORMULA,
 } from "../types";
 import { calculateOneRM } from "../utils";
 
@@ -24,9 +26,9 @@ const oneRMSchema = z.object({
 const initialData: OneRMData = {
   weight: "",
   reps: "",
-  unit: "kg",
-  outputUnit: "kg",
-  formula: "epley",
+  unit: WEIGHT_UNIT.KG,
+  outputUnit: WEIGHT_UNIT.KG,
+  formula: FORMULA.EPLEY,
 };
 
 export const useOneRM = (): OneRMContextType => {
