@@ -1,75 +1,26 @@
-export type BPCategory =
-  | "low"
-  | "normal"
-  | "elevated"
-  | "hypertension_1"
-  | "hypertension_2"
-  | "crisis";
-
-export type BodyPosition = "sitting" | "standing" | "lying";
-export type Arm = "left" | "right";
-
-export interface BPInput {
-  systolic: number;
-  diastolic: number;
-  heartRate?: number;
-  datetime?: string;
-  position?: BodyPosition;
-  arm?: Arm;
-  notes?: string;
-}
-
-export interface BPResult {
-  systolic: number;
-  diastolic: number;
-  heartRate?: number;
-  category: BPCategory;
-  label: string;
-  description: string;
-  recommendation: string;
-  isUrgent: boolean;
-}
-
-export interface SavedReading extends BPResult {
-  id: string;
-  datetime: string;
-  position?: BodyPosition;
-  arm?: Arm;
-  notes?: string;
-}
-
-export type TrendDirection =
-  | "improving"
-  | "worsening"
-  | "stable"
-  | "insufficient";
+import { BP_CATEGORY, TREND_DIRECTION } from "@/lib/constants";
+import {
+  BPCategory,
+  BPInput,
+  BPResult,
+  SavedReading,
+  TrendDirection,
+  CategoryMeta,
+} from "./types";
 
 // ─── Classification ──────────────────────────────────────────────────────────
 
 export function classifyBP(systolic: number, diastolic: number): BPCategory {
-  if (systolic >= 180 || diastolic >= 120) return "crisis";
-  if (systolic >= 140 || diastolic >= 90) return "hypertension_2";
-  if (systolic >= 130 || diastolic >= 80) return "hypertension_1";
-  if (systolic >= 120 && diastolic < 80) return "elevated";
-  if (systolic < 90 && diastolic < 60) return "low";
-  return "normal";
-}
-
-interface CategoryMeta {
-  label: string;
-  description: string;
-  recommendation: string;
-  isUrgent: boolean;
-  color: string;
-  bg: string;
-  border: string;
-  ringColor: string;
-  gradient: string;
-  accentText: string;
+  if (systolic >= 180 || diastolic >= 120) return BP_CATEGORY.CRISIS;
+  if (systolic >= 140 || diastolic >= 90) return BP_CATEGORY.HYPERTENSION_2;
+  if (systolic >= 130 || diastolic >= 80) return BP_CATEGORY.HYPERTENSION_1;
+  if (systolic >= 120 && diastolic < 80) return BP_CATEGORY.ELEVATED;
+  if (systolic < 90 && diastolic < 60) return BP_CATEGORY.LOW;
+  return BP_CATEGORY.NORMAL;
 }
 
 export const CATEGORY_META: Record<BPCategory, CategoryMeta> = {
-  low: {
+  [BP_CATEGORY.LOW]: {
     label: "Tekanan Darah Rendah",
     description:
       "Tekanan darah Anda berada di bawah rentang normal. Kondisi ini disebut hipotensi dan dapat menyebabkan pusing, lemas, atau pingsan.",
@@ -83,7 +34,7 @@ export const CATEGORY_META: Record<BPCategory, CategoryMeta> = {
     gradient: "from-blue-900/20",
     accentText: "text-blue-300",
   },
-  normal: {
+  [BP_CATEGORY.NORMAL]: {
     label: "Normal",
     description:
       "Tekanan darah Anda berada pada rentang ideal. Kondisi jantung dan pembuluh darah Anda bekerja dengan baik.",
@@ -97,7 +48,7 @@ export const CATEGORY_META: Record<BPCategory, CategoryMeta> = {
     gradient: "from-[#4A7C59]/20",
     accentText: "text-[#4A7C59]",
   },
-  elevated: {
+  [BP_CATEGORY.ELEVATED]: {
     label: "Meningkat (Elevated)",
     description:
       "Tekanan darah Anda sedikit di atas normal. Ini bukan hipertensi, tetapi merupakan sinyal peringatan dini.",
@@ -111,7 +62,7 @@ export const CATEGORY_META: Record<BPCategory, CategoryMeta> = {
     gradient: "from-[#C17A3A]/20",
     accentText: "text-[#C17A3A]",
   },
-  hypertension_1: {
+  [BP_CATEGORY.HYPERTENSION_1]: {
     label: "Hipertensi Tahap 1",
     description:
       "Tekanan darah Anda berada pada level hipertensi tahap pertama. Ini meningkatkan risiko penyakit jantung dan stroke.",
@@ -125,7 +76,7 @@ export const CATEGORY_META: Record<BPCategory, CategoryMeta> = {
     gradient: "from-[#9C4A2A]/20",
     accentText: "text-[#FF8A65]",
   },
-  hypertension_2: {
+  [BP_CATEGORY.HYPERTENSION_2]: {
     label: "Hipertensi Tahap 2",
     description:
       "Tekanan darah Anda berada pada level hipertensi yang serius. Risiko komplikasi kardiovaskular meningkat secara signifikan.",
@@ -139,7 +90,7 @@ export const CATEGORY_META: Record<BPCategory, CategoryMeta> = {
     gradient: "from-red-900/20",
     accentText: "text-red-400",
   },
-  crisis: {
+  [BP_CATEGORY.CRISIS]: {
     label: "Krisis Hipertensi ⚠️",
     description:
       "DARURAT MEDIS. Tekanan darah Anda sangat tinggi dan berpotensi mengancam jiwa. Ini membutuhkan perhatian medis segera.",
@@ -175,24 +126,24 @@ export function analyzeBP(input: BPInput): BPResult {
 // ─── Trend analysis ───────────────────────────────────────────────────────────
 
 const CATEGORY_SCORE: Record<BPCategory, number> = {
-  low: 1,
-  normal: 2,
-  elevated: 3,
-  hypertension_1: 4,
-  hypertension_2: 5,
-  crisis: 6,
+  [BP_CATEGORY.LOW]: 1,
+  [BP_CATEGORY.NORMAL]: 2,
+  [BP_CATEGORY.ELEVATED]: 3,
+  [BP_CATEGORY.HYPERTENSION_1]: 4,
+  [BP_CATEGORY.HYPERTENSION_2]: 5,
+  [BP_CATEGORY.CRISIS]: 6,
 };
 
 export function analyzeTrend(readings: SavedReading[]): TrendDirection {
-  if (readings.length < 3) return "insufficient";
+  if (readings.length < 3) return TREND_DIRECTION.INSUFFICIENT;
   const recent = readings.slice(0, 3).map((r) => CATEGORY_SCORE[r.category]);
   const older = readings.slice(3, 6).map((r) => CATEGORY_SCORE[r.category]);
-  if (older.length === 0) return "insufficient";
+  if (older.length === 0) return TREND_DIRECTION.INSUFFICIENT;
   const recentAvg = recent.reduce((a, b) => a + b, 0) / recent.length;
   const olderAvg = older.reduce((a, b) => a + b, 0) / older.length;
-  if (recentAvg < olderAvg - 0.3) return "improving";
-  if (recentAvg > olderAvg + 0.3) return "worsening";
-  return "stable";
+  if (recentAvg < olderAvg - 0.3) return TREND_DIRECTION.IMPROVING;
+  if (recentAvg > olderAvg + 0.3) return TREND_DIRECTION.WORSENING;
+  return TREND_DIRECTION.STABLE;
 }
 
 // ─── BP scale for visual ──────────────────────────────────────────────────────

@@ -8,6 +8,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   fullWidth?: boolean;
   max?: number;
   min?: number;
+  labelClassName?: string;
 }
 
 export function Input({
@@ -19,6 +20,7 @@ export function Input({
   max,
   min,
   id,
+  labelClassName,
   ...props
 }: InputProps) {
   const generatedId =
@@ -29,7 +31,10 @@ export function Input({
       {label && (
         <label
           htmlFor={generatedId}
-          className="text-sm font-ui font-medium text-primary"
+          className={cn(
+            "text-sm font-ui font-medium text-primary",
+            labelClassName,
+          )}
         >
           {label}
         </label>
@@ -39,6 +44,7 @@ export function Input({
           id={generatedId}
           max={max}
           min={min}
+          {...props}
           className={cn(
             "w-full px-4 py-3 rounded-md border",
             "bg-white text-primary font-ui text-base",
@@ -50,7 +56,6 @@ export function Input({
             suffix && "pr-12",
             className,
           )}
-          {...props}
         />
         {suffix && (
           <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-ui font-medium text-secondary">

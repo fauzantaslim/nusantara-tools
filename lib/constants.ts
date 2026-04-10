@@ -88,6 +88,45 @@ export const DAY_TYPE = {
 export type DayType = (typeof DAY_TYPE)[keyof typeof DAY_TYPE];
 
 /**
+ * Blood Pressure (Tekanan Darah) Specific
+ */
+export const BP_CATEGORY = {
+  LOW: "low",
+  NORMAL: "normal",
+  ELEVATED: "elevated",
+  HYPERTENSION_1: "hypertension_1",
+  HYPERTENSION_2: "hypertension_2",
+  CRISIS: "crisis",
+} as const;
+
+export type BPCategory = (typeof BP_CATEGORY)[keyof typeof BP_CATEGORY];
+
+export const BODY_POSITION = {
+  SITTING: "sitting",
+  STANDING: "standing",
+  LYING: "lying",
+} as const;
+
+export type BodyPosition = (typeof BODY_POSITION)[keyof typeof BODY_POSITION];
+
+export const BP_ARM = {
+  LEFT: "left",
+  RIGHT: "right",
+} as const;
+
+export type BloodPressureArm = (typeof BP_ARM)[keyof typeof BP_ARM];
+
+export const TREND_DIRECTION = {
+  IMPROVING: "improving",
+  WORSENING: "worsening",
+  STABLE: "stable",
+  INSUFFICIENT: "insufficient",
+} as const;
+
+export type TrendDirection =
+  (typeof TREND_DIRECTION)[keyof typeof TREND_DIRECTION];
+
+/**
  * BMI Specific
  */
 export const BMI_CATEGORY = {
