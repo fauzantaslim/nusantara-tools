@@ -92,46 +92,16 @@ export const OneRMForm: React.FC<{ hook: OneRMContextType }> = ({ hook }) => {
             ]}
           />
 
-          {/* Formula Selection */}
-          <div className="flex flex-col gap-2">
-            <label className="text-sm font-bold font-ui text-primary">
-              Rumus Perhitungan
-            </label>
-            <div className="flex flex-col gap-2">
-              {(Object.keys(FORMULA_INFO) as FormulaType[]).map((f) => (
-                <button
-                  key={f}
-                  type="button"
-                  onClick={() => handleFormulaChange(f)}
-                  className={cn(
-                    "flex items-center gap-4 p-3.5 rounded-xl border-2 text-left transition-all",
-                    data.formula === f
-                      ? "border-[#C17A3A] bg-[#C17A3A]/8 text-[#C17A3A]"
-                      : "border-muted bg-white text-secondary hover:border-secondary/30",
-                  )}
-                >
-                  <div
-                    className={cn(
-                      "w-8 h-8 rounded-lg flex items-center justify-center font-black text-xs shrink-0 font-mono",
-                      data.formula === f
-                        ? "bg-[#C17A3A]/15 text-[#C17A3A]"
-                        : "bg-surface text-secondary",
-                    )}
-                  >
-                    {f === "epley" ? "E" : f === "brzycki" ? "B" : "L"}
-                  </div>
-                  <div className="min-w-0">
-                    <div className="text-sm font-bold font-ui text-primary truncate">
-                      {FORMULA_INFO[f].label}
-                    </div>
-                    <div className="text-xs text-secondary opacity-80 truncate">
-                      {FORMULA_INFO[f].best}
-                    </div>
-                  </div>
-                </button>
-              ))}
-            </div>
-          </div>
+          <SegmentedControl
+            label="Rumus Perhitungan"
+            value={data.formula}
+            onChange={(v) => handleFormulaChange(v as FormulaType)}
+            options={[
+              { value: "epley", label: "Epley" },
+              { value: "brzycki", label: "Brzycki" },
+              { value: "lombardi", label: "Lombardi" },
+            ]}
+          />
 
           {error && (
             <div className="bg-accent-3-light text-accent-3 text-sm px-4 py-3 rounded-2xl border border-accent-3/20 font-bold flex items-center gap-2 shadow-sm animate-in fade-in">
