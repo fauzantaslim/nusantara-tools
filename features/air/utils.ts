@@ -1,42 +1,14 @@
-export type SystemType = "metric" | "imperial";
-export type GenderType = "male" | "female";
-export type ActivityLevel = "low" | "moderate" | "high";
-export type ClimateType = "normal" | "hot" | "humid";
-export type AltitudeType = "low" | "high";
-export type OutputUnitType = "ml" | "liter" | "cups" | "oz";
-
-export interface WaterInput {
-  system: SystemType;
-  gender: GenderType;
-  age: number;
-  weight: number; // in kg or lbs depending on system
-  activityLevel: ActivityLevel;
-  exerciseDuration: number; // in minutes
-  climate: ClimateType;
-  altitude: AltitudeType;
-  caffeine: boolean;
-  alcohol: boolean;
-  highProtein: boolean;
-  pregnant: boolean;
-  sick: boolean;
-  unit: OutputUnitType;
-}
-
-export interface HydrationSchedule {
-  time: string;
-  label: string;
-  amount: number;
-  percentage: number;
-}
-
-export interface WaterResult {
-  baseIntakeMl: number;
-  totalIntakeMl: number; // In this version, baseIntake = totalIntake to avoid unverified medical heuristics
-  convertedIntake: number; // totalIntake converted to actual output unit
-  unitLabel: string;
-  schedule: HydrationSchedule[];
-  qualitativeTips: string[];
-}
+import {
+  WaterInput,
+  WaterResult,
+  SystemType,
+  GenderType,
+  ActivityLevel,
+  OutputUnitType,
+  ClimateType,
+  AltitudeType,
+  HydrationSchedule,
+} from "./types";
 
 export function calculateWaterIntake(input: WaterInput): WaterResult {
   // Convert basic metric
