@@ -1,54 +1,38 @@
-export type SystemType = "metric" | "imperial";
-export type GenderType = "male" | "female";
-export type ActivityLevel =
-  | "sedentary"
-  | "light"
-  | "moderate"
-  | "active"
-  | "very_active";
-export type GoalType = "maintain" | "lose" | "gain";
-export type BMRFormula = "mifflin" | "harris" | "katch";
+import {
+  SYSTEM,
+  GENDER,
+  ACTIVITY_LEVEL,
+  CALORIE_GOAL,
+  CALORIE_FORMULA,
+} from "@/lib/constants";
+import {
+  SystemType,
+  GenderType,
+  ActivityLevel,
+  GoalType,
+  BMRFormula,
+  CalorieInput,
+  MacroResult,
+  CalorieResult,
+} from "./types";
 
-export interface CalorieInput {
-  system: SystemType;
-  gender: GenderType;
-  age: number;
-  weight: number; // in kg (metric) or lbs (imperial)
-  heightRaw1: number; // cm OR ft
-  heightRaw2?: number; // inch (imperial)
-  activityLevel: ActivityLevel;
-  goal: GoalType;
-  formula: BMRFormula;
-  bodyFatPercentage?: number; // optional, mainly for katch
-  weightChangeRate?: number; // kg per week (0.25, 0.5, 0.75, 1)
-}
-
-export interface MacroResult {
-  proteinCal: number;
-  proteinGrams: number;
-  carbsCal: number;
-  carbsGrams: number;
-  fatCal: number;
-  fatGrams: number;
-}
-
-export interface CalorieResult {
-  bmr: number;
-  tdee: number;
-  targetCalories: number;
-  goal: GoalType;
-  macros: MacroResult;
-  warning?: string;
-  weightInKg: number;
-  heightInCm: number;
-}
+export type {
+  SystemType,
+  GenderType,
+  ActivityLevel,
+  GoalType,
+  BMRFormula,
+  CalorieInput,
+  MacroResult,
+  CalorieResult,
+};
 
 const ACTIVITY_MULTIPLIERS: Record<ActivityLevel, number> = {
-  sedentary: 1.2,
-  light: 1.375,
-  moderate: 1.55,
-  active: 1.725,
-  very_active: 1.9,
+  [ACTIVITY_LEVEL.SEDENTARY]: 1.2,
+  [ACTIVITY_LEVEL.LIGHT]: 1.375,
+  [ACTIVITY_LEVEL.MODERATE]: 1.55,
+  [ACTIVITY_LEVEL.ACTIVE]: 1.725,
+  [ACTIVITY_LEVEL.VERY_ACTIVE]: 1.9,
 };
 
 export function calculateCalories(input: CalorieInput): CalorieResult {
@@ -56,7 +40,7 @@ export function calculateCalories(input: CalorieInput): CalorieResult {
   let weightInKg = input.weight;
   let heightInCm = input.heightRaw1;
 
-  if (input.system === "imperial") {
+  if (input.system === SYSTEM.IMPERIAL) {
     weightInKg = input.weight * 0.453592;
     // heightRaw1 = feet, heightRaw2 = inches
     const inches = input.heightRaw1 * 12 + (input.heightRaw2 || 0);
@@ -65,20 +49,20 @@ export function calculateCalories(input: CalorieInput): CalorieResult {
 
   // 2. Kalkulasi BMR
   let bmr = 0;
-  if (input.formula === "katch" && input.bodyFatPercentage) {
+  if (input.formula === CALORIE_FORMULA.KATCH && input.bodyFatPercentage) {
     // Katch-McArdle: 370 + (21.6 * Lean Body Mass in kg)
     const leanBodyMass = weightInKg * (1 - input.bodyFatPercentage / 100);
     bmr = 370 + 21.6 * leanBodyMass;
-  } else if (input.formula === "harris") {
+  } else if (input.formula === CALORIE_FORMULA.HARRIS) {
     // Harris-Benedict (Original 1919)
-    if (input.gender === "male") {
+    if (input.gender === GENDER.MALE) {
       bmr = 66.5 + 13.75 * weightInKg + 5.003 * heightInCm - 6.75 * input.age;
     } else {
       bmr = 655.1 + 9.563 * weightInKg + 1.85 * heightInCm - 4.676 * input.age;
     }
   } else {
     // Mifflin-St Jeor (Default)
-    if (input.gender === "male") {
+    if (input.gender === GENDER.MALE) {
       bmr = 10 * weightInKg + 6.25 * heightInCm - 5 * input.age + 5;
     } else {
       bmr = 10 * weightInKg + 6.25 * heightInCm - 5 * input.age - 161;
@@ -95,11 +79,11 @@ export function calculateCalories(input: CalorieInput): CalorieResult {
   let targetCalories = tdee;
   let warning: string | undefined = undefined;
 
-  if (input.goal === "lose" && input.weightChangeRate) {
+  if (input.goal === CALORIE_GOAL.LOSE && input.weightChangeRate) {
     // Defisit: 7700 kcal per kg (1100 kcal defisit per hari = 1 kg/minggu)
     const deficitPerDay = (7700 * input.weightChangeRate) / 7;
     targetCalories = tdee - deficitPerDay;
-  } else if (input.goal === "gain" && input.weightChangeRate) {
+  } else if (input.goal === CALORIE_GOAL.GAIN && input.weightChangeRate) {
     const surplusPerDay = (7700 * input.weightChangeRate) / 7;
     targetCalories = tdee + surplusPerDay;
   }
@@ -110,11 +94,14 @@ export function calculateCalories(input: CalorieInput): CalorieResult {
   const MIN_CALORIES_FEMALE = 1200;
   const MIN_CALORIES_MALE = 1500;
 
-  if (input.gender === "female" && targetCalories < MIN_CALORIES_FEMALE) {
+  if (input.gender === GENDER.FEMALE && targetCalories < MIN_CALORIES_FEMALE) {
     warning =
       "Peringatan: Asupan target di bawah 1200 kkal/hari. Ini mungkin tidak aman tanpa pengawasan medis.";
     targetCalories = MIN_CALORIES_FEMALE;
-  } else if (input.gender === "male" && targetCalories < MIN_CALORIES_MALE) {
+  } else if (
+    input.gender === GENDER.MALE &&
+    targetCalories < MIN_CALORIES_MALE
+  ) {
     warning =
       "Peringatan: Asupan target di bawah 1500 kkal/hari. Ini mungkin tidak aman tanpa pengawasan medis.";
     targetCalories = MIN_CALORIES_MALE;
@@ -126,11 +113,11 @@ export function calculateCalories(input: CalorieInput): CalorieResult {
   let carbsPerc = 0.4;
   let fatPerc = 0.3;
 
-  if (input.goal === "lose") {
+  if (input.goal === CALORIE_GOAL.LOSE) {
     proteinPerc = 0.4; // High protein to preserve muscle mass
     carbsPerc = 0.35;
     fatPerc = 0.25;
-  } else if (input.goal === "gain") {
+  } else if (input.goal === CALORIE_GOAL.GAIN) {
     proteinPerc = 0.25; // Enough protein, more carbs for energy / surplus
     carbsPerc = 0.5;
     fatPerc = 0.25;

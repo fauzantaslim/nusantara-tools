@@ -32,6 +32,26 @@ export type ActivityLevel =
   (typeof ACTIVITY_LEVEL)[keyof typeof ACTIVITY_LEVEL];
 
 /**
+ * Calorie Specific
+ */
+export const CALORIE_GOAL = {
+  MAINTAIN: "maintain",
+  LOSE: "lose",
+  GAIN: "gain",
+} as const;
+
+export type CalorieGoal = (typeof CALORIE_GOAL)[keyof typeof CALORIE_GOAL];
+
+export const CALORIE_FORMULA = {
+  MIFFLIN: "mifflin",
+  HARRIS: "harris",
+  KATCH: "katch",
+} as const;
+
+export type CalorieFormula =
+  (typeof CALORIE_FORMULA)[keyof typeof CALORIE_FORMULA];
+
+/**
  * BMI Specific
  */
 export const BMI_CATEGORY = {
