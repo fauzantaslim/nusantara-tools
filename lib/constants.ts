@@ -89,6 +89,13 @@ export const WEIGHT_UNIT = {
 
 export type WeightUnit = (typeof WEIGHT_UNIT)[keyof typeof WEIGHT_UNIT];
 
+export const LENGTH_UNIT = {
+  CM: "cm",
+  IN: "in",
+} as const;
+
+export type LengthUnit = (typeof LENGTH_UNIT)[keyof typeof LENGTH_UNIT];
+
 export const ONERM_FORMULA = {
   EPLEY: "epley",
   BRZYCKI: "brzycki",

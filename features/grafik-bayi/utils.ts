@@ -5,46 +5,15 @@ import {
   LMSPoint,
   VALID_BOUNDS,
 } from "./who-data";
-
-export type WeightUnit = "kg" | "lbs";
-export type LengthUnit = "cm" | "in";
-
-export type GrowthCategory =
-  | "severe_low"
-  | "low"
-  | "normal"
-  | "high"
-  | "severe_high";
-
-export interface MetricResult {
-  zScore: number;
-  percentile: number;
-  category: GrowthCategory;
-  median: number;
-  unit: string;
-  outOfRange?: boolean; // flag for physiologically implausible values
-}
-
-export interface GrowthResult {
-  ageMonths: number;
-  correctedAgeMonths: number | null;
-  weight: MetricResult | null;
-  length: MetricResult | null;
-  headCirc: MetricResult | null;
-  gender: Gender;
-}
-
-export interface SavedMeasurement {
-  id: string;
-  date: string;
-  ageMonths: number;
-  weight?: number;
-  length?: number;
-  headCirc?: number;
-  weightZ?: number;
-  lengthZ?: number;
-  headCircZ?: number;
-}
+import {
+  WeightUnit,
+  LengthUnit,
+  GrowthCategory,
+  MetricResult,
+  GrowthResult,
+  SavedMeasurement,
+  GrowthInput,
+} from "./types";
 
 // ─── LMS Interpolation ────────────────────────────────────────────────────────
 
@@ -168,17 +137,6 @@ export function calcCorrectedAge(ageMonths: number, gestWeeks: number): number {
 }
 
 // ─── Main calculator ──────────────────────────────────────────────────────────
-
-export interface GrowthInput {
-  gender: Gender;
-  dob: string;
-  measureDate: string;
-  weight?: number; // always in kg
-  length?: number; // always in cm
-  headCirc?: number; // always in cm
-  isPremature?: boolean;
-  gestWeeks?: number;
-}
 
 export function calculateGrowth(input: GrowthInput): GrowthResult {
   const dob = new Date(input.dob);
