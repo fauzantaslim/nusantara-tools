@@ -2,7 +2,8 @@
 
 import React from "react";
 import { Card } from "@/ui/Card";
-import { ShortenedUrl, getBaseUrl } from "../utils";
+import { getBaseUrl } from "../utils";
+import { ShortenedUrl } from "../types";
 import { cn } from "@/lib/utils";
 import {
   Copy,

@@ -440,3 +440,412 @@ export const DIABETES_RISK_CATEGORY = {
 
 export type DiabetesRiskCategory =
   (typeof DIABETES_RISK_CATEGORY)[keyof typeof DIABETES_RISK_CATEGORY];
+
+/**
+ * Password Generator Specific
+ */
+export const PASSWORD_GENERATOR_WORDLIST = [
+  "langit",
+  "bintang",
+  "kuda",
+  "hijau",
+  "merah",
+  "api",
+  "air",
+  "angin",
+  "tanah",
+  "batu",
+  "gunung",
+  "laut",
+  "awan",
+  "hujan",
+  "badai",
+  "petir",
+  "cerah",
+  "gelap",
+  "terang",
+  "hitam",
+  "putih",
+  "biru",
+  "kuning",
+  "ungu",
+  "naga",
+  "harimau",
+  "elang",
+  "singa",
+  "gajah",
+  "pohon",
+  "daun",
+  "bunga",
+  "akar",
+  "ranting",
+  "hutan",
+  "sungai",
+  "danau",
+  "pantai",
+  "ombak",
+  "pasir",
+  "karang",
+  "ikan",
+  "paus",
+  "hiu",
+  "kura",
+  "penyu",
+  "burung",
+  "kucing",
+  "anjing",
+  "beruang",
+  "serigala",
+  "rubah",
+  "kelinci",
+  "rusa",
+  "kancil",
+  "harimau",
+  "macan",
+  "zebra",
+  "jerapah",
+  "kuda",
+  "apel",
+  "mangga",
+  "jeruk",
+  "pisang",
+  "anggur",
+  "melon",
+  "semangka",
+  "nanas",
+  "pepaya",
+  "durian",
+  "kopi",
+  "teh",
+  "susu",
+  "sirup",
+  "madu",
+  "gula",
+  "garam",
+  "merica",
+  "cabai",
+  "bawang",
+  "meja",
+  "kursi",
+  "pintu",
+  "jendela",
+  "atap",
+  "lantai",
+  "kaca",
+  "jam",
+  "lampu",
+  "kipas",
+  "buku",
+  "pena",
+  "pensil",
+  "kertas",
+  "tas",
+  "sepatu",
+  "baju",
+  "celana",
+  "topi",
+  "sabuk",
+  "mobil",
+  "motor",
+  "sepeda",
+  "kereta",
+  "bus",
+  "kapal",
+  "perahu",
+  "pesawat",
+  "roket",
+  "balon",
+  "pedang",
+  "panah",
+  "tombak",
+  "perisai",
+  "baju besi",
+  "helm",
+  "sarung",
+  "cincin",
+  "kalung",
+  "gelang",
+  "emas",
+  "perak",
+  "besi",
+  "baja",
+  "tembaga",
+  "perunggu",
+  "berlian",
+  "zamrud",
+  "safir",
+  "rubi",
+  "matahari",
+  "bulan",
+  "planet",
+  "bintang",
+  "galaksi",
+  "komet",
+  "meteor",
+  "asteroid",
+  "nebula",
+  "kosmos",
+  "senin",
+  "selasa",
+  "rabu",
+  "kamis",
+  "jumat",
+  "sabtu",
+  "minggu",
+  "januari",
+  "februari",
+  "maret",
+  "april",
+  "mei",
+  "juni",
+  "juli",
+  "agustus",
+  "september",
+  "oktober",
+  "november",
+  "desember",
+  "hari",
+  "mimpi",
+  "tidur",
+  "bangun",
+  "pagi",
+  "siang",
+  "sore",
+  "malam",
+  "waktu",
+  "jam",
+  "menit",
+  "detik",
+  "abad",
+  "tahun",
+  "bulan",
+  "minggu",
+  "hari",
+  "sekarang",
+  "dulu",
+  "nanti",
+  "sebentar",
+  "satu",
+  "dua",
+  "tiga",
+  "empat",
+  "lima",
+  "enam",
+  "tujuh",
+  "delapan",
+  "sembilan",
+  "sepuluh",
+  "merdeka",
+  "bebas",
+  "damai",
+  "cinta",
+  "kasih",
+  "sayang",
+  "harapan",
+  "impian",
+  "cita",
+  "sukses",
+  "sukacita",
+] as const;
+
+export const PASSWORD_CHARS = {
+  uppercase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+  lowercase: "abcdefghijklmnopqrstuvwxyz",
+  numbers: "0123456789",
+  symbols: "!@#$%^&*",
+} as const;
+
+/**
+ * Pomodoro Specific
+ */
+export const POMODORO_MODE = {
+  FOCUS: "focus",
+  SHORT_BREAK: "shortBreak",
+  LONG_BREAK: "longBreak",
+} as const;
+
+export const POMODORO_PRESETS = {
+  "Baby Step": {
+    focusDuration: 10,
+    shortBreakDuration: 5,
+    longBreakDuration: 10,
+  },
+  Popular: {
+    focusDuration: 25,
+    shortBreakDuration: 5,
+    longBreakDuration: 15,
+  },
+  Medium: {
+    focusDuration: 40,
+    shortBreakDuration: 8,
+    longBreakDuration: 20,
+  },
+  Extended: {
+    focusDuration: 60,
+    shortBreakDuration: 10,
+    longBreakDuration: 25,
+  },
+} as const;
+
+export const POMODORO_DEFAULT_SETTINGS = {
+  focusDuration: 25,
+  shortBreakDuration: 5,
+  longBreakDuration: 15,
+  longBreakInterval: 4,
+  autoStartBreaks: false,
+  autoStartFocus: false,
+  soundEnabled: true,
+  notificationEnabled: true,
+  volume: 0.5,
+} as const;
+
+export const POMODORO_MODE_CONFIG = {
+  [POMODORO_MODE.FOCUS]: {
+    label: "Fokus 🔥",
+    color: "#C17A3A",
+  },
+  [POMODORO_MODE.SHORT_BREAK]: {
+    label: "Istirahat Sejenak 🌿",
+    color: "#4A7C59",
+  },
+  [POMODORO_MODE.LONG_BREAK]: {
+    label: "Istirahat Panjang 🌊",
+    color: "#7A5C42",
+  },
+} as const;
+
+/**
+ * QR Generator Specific
+ */
+export const QR_MODE = {
+  URL: "url",
+  TEXT: "text",
+  EMAIL: "email",
+  PHONE: "phone",
+} as const;
+
+export const QR_DEFAULT_OPTIONS = {
+  fgColor: "#2C1A0E",
+  bgColor: "#ffffff",
+} as const;
+
+export const QR_REGEX = {
+  PHONE: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
+} as const;
+
+/**
+ * Job Application Letter (Surat Lamaran Kerja) Specific
+ */
+export const JOB_LETTER_PAPER_SIZES = [
+  { label: "A4 (210 x 297 mm)", value: "a4" },
+  { label: "Folio (210 x 330 mm)", value: "folio" },
+] as const;
+
+export const JOB_LETTER_FONTS = [
+  { label: "Sistem (Default)", value: "" },
+  { label: "Arial", value: "Arial, sans-serif" },
+  { label: "Verdana", value: "Verdana, sans-serif" },
+  { label: "Tahoma", value: "Tahoma, sans-serif" },
+  { label: "Georgia", value: "Georgia, serif" },
+  { label: "Times New Roman", value: "'Times New Roman', Times, serif" },
+  { label: "Courier New", value: "'Courier New', Courier, monospace" },
+] as const;
+
+export const JOB_LETTER_FONT_SIZES = [
+  { label: "80%", value: "0.8rem" },
+  { label: "85%", value: "0.85rem" },
+  { label: "90%", value: "0.9rem" },
+  { label: "95%", value: "0.95rem" },
+  { label: "Default", value: "1rem" },
+  { label: "105%", value: "1.05rem" },
+  { label: "110%", value: "1.1rem" },
+] as const;
+
+export const JOB_LETTER_LINE_HEIGHTS = [
+  { label: "Default", value: "1.5" },
+  { label: "100%", value: "1" },
+  { label: "125%", value: "1.25" },
+  { label: "150%", value: "1.5" },
+  { label: "175%", value: "1.75" },
+  { label: "200%", value: "2" },
+] as const;
+
+export const JOB_LETTER_ALIGNMENTS = [
+  { label: "Rata kiri kanan (justify)", value: "justify" },
+  { label: "Rata kiri (left)", value: "left" },
+] as const;
+
+export const JOB_LETTER_INDENTATIONS = [
+  { label: "Ya", value: "yes" },
+  { label: "Tidak", value: "no" },
+] as const;
+
+export const JOB_LETTER_DATE_PLACEMENTS = [
+  { label: "Atas Kanan", value: "top-right" },
+  { label: "Atas Kiri", value: "top-left" },
+  { label: "Bawah (Ikut Tanda Tangan)", value: "bottom" },
+] as const;
+
+export const JOB_LETTER_SIGNATURE_PLACEMENTS = [
+  { label: "Kanan", value: "right" },
+  { label: "Kiri", value: "left" },
+] as const;
+
+export const JOB_LETTER_LAMPIRAN_OPTIONS = [
+  { label: "Curriculum Vitae (CV)", value: "Curriculum Vitae" },
+  { label: "Portfolio", value: "Portfolio" },
+  { label: "Fotokopi Ijazah Terakhir", value: "Fotokopi Ijazah Terakhir" },
+  { label: "Fotokopi Transkrip Nilai", value: "Fotokopi Transkrip Nilai" },
+  { label: "Sertifikat Pelatihan", value: "Sertifikat Pelatihan" },
+  { label: "Fotokopi SKCK", value: "Fotokopi SKCK" },
+  { label: "Fotokopi KTP", value: "Fotokopi KTP" },
+  { label: "Pas Foto Terbaru", value: "Pas Foto Terbaru" },
+] as const;
+
+export const JOB_LETTER_DEFAULT_STATE = {
+  biodata: {
+    namaLengkap: "",
+    tempatLahir: "",
+    tanggalLahir: "",
+    jenisKelamin: "Pria",
+    status: "Lajang",
+    pendidikanTerakhir: "",
+    noHp: "",
+    email: "",
+    alamatKota: "",
+    alamatLengkap: "",
+  },
+  companyData: {
+    kepadaYth: "Bapak/Ibu",
+    hrd: "HRD",
+    namaPerusahaan: "",
+    kotaPerusahaan: "",
+    jenisInstansi: "Perusahaan",
+    posisiLowongan: "",
+    sumberLowongan: "",
+  },
+  completeness: {
+    tanggalLamaran: new Date().toISOString().split("T")[0],
+    lampiran: ["Curriculum Vitae", "Fotokopi KTP", "Pas Foto Terbaru"],
+  },
+  settings: {
+    paperSize: "a4",
+    font: "",
+    fontSize: "1rem",
+    lineHeight: "1.5",
+    alignment: "justify",
+    indentation: "yes",
+    datePlacement: "top-right",
+    signaturePlacement: "right",
+  },
+};
+
+/**
+ * URL Shortener Specific
+ */
+export const URL_SHORTENER_STORAGE_KEY = "nusantara_url_shortener";
+export const URL_SHORTENER_CHARS =
+  "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+export const URL_SHORTENER_DEFAULT_LENGTH = 6;
+export const URL_SHORTENER_BASE_URL = "https://nusantara-tools.com";
+export const URL_SHORTENER_ALIAS_REGEX = /^[a-zA-Z0-9-_]*$/;

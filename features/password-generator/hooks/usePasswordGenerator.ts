@@ -1,14 +1,16 @@
 import { useState, useCallback, useEffect } from "react";
 import {
-  GeneratorMode,
-  PasswordOptions,
-  PassphraseOptions,
   generatePassword,
   generatePassphrase,
   calculateEntropy,
-  StrengthLevel,
   getStrengthLevel,
 } from "../utils";
+import {
+  GeneratorMode,
+  PasswordOptions,
+  PassphraseOptions,
+  StrengthLevel,
+} from "../types";
 
 export const usePasswordGenerator = () => {
   const [mode, setMode] = useState<GeneratorMode>("password");

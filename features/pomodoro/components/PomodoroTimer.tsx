@@ -2,7 +2,8 @@
 
 import React from "react";
 import { Card } from "@/ui/Card";
-import { PomodoroMode, formatTime, getModeLabel } from "../utils";
+import { formatTime, getModeLabel } from "../utils";
+import { PomodoroMode } from "../types";
 import { cn } from "@/lib/utils";
 import {
   Play,

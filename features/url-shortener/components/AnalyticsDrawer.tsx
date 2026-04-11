@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useMemo } from "react";
-import { ShortenedUrl, AnalyticEntry } from "../utils";
+import { ShortenedUrl } from "../types";
 import {
   X,
   TrendingUp,

@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { ShortenedUrl, generateShortCode, getBaseUrl } from "../utils";
-
-const STORAGE_KEY = "nusantara_url_shortener";
+import { URL_SHORTENER_STORAGE_KEY } from "@/lib/constants";
+import { generateShortCode, getBaseUrl } from "../utils";
+import { ShortenedUrl } from "../types";
 
 export const useUrlShortener = () => {
   const [urls, setUrls] = useState<ShortenedUrl[]>([]);
@@ -11,7 +11,7 @@ export const useUrlShortener = () => {
 
   // Load from local storage
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
+    const stored = localStorage.getItem(URL_SHORTENER_STORAGE_KEY);
     if (stored) {
       try {
         // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -24,7 +24,7 @@ export const useUrlShortener = () => {
 
   // Save to local storage whenever urls change
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(urls));
+    localStorage.setItem(URL_SHORTENER_STORAGE_KEY, JSON.stringify(urls));
   }, [urls]);
 
   const shortenUrl = useCallback(

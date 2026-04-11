@@ -1,27 +1,18 @@
 import { useState, useCallback, useMemo } from "react";
+import { QR_DEFAULT_OPTIONS, QR_MODE } from "@/lib/constants";
 import {
-  QrType,
-  QrOptions,
   urlSchema,
   textSchema,
   emailSchema,
   phoneSchema,
   formatQrPayload,
 } from "../utils";
+import { QrType, QrOptions, InputData } from "../types";
 import { z } from "zod";
-
-interface InputData {
-  url: string;
-  text: string;
-  email: string;
-  subject: string;
-  body: string;
-  phone: string;
-}
 
 export const useQrGenerator = (initialUrl?: string) => {
   const [activeTab, setActiveTab] = useState<QrType>(
-    initialUrl ? "url" : "url",
+    initialUrl ? QR_MODE.URL : QR_MODE.URL,
   );
 
   const [inputData, setInputData] = useState<InputData>({
@@ -33,10 +24,7 @@ export const useQrGenerator = (initialUrl?: string) => {
     phone: "",
   });
 
-  const [options, setOptions] = useState<QrOptions>({
-    fgColor: "#2C1A0E", // Default dark brown
-    bgColor: "#ffffff",
-  });
+  const [options, setOptions] = useState<QrOptions>(QR_DEFAULT_OPTIONS);
 
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -47,14 +35,14 @@ export const useQrGenerator = (initialUrl?: string) => {
     let currentErrors: Record<string, string> = {};
 
     try {
-      if (activeTab === "url") {
+      if (activeTab === QR_MODE.URL) {
         if (inputData.url.length > 0) urlSchema.parse({ url: inputData.url });
         activeData.url = inputData.url;
-      } else if (activeTab === "text") {
+      } else if (activeTab === QR_MODE.TEXT) {
         if (inputData.text.length > 0)
           textSchema.parse({ text: inputData.text });
         activeData.text = inputData.text;
-      } else if (activeTab === "email") {
+      } else if (activeTab === QR_MODE.EMAIL) {
         if (inputData.email.length > 0) {
           emailSchema.parse({
             email: inputData.email,
@@ -65,7 +53,7 @@ export const useQrGenerator = (initialUrl?: string) => {
         activeData.email = inputData.email;
         activeData.subject = inputData.subject;
         activeData.body = inputData.body;
-      } else if (activeTab === "phone") {
+      } else if (activeTab === QR_MODE.PHONE) {
         if (inputData.phone.length > 0)
           phoneSchema.parse({ phone: inputData.phone });
         activeData.phone = inputData.phone;
@@ -81,9 +69,6 @@ export const useQrGenerator = (initialUrl?: string) => {
         });
       }
     }
-
-    // Defer error state updates or handle gracefully. Let's just return result if no errors, but what about displaying errors?
-    // It's better to calculate payload only if no errors, but we can't `setErrors` directly here without triggering a re-render infinitely.
 
     return { payload: result, localErrors: currentErrors };
   }, [activeTab, inputData]);
@@ -105,7 +90,7 @@ export const useQrGenerator = (initialUrl?: string) => {
       body: "",
       phone: "",
     });
-    setOptions({ fgColor: "#2C1A0E", bgColor: "#ffffff" });
+    setOptions(QR_DEFAULT_OPTIONS);
   }, []);
 
   const handleDownload = useCallback(

@@ -2,12 +2,7 @@
 
 import React, { useState } from "react";
 import { Card } from "@/ui/Card";
-import {
-  Biodata,
-  CompanyData,
-  Completeness,
-  DocumentSettings,
-} from "../hooks/useSuratLamaran";
+import { Biodata, CompanyData, Completeness, DocumentSettings } from "../types";
 import {
   PAPER_SIZES,
   FONTS,

@@ -1,23 +1,10 @@
 import { z } from "zod";
-
-export interface AnalyticEntry {
-  timestamp: string;
-  country: string;
-  city: string;
-  referrer: string;
-  browser: string;
-  device: string;
-  os: string;
-}
-
-export interface ShortenedUrl {
-  id: string;
-  originalUrl: string;
-  shortCode: string;
-  clicks: number;
-  createdAt: string; // ISO date string
-  analytics?: AnalyticEntry[];
-}
+import {
+  URL_SHORTENER_CHARS,
+  URL_SHORTENER_DEFAULT_LENGTH,
+  URL_SHORTENER_BASE_URL,
+  URL_SHORTENER_ALIAS_REGEX,
+} from "@/lib/constants";
 
 // Validation schema for URL
 export const urlSchema = z.object({
@@ -28,7 +15,7 @@ export const urlSchema = z.object({
   alias: z
     .string()
     .regex(
-      /^[a-zA-Z0-9-_]*$/,
+      URL_SHORTENER_ALIAS_REGEX,
       "Alias hanya boleh berisi huruf, angka, -, atau _",
     )
     .max(20, "Alias terlalu panjang (maksimal 20 karakter)")
@@ -36,9 +23,10 @@ export const urlSchema = z.object({
     .or(z.literal("")),
 });
 
-export const generateShortCode = (length = 6): string => {
-  const chars =
-    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+export const generateShortCode = (
+  length = URL_SHORTENER_DEFAULT_LENGTH,
+): string => {
+  const chars = URL_SHORTENER_CHARS;
   let result = "";
   for (let i = 0; i < length; i++) {
     result += chars.charAt(Math.floor(Math.random() * chars.length));
@@ -50,5 +38,5 @@ export const getBaseUrl = (): string => {
   if (typeof window !== "undefined") {
     return window.location.origin;
   }
-  return "https://nusantara-tools.com";
+  return URL_SHORTENER_BASE_URL;
 };

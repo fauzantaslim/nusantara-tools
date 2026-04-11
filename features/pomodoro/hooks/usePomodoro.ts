@@ -1,13 +1,8 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import {
-  PomodoroMode,
-  PomodoroSettings,
-  DEFAULT_SETTINGS,
-  FocusPreset,
-  POMODORO_PRESETS,
-} from "../utils";
+import { DEFAULT_SETTINGS, POMODORO_PRESETS } from "../utils";
+import { PomodoroMode, PomodoroSettings, FocusPreset } from "../types";
 
 const STORAGE_KEY_SETTINGS = "pomodoro_settings";
 const STORAGE_KEY_SESSIONS = "pomodoro_sessions_today";

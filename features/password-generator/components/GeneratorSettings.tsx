@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Card } from "@/ui/Card";
-import { GeneratorMode, PasswordOptions, PassphraseOptions } from "../utils";
+import { GeneratorMode, PasswordOptions, PassphraseOptions } from "../types";
 import { KeyRound, Type, ShieldAlert, Hash } from "lucide-react";
 import { cn } from "@/lib/utils";
 

@@ -1,12 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import {
-  Biodata,
-  CompanyData,
-  Completeness,
-  DocumentSettings,
-} from "../hooks/useSuratLamaran";
+import { Biodata, CompanyData, Completeness, DocumentSettings } from "../types";
 import {
   Copy,
   CheckCheck,

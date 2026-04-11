@@ -1,11 +1,6 @@
 import { z } from "zod";
-
-export type QrType = "url" | "text" | "email" | "phone";
-
-export interface QrOptions {
-  fgColor: string;
-  bgColor: string;
-}
+import { QR_REGEX } from "@/lib/constants";
+import { QrType } from "./types";
 
 export const urlSchema = z.object({
   url: z.string().url("Format URL tidak valid. Sertakan http:// atau https://"),
@@ -29,7 +24,7 @@ export const phoneSchema = z.object({
     .string()
     .min(5, "Nomor telepon terlalu pendek")
     .regex(
-      /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
+      QR_REGEX.PHONE,
       "Format nomor telepon tidak valid. Gunakan angka atau format internasional (+62...)",
     ),
 });

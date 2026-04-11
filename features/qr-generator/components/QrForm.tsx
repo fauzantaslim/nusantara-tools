@@ -4,7 +4,7 @@ import React from "react";
 import { Card } from "@/ui/Card";
 import { Input } from "@/ui/Input";
 import { Button } from "@/ui/Button";
-import { QrType } from "../utils";
+import { QrType } from "../types";
 import { Link2, Type, Mail, Phone, RefreshCcw, Palette } from "lucide-react";
 
 interface QrFormProps {

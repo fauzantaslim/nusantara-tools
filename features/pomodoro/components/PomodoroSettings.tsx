@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Card } from "@/ui/Card";
-import { FocusPreset, PomodoroSettings as ISettings } from "../utils";
+import { FocusPreset, PomodoroSettings as ISettings } from "../types";
 import { cn } from "@/lib/utils";
 import {
   Settings,

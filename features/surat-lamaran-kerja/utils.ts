@@ -1,65 +1,21 @@
-export const PAPER_SIZES = [
-  { label: "A4 (210 x 297 mm)", value: "a4" },
-  { label: "Folio (210 x 330 mm)", value: "folio" },
-];
+import {
+  JOB_LETTER_PAPER_SIZES,
+  JOB_LETTER_FONTS,
+  JOB_LETTER_FONT_SIZES,
+  JOB_LETTER_LINE_HEIGHTS,
+  JOB_LETTER_ALIGNMENTS,
+  JOB_LETTER_INDENTATIONS,
+  JOB_LETTER_DATE_PLACEMENTS,
+  JOB_LETTER_SIGNATURE_PLACEMENTS,
+  JOB_LETTER_LAMPIRAN_OPTIONS,
+} from "@/lib/constants";
 
-export const FONTS = [
-  { label: "Sistem (Default)", value: "" },
-  { label: "Arial", value: "Arial, sans-serif" },
-  { label: "Verdana", value: "Verdana, sans-serif" },
-  { label: "Tahoma", value: "Tahoma, sans-serif" },
-  { label: "Georgia", value: "Georgia, serif" },
-  { label: "Times New Roman", value: "'Times New Roman', Times, serif" },
-  { label: "Courier New", value: "'Courier New', Courier, monospace" },
-];
-
-export const FONT_SIZES = [
-  { label: "80%", value: "0.8rem" },
-  { label: "85%", value: "0.85rem" },
-  { label: "90%", value: "0.9rem" },
-  { label: "95%", value: "0.95rem" },
-  { label: "Default", value: "1rem" },
-  { label: "105%", value: "1.05rem" },
-  { label: "110%", value: "1.1rem" },
-];
-
-export const LINE_HEIGHTS = [
-  { label: "Default", value: "1.5" },
-  { label: "100%", value: "1" },
-  { label: "125%", value: "1.25" },
-  { label: "150%", value: "1.5" },
-  { label: "175%", value: "1.75" },
-  { label: "200%", value: "2" },
-];
-
-export const ALIGNMENTS = [
-  { label: "Rata kiri kanan (justify)", value: "justify" },
-  { label: "Rata kiri (left)", value: "left" },
-];
-
-export const INDENTATIONS = [
-  { label: "Ya", value: "yes" },
-  { label: "Tidak", value: "no" },
-];
-
-export const DATE_PLACEMENTS = [
-  { label: "Atas Kanan", value: "top-right" },
-  { label: "Atas Kiri", value: "top-left" },
-  { label: "Bawah (Ikut Tanda Tangan)", value: "bottom" },
-];
-
-export const SIGNATURE_PLACEMENTS = [
-  { label: "Kanan", value: "right" },
-  { label: "Kiri", value: "left" },
-];
-
-export const LAMPIRAN_OPTIONS = [
-  { label: "Curriculum Vitae (CV)", value: "Curriculum Vitae" },
-  { label: "Portfolio", value: "Portfolio" },
-  { label: "Fotokopi Ijazah Terakhir", value: "Fotokopi Ijazah Terakhir" },
-  { label: "Fotokopi Transkrip Nilai", value: "Fotokopi Transkrip Nilai" },
-  { label: "Sertifikat Pelatihan", value: "Sertifikat Pelatihan" },
-  { label: "Fotokopi SKCK", value: "Fotokopi SKCK" },
-  { label: "Fotokopi KTP", value: "Fotokopi KTP" },
-  { label: "Pas Foto Terbaru", value: "Pas Foto Terbaru" },
-];
+export const PAPER_SIZES = JOB_LETTER_PAPER_SIZES;
+export const FONTS = JOB_LETTER_FONTS;
+export const FONT_SIZES = JOB_LETTER_FONT_SIZES;
+export const LINE_HEIGHTS = JOB_LETTER_LINE_HEIGHTS;
+export const ALIGNMENTS = JOB_LETTER_ALIGNMENTS;
+export const INDENTATIONS = JOB_LETTER_INDENTATIONS;
+export const DATE_PLACEMENTS = JOB_LETTER_DATE_PLACEMENTS;
+export const SIGNATURE_PLACEMENTS = JOB_LETTER_SIGNATURE_PLACEMENTS;
+export const LAMPIRAN_OPTIONS = JOB_LETTER_LAMPIRAN_OPTIONS;

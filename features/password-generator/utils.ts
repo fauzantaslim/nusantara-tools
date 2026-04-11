@@ -1,226 +1,10 @@
-export type GeneratorMode = "password" | "passphrase";
-
-export interface PasswordOptions {
-  length: number;
-  uppercase: boolean;
-  lowercase: boolean;
-  numbers: boolean;
-  symbols: boolean;
-}
-
-export interface PassphraseOptions {
-  wordCount: number;
-  separator: string;
-  capitalize: boolean;
-  includeNumber: boolean;
-}
-
-export type StrengthLevel = "Weak" | "Medium" | "Strong" | "Very Strong";
-
-// Curated small list of common Indonesian and English words for Passphrase
-// This helps generate memorable but random phrases.
-const WORDLIST = [
-  "langit",
-  "bintang",
-  "kuda",
-  "hijau",
-  "merah",
-  "api",
-  "air",
-  "angin",
-  "tanah",
-  "batu",
-  "gunung",
-  "laut",
-  "awan",
-  "hujan",
-  "badai",
-  "petir",
-  "cerah",
-  "gelap",
-  "terang",
-  "hitam",
-  "putih",
-  "biru",
-  "kuning",
-  "ungu",
-  "naga",
-  "harimau",
-  "elang",
-  "singa",
-  "gajah",
-  "pohon",
-  "daun",
-  "bunga",
-  "akar",
-  "ranting",
-  "hutan",
-  "sungai",
-  "danau",
-  "pantai",
-  "ombak",
-  "pasir",
-  "karang",
-  "ikan",
-  "paus",
-  "hiu",
-  "kura",
-  "penyu",
-  "burung",
-  "kucing",
-  "anjing",
-  "beruang",
-  "serigala",
-  "rubah",
-  "kelinci",
-  "rusa",
-  "kancil",
-  "harimau",
-  "macan",
-  "zebra",
-  "jerapah",
-  "kuda",
-  "apel",
-  "mangga",
-  "jeruk",
-  "pisang",
-  "anggur",
-  "melon",
-  "semangka",
-  "nanas",
-  "pepaya",
-  "durian",
-  "kopi",
-  "teh",
-  "susu",
-  "sirup",
-  "madu",
-  "gula",
-  "garam",
-  "merica",
-  "cabai",
-  "bawang",
-  "meja",
-  "kursi",
-  "pintu",
-  "jendela",
-  "atap",
-  "lantai",
-  "kaca",
-  "jam",
-  "lampu",
-  "kipas",
-  "buku",
-  "pena",
-  "pensil",
-  "kertas",
-  "tas",
-  "sepatu",
-  "baju",
-  "celana",
-  "topi",
-  "sabuk",
-  "mobil",
-  "motor",
-  "sepeda",
-  "kereta",
-  "bus",
-  "kapal",
-  "perahu",
-  "pesawat",
-  "roket",
-  "balon",
-  "pedang",
-  "panah",
-  "tombak",
-  "perisai",
-  "baju besi",
-  "helm",
-  "sarung",
-  "cincin",
-  "kalung",
-  "gelang",
-  "emas",
-  "perak",
-  "besi",
-  "baja",
-  "tembaga",
-  "perunggu",
-  "berlian",
-  "zamrud",
-  "safir",
-  "rubi",
-  "matahari",
-  "bulan",
-  "planet",
-  "bintang",
-  "galaksi",
-  "komet",
-  "meteor",
-  "asteroid",
-  "nebula",
-  "kosmos",
-  "senin",
-  "selasa",
-  "rabu",
-  "kamis",
-  "jumat",
-  "sabtu",
-  "minggu",
-  "januari",
-  "februari",
-  "maret",
-  "april",
-  "mei",
-  "juni",
-  "juli",
-  "agustus",
-  "september",
-  "oktober",
-  "november",
-  "desember",
-  "hari",
-  "mimpi",
-  "tidur",
-  "bangun",
-  "pagi",
-  "siang",
-  "sore",
-  "malam",
-  "waktu",
-  "jam",
-  "menit",
-  "detik",
-  "abad",
-  "tahun",
-  "bulan",
-  "minggu",
-  "hari",
-  "sekarang",
-  "dulu",
-  "nanti",
-  "sebentar",
-  "satu",
-  "dua",
-  "tiga",
-  "empat",
-  "lima",
-  "enam",
-  "tujuh",
-  "delapan",
-  "sembilan",
-  "sepuluh",
-  "merdeka",
-  "bebas",
-  "damai",
-  "cinta",
-  "kasih",
-  "sayang",
-  "harapan",
-  "impian",
-  "cita",
-  "sukses",
-];
+import { PASSWORD_GENERATOR_WORDLIST, PASSWORD_CHARS } from "@/lib/constants";
+import {
+  GeneratorMode,
+  PasswordOptions,
+  PassphraseOptions,
+  StrengthLevel,
+} from "./types";
 
 // Cryptographically secure random integer
 const getRandomInt = (min: number, max: number): number => {
@@ -242,42 +26,45 @@ const getRandomInt = (min: number, max: number): number => {
 };
 
 export const generatePassword = (options: PasswordOptions): string => {
-  const chars = {
-    uppercase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-    lowercase: "abcdefghijklmnopqrstuvwxyz",
-    numbers: "0123456789",
-    symbols: "!@#$%^&*",
-  };
-
   let charPool = "";
-  let requiredChars = [];
+  let requiredChars: string[] = [];
 
   if (options.uppercase) {
-    charPool += chars.uppercase;
+    charPool += PASSWORD_CHARS.uppercase;
     requiredChars.push(
-      chars.uppercase[getRandomInt(0, chars.uppercase.length)],
+      PASSWORD_CHARS.uppercase[
+        getRandomInt(0, PASSWORD_CHARS.uppercase.length)
+      ],
     );
   }
   if (options.lowercase) {
-    charPool += chars.lowercase;
+    charPool += PASSWORD_CHARS.lowercase;
     requiredChars.push(
-      chars.lowercase[getRandomInt(0, chars.lowercase.length)],
+      PASSWORD_CHARS.lowercase[
+        getRandomInt(0, PASSWORD_CHARS.lowercase.length)
+      ],
     );
   }
   if (options.numbers) {
-    charPool += chars.numbers;
-    requiredChars.push(chars.numbers[getRandomInt(0, chars.numbers.length)]);
+    charPool += PASSWORD_CHARS.numbers;
+    requiredChars.push(
+      PASSWORD_CHARS.numbers[getRandomInt(0, PASSWORD_CHARS.numbers.length)],
+    );
   }
   if (options.symbols) {
-    charPool += chars.symbols;
-    requiredChars.push(chars.symbols[getRandomInt(0, chars.symbols.length)]);
+    charPool += PASSWORD_CHARS.symbols;
+    requiredChars.push(
+      PASSWORD_CHARS.symbols[getRandomInt(0, PASSWORD_CHARS.symbols.length)],
+    );
   }
 
   // Fallback if nothing selected (should be blocked by UI, but safe here)
   if (charPool === "") {
-    charPool = chars.lowercase;
+    charPool = PASSWORD_CHARS.lowercase;
     requiredChars.push(
-      chars.lowercase[getRandomInt(0, chars.lowercase.length)],
+      PASSWORD_CHARS.lowercase[
+        getRandomInt(0, PASSWORD_CHARS.lowercase.length)
+      ],
     );
   }
 
@@ -302,7 +89,10 @@ export const generatePassphrase = (options: PassphraseOptions): string => {
   const words: string[] = [];
 
   for (let i = 0; i < options.wordCount; i++) {
-    let word = WORDLIST[getRandomInt(0, WORDLIST.length)];
+    let word =
+      PASSWORD_GENERATOR_WORDLIST[
+        getRandomInt(0, PASSWORD_GENERATOR_WORDLIST.length)
+      ];
     if (options.capitalize) {
       word = word.charAt(0).toUpperCase() + word.slice(1);
     }
@@ -347,7 +137,7 @@ export const calculateEntropy = (
     // Passphrase
     const opt = options as PassphraseOptions;
     const wordCount = opt?.wordCount || value.split("-").length;
-    let baseEntropy = wordCount * Math.log2(WORDLIST.length);
+    let baseEntropy = wordCount * Math.log2(PASSWORD_GENERATOR_WORDLIST.length);
 
     if (opt?.capitalize) baseEntropy += wordCount; // 1 extra bit per word for capitalization
     if (opt?.includeNumber) baseEntropy += Math.log2(10); // extra entropy for 1 digit
