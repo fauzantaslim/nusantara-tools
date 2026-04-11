@@ -3,7 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { ShortenedUrl, AnalyticEntry } from "@/features/url-shortener/utils";
+import { ShortenedUrl, AnalyticEntry } from "@/features/url-shortener/types";
 import { UAParser } from "ua-parser-js";
 import { Loader2, AlertTriangle, ArrowLeft } from "lucide-react";
 import Link from "next/link";
