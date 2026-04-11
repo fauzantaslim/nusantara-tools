@@ -7,52 +7,18 @@ import {
   CalculationParameters,
   Qibla,
 } from "adhan";
+import {
+  PrayerSettings,
+  DailyPrayerTimes,
+  PrayerCalculationMethod,
+  PrayerHighLatRule,
+  PrayerTimeFormat,
+} from "./types";
 
-export type CalculationMethodOption =
-  | "MuslimWorldLeague"
-  | "Egyptian"
-  | "Karachi"
-  | "UmmAlQura"
-  | "Dubai"
-  | "MoonsightingCommittee"
-  | "NorthAmerica"
-  | "Kuwait"
-  | "Qatar"
-  | "Singapore"
-  | "Tehran"
-  | "Turkey"
-  | "Other";
-
-export type AsrMethodOption = "Standard" | "Hanafi";
-export type HighLatitudeRuleOption =
-  | "MiddleOfTheNight"
-  | "SeventhOfTheNight"
-  | "TwilightAngle";
-
-export interface PrayerTimeSettings {
-  latitude: number;
-  longitude: number;
-  date: Date;
-  method: CalculationMethodOption;
-  asrMethod: AsrMethodOption;
-  highLatitudeRule: HighLatitudeRuleOption;
-  timeFormat: "12h" | "24h";
-}
-
-export interface DailyPrayerTimes {
-  imsak: Date;
-  fajr: Date;
-  sunrise: Date;
-  dhuhr: Date;
-  asr: Date;
-  maghrib: Date;
-  isha: Date;
-  midnight: Date;
-  qiblaDirection: number; // Derajat dari utara sejati
-}
+// ─── Internal Mappings ──────────────────────────────────────────────────────
 
 function getCalculationParams(
-  method: CalculationMethodOption,
+  method: PrayerCalculationMethod,
 ): CalculationParameters {
   switch (method) {
     case "MuslimWorldLeague":
@@ -80,12 +46,13 @@ function getCalculationParams(
     case "Turkey":
       return CalculationMethod.Turkey();
     default:
-      // Default fallback MWL
       return CalculationMethod.MuslimWorldLeague();
   }
 }
 
-function getHighLatRule(rule: HighLatitudeRuleOption) {
+function getHighLatRule(
+  rule: PrayerHighLatRule,
+): (typeof HighLatitudeRule)[keyof typeof HighLatitudeRule] {
   switch (rule) {
     case "MiddleOfTheNight":
       return HighLatitudeRule.MiddleOfTheNight;
@@ -98,37 +65,34 @@ function getHighLatRule(rule: HighLatitudeRuleOption) {
   }
 }
 
+// ─── Primary Calculation ────────────────────────────────────────────────────
+
 export function calculatePrayerTimesData(
-  settings: PrayerTimeSettings,
+  settings: PrayerSettings,
 ): DailyPrayerTimes | null {
   try {
     const coordinates = new Coordinates(settings.latitude, settings.longitude);
 
-    // Konfigurasi Parameter
+    // Initial Parameters
     const params = getCalculationParams(settings.method);
 
-    // Asr Method
+    // Asr Method (Madhab)
     params.madhab =
       settings.asrMethod === "Hanafi" ? Madhab.Hanafi : Madhab.Shafi;
 
-    // High Latitude Rules
+    // High Latitude Regulations
     params.highLatitudeRule = getHighLatRule(settings.highLatitudeRule);
 
-    // Hitung Jadwal Utama
+    // Main Calculation
     const prayerTimesList = new PrayerTimes(coordinates, settings.date, params);
 
-    // Kiblat
+    // Qibla Direction
     const qibla = Qibla(coordinates);
 
-    // Imsak secara tradisional Indonesia/umumnya dianulir 10 menit sebelum subuh
+    // Imsak Logic (Traditionally 10 mins before Fajr in SEA/Indonesia)
     const imsak = new Date(prayerTimesList.fajr.getTime() - 10 * 60000);
 
-    // Tengah Malam
-    // Cara awam kalkulasi midnight dalam adhan.js umumnya mid/night,
-    // namun kita bisa asumsikan pertengahan maghrib ke subuh hari berikutnya
-    // adhan.js menyediakan metode untuk ini, kita panggil sunnat calculation
-    // Sebaiknya pakai pendekatan sunnatic (tengah dari maghrib - fajr esok)
-    // Jika tidak ada di API dasar, kita hitung kasar untuk fallback:
+    // Midnight Logic (Sunnatic approach: middle of Maghrib to next day Fajr)
     const fajrNextDay = new Date(
       prayerTimesList.fajr.getTime() + 24 * 60 * 60 * 1000,
     );
@@ -154,9 +118,11 @@ export function calculatePrayerTimesData(
   }
 }
 
+// ─── UI Formatting ──────────────────────────────────────────────────────────
+
 export function formatPrayerTime(
   date: Date | null,
-  timeFormat: "12h" | "24h",
+  timeFormat: PrayerTimeFormat,
   timezoneId: string = Intl.DateTimeFormat().resolvedOptions().timeZone,
 ): string {
   if (!date || isNaN(date.getTime())) return "--:--";
@@ -169,4 +135,16 @@ export function formatPrayerTime(
   })
     .format(date)
     .replace(".", ":");
+}
+
+/**
+ * Helper to display the countdown in HH:mm:ss
+ */
+export function formatCountdown(diffMs: number): string {
+  if (diffMs < 0) return "00:00:00";
+  const totalSeconds = Math.floor(diffMs / 1000);
+  const h = Math.floor(totalSeconds / 3600);
+  const m = Math.floor((totalSeconds % 3600) / 60);
+  const s = totalSeconds % 60;
+  return `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
 }

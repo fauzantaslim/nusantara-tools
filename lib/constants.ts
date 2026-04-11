@@ -253,6 +253,50 @@ export const ISLAMIC_EVENTS = {
 } as const;
 
 /**
+ * Prayer Specific
+ */
+export const PRAYER_METHOD = {
+  MuslimWorldLeague: "Muslim World League (MWL)",
+  Egyptian: "Egyptian General Authority",
+  Karachi: "Karachi (Islamic Sciences)",
+  UmmAlQura: "Umm al-Qura (Makkah)",
+  NorthAmerica: "ISNA (North America)",
+  Tehran: "Institute of Geophysics (Tehran)",
+  Singapore: "MUIS (Singapore)",
+  Turkey: "Diyanet (Turkey)",
+  Dubai: "Dubai (UAE)",
+  Kuwait: "Kuwait",
+  Qatar: "Qatar",
+  MoonsightingCommittee: "Moonsighting Committee",
+} as const;
+
+export const PRAYER_ASR_METHOD = {
+  Standard: "Standar (Syafii, Maliki, Hanbali)",
+  Hanafi: "Hanafi (Bayangan 2x)",
+} as const;
+
+export const PRAYER_HIGH_LAT_RULE = {
+  MiddleOfTheNight: "Pertengahan Malam",
+  SeventhOfTheNight: "1/7 Malam",
+  TwilightAngle: "Sudut Senja",
+} as const;
+
+export const PRAYER_TIME_FORMAT = {
+  FORMAT_24H: "24h",
+  FORMAT_12H: "12h",
+} as const;
+
+export const PRAYER_PRESET_CITIES = [
+  { value: "Jakarta", label: "Jakarta (WIB)", lat: -6.2088, lng: 106.8456 },
+  { value: "Surabaya", label: "Surabaya (WIB)", lat: -7.2504, lng: 112.7688 },
+  { value: "Bandung", label: "Bandung (WIB)", lat: -6.9175, lng: 107.6191 },
+  { value: "Medan", label: "Medan (WIB)", lat: 3.5952, lng: 98.6722 },
+  { value: "Makassar", label: "Makassar (WITA)", lat: -5.1477, lng: 119.4327 },
+  { value: "Denpasar", label: "Denpasar (WITA)", lat: -8.6705, lng: 115.2126 },
+  { value: "Jayapura", label: "Jayapura (WIT)", lat: -2.5337, lng: 140.7181 },
+] as const;
+
+/**
  * BMI Specific
  */
 export const BMI_CATEGORY = {
