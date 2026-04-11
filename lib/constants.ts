@@ -297,6 +297,17 @@ export const PRAYER_PRESET_CITIES = [
 ] as const;
 
 /**
+ * Zakat Specific
+ * Based on BAZNAS 2026 Standards
+ */
+export const ZAKAT_NISAB = {
+  MONTHLY: 7640144,
+  YEARLY: 91681728,
+} as const;
+
+export const ZAKAT_RATE = 0.025; // 2.5%
+
+/**
  * BMI Specific
  */
 export const BMI_CATEGORY = {

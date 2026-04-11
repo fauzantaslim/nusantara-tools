@@ -1,26 +1,19 @@
-export const NISAB_YEAR = 91681728;
-export const NISAB_MONTH = 7640144;
-export const ZAKAT_RATE = 0.025;
+import { ZAKAT_NISAB, ZAKAT_RATE } from "@/lib/constants";
+import { ZakatCalculationResult, ZakatFormData } from "./types";
 
-export type CalculationMode = "monthly" | "yearly";
+/**
+ * Calculates Zakat based on BAZNAS 2026 standards.
+ * Formula: Zakat = Total Income * 2.5% (if totalIncome >= nisab)
+ */
+export function calculateZakatData(
+  data: ZakatFormData,
+): ZakatCalculationResult {
+  const numIncome = parseFloat(data.income) || 0;
+  const numAdditional = parseFloat(data.additional) || 0;
+  const totalIncome = numIncome + numAdditional;
 
-export interface ZakatInput {
-  income: number;
-  additional: number;
-  mode: CalculationMode;
-}
-
-export interface ZakatResult {
-  totalIncome: number;
-  nisab: number;
-  isWajib: boolean;
-  zakatAmount: number;
-}
-
-export function calculateZakat(input: ZakatInput): ZakatResult {
-  const totalIncome = input.income + input.additional;
-
-  const nisab = input.mode === "yearly" ? NISAB_YEAR : NISAB_MONTH;
+  const nisab =
+    data.mode === "yearly" ? ZAKAT_NISAB.YEARLY : ZAKAT_NISAB.MONTHLY;
 
   const isWajib = totalIncome >= nisab;
   const zakatAmount = isWajib ? totalIncome * ZAKAT_RATE : 0;
@@ -30,5 +23,18 @@ export function calculateZakat(input: ZakatInput): ZakatResult {
     nisab,
     isWajib,
     zakatAmount,
+    mode: data.mode,
   };
+}
+
+/**
+ * Helper to format currency in IDR
+ */
+export function formatRupiah(value: number): string {
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(value);
 }
