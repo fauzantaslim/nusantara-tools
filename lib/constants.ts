@@ -127,6 +127,61 @@ export type TrendDirection =
   (typeof TREND_DIRECTION)[keyof typeof TREND_DIRECTION];
 
 /**
+ * Sleep (Tidur) Specific
+ */
+export const SLEEP_CALCULATION_MODE = {
+  WAKE_AT: "wake_at",
+  SLEEP_AT: "sleep_at",
+} as const;
+
+export type SleepCalculationMode =
+  (typeof SLEEP_CALCULATION_MODE)[keyof typeof SLEEP_CALCULATION_MODE];
+
+export const SLEEP_TIME_FORMAT = {
+  FORMAT_24H: "24h",
+  FORMAT_12H: "12h",
+} as const;
+
+export type SleepTimeFormat =
+  (typeof SLEEP_TIME_FORMAT)[keyof typeof SLEEP_TIME_FORMAT];
+
+export const SLEEP_QUALITY = {
+  BURUK: "Buruk",
+  KURANG_OPTIMAL: "Kurang Optimal",
+  BAIK: "Baik",
+  IDEAL: "Ideal",
+} as const;
+
+export type SleepQuality = (typeof SLEEP_QUALITY)[keyof typeof SLEEP_QUALITY];
+
+export const QUALITY_STYLE_CONFIG = {
+  [SLEEP_QUALITY.BURUK]: {
+    bg: "bg-[#9C4A2A]/15",
+    border: "border-[#9C4A2A]/30",
+    text: "text-[#FF8A65]",
+    badge: "bg-[#9C4A2A]/30 text-[#FF8A65]",
+  },
+  [SLEEP_QUALITY.KURANG_OPTIMAL]: {
+    bg: "bg-[#C17A3A]/15",
+    border: "border-[#C17A3A]/30",
+    text: "text-[#C17A3A]",
+    badge: "bg-[#C17A3A]/30 text-[#C17A3A]",
+  },
+  [SLEEP_QUALITY.BAIK]: {
+    bg: "bg-blue-900/20",
+    border: "border-blue-500/30",
+    text: "text-blue-300",
+    badge: "bg-blue-900/40 text-blue-300",
+  },
+  [SLEEP_QUALITY.IDEAL]: {
+    bg: "bg-[#4A7C59]/15",
+    border: "border-[#4A7C59]/30",
+    text: "text-[#4A7C59]",
+    badge: "bg-[#4A7C59]/30 text-[#4A7C59]",
+  },
+} as const;
+
+/**
  * BMI Specific
  */
 export const BMI_CATEGORY = {
