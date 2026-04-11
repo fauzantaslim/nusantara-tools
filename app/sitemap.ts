@@ -1,36 +1,33 @@
 import { MetadataRoute } from "next";
-import { TOOLS, CATEGORIES } from "@/lib/data";
+import {
+  SITEMAP_CATEGORY_PATHS,
+  SITEMAP_STATIC_PATHS,
+  SITEMAP_TOOL_PATHS,
+} from "@/lib/sitemap-routes";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl =
     process.env.NEXT_PUBLIC_BASE_URL || "https://nusantaratools.my.id";
 
-  // Base routes
-  const routes = [
-    "",
-    "/tentang",
-    "/kontak",
-    "/kebijakan-privasi",
-    "/syarat-ketentuan",
-  ].map((route) => ({
+  const lastModified = new Date();
+
+  const routes = [...SITEMAP_STATIC_PATHS].map((route) => ({
     url: `${baseUrl}${route}`,
-    lastModified: new Date().toISOString(),
+    lastModified,
     changeFrequency: "monthly" as const,
     priority: route === "" ? 1 : 0.8,
   }));
 
-  // Category routes
-  const categoryRoutes = CATEGORIES.map((cat) => ({
-    url: `${baseUrl}${cat.path}`,
-    lastModified: new Date().toISOString(),
+  const categoryRoutes = [...SITEMAP_CATEGORY_PATHS].map((path) => ({
+    url: `${baseUrl}${path}`,
+    lastModified,
     changeFrequency: "weekly" as const,
     priority: 0.9,
   }));
 
-  // Tool routes
-  const toolRoutes = TOOLS.filter((tool) => tool.path !== "#").map((tool) => ({
-    url: `${baseUrl}${tool.path}`,
-    lastModified: new Date().toISOString(),
+  const toolRoutes = [...SITEMAP_TOOL_PATHS].map((path) => ({
+    url: `${baseUrl}${path}`,
+    lastModified,
     changeFrequency: "weekly" as const,
     priority: 0.7,
   }));
