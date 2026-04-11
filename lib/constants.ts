@@ -182,6 +182,77 @@ export const QUALITY_STYLE_CONFIG = {
 } as const;
 
 /**
+ * Hijriyah Specific
+ */
+export const HIJRI_CONVERSION_MODE = {
+  MASEHI_TO_HIJRI: "MasehiToHijri",
+  HIJRI_TO_MASEHI: "HijriToMasehi",
+} as const;
+
+export type HijriConversionMode =
+  (typeof HIJRI_CONVERSION_MODE)[keyof typeof HIJRI_CONVERSION_MODE];
+
+export const HIJRI_MONTHS = [
+  { value: 1, name: "Muharram" },
+  { value: 2, name: "Safar" },
+  { value: 3, name: "Rabiul Awal" },
+  { value: 4, name: "Rabiul Akhir" },
+  { value: 5, name: "Jumadil Awal" },
+  { value: 6, name: "Jumadil Akhir" },
+  { value: 7, name: "Rajab" },
+  { value: 8, name: "Syaban" },
+  { value: 9, name: "Ramadhan" },
+  { value: 10, name: "Syawal" },
+  { value: 11, name: "Dzulqa’dah" },
+  { value: 12, name: "Dzulhijjah" },
+] as const;
+
+export const GREGORIAN_MONTHS_ID = [
+  "Januari",
+  "Februari",
+  "Maret",
+  "April",
+  "Mei",
+  "Juni",
+  "Juli",
+  "Agustus",
+  "September",
+  "Oktober",
+  "November",
+  "Desember",
+] as const;
+
+export const DAYS_ID = [
+  "Minggu",
+  "Senin",
+  "Selasa",
+  "Rabu",
+  "Kamis",
+  "Jumat",
+  "Sabtu",
+] as const;
+
+export const ISLAMIC_EVENTS = {
+  "1-1": { name: "Tahun Baru Hijriyah", emoji: "🌟", type: "celebration" },
+  "1-10": { name: "Hari Asyura", emoji: "🗓️", type: "fasting" },
+  "3-12": {
+    name: "Maulid Nabi Muhammad SAW",
+    emoji: "🕌",
+    type: "celebration",
+  },
+  "7-27": { name: "Isra Mikraj", emoji: "✨", type: "historical" },
+  "8-15": { name: "Nisfu Syaban", emoji: "🤲", type: "historical" },
+  "9-1": { name: "Awal Bulan Suci Ramadhan", emoji: "🌙", type: "fasting" },
+  "9-17": { name: "Nuzulul Quran", emoji: "📖", type: "historical" },
+  "10-1": { name: "Hari Raya Idul Fitri", emoji: "🎉", type: "celebration" },
+  "12-9": { name: "Puasa Arafah", emoji: "🙏", type: "fasting" },
+  "12-10": { name: "Hari Raya Idul Adha", emoji: "🐐", type: "celebration" },
+  "12-11": { name: "Hari Tasyrik Pertama", emoji: "🥩", type: "celebration" },
+  "12-12": { name: "Hari Tasyrik Kedua", emoji: "🥩", type: "celebration" },
+  "12-13": { name: "Hari Tasyrik Ketiga", emoji: "🥩", type: "celebration" },
+} as const;
+
+/**
  * BMI Specific
  */
 export const BMI_CATEGORY = {
