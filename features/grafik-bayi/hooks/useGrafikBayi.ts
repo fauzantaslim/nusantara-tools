@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import {
   GrafikBayiData,
   GrowthResult,
@@ -41,15 +41,16 @@ export const useGrafikBayi = (): GrafikBayiContextType => {
   const [data, setData] = useState<GrafikBayiData>(initialData);
   const [result, setResult] = useState<GrowthResult | null>(null);
   const [error, setError] = useState<string>("");
-  const [history, setHistory] = useState<SavedMeasurement[]>([]);
+  const [history, setHistory] = useState<SavedMeasurement[]>(() =>
+    loadHistory(),
+  );
 
-  useEffect(() => {
-    setHistory(loadHistory());
-  }, []);
-
-  const updateData = useCallback((key: keyof GrafikBayiData, value: any) => {
-    setData((prev) => ({ ...prev, [key]: value }));
-  }, []);
+  const updateData = useCallback(
+    <K extends keyof GrafikBayiData>(key: K, value: GrafikBayiData[K]) => {
+      setData((prev) => ({ ...prev, [key]: value }));
+    },
+    [],
+  );
 
   const handleCalculate = useCallback(
     (e: React.FormEvent) => {
@@ -93,8 +94,8 @@ export const useGrafikBayi = (): GrafikBayiContextType => {
 
       try {
         setResult(calculateGrowth(input));
-      } catch (err: any) {
-        setError(err.message || "Terjadi kesalahan.");
+      } catch (err: unknown) {
+        setError((err as Error).message || "Terjadi kesalahan.");
       }
     },
     [data],

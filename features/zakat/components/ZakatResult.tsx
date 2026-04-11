@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Card } from "@/ui/Card";
-import { CheckCircle2, Info, Wallet, AlertTriangle } from "lucide-react";
+import { CheckCircle2, Info, Wallet } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ZakatContextType } from "../types";
 import { formatRupiah } from "../utils";

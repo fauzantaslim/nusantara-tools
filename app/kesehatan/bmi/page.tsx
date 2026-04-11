@@ -80,8 +80,8 @@ export default function BMICalculator() {
                 <div className="flex p-6 sm:p-8 rounded-3xl bg-[#1A0E07]/40 border border-[#7A5C42]/30 flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 backdrop-blur-sm max-w-2xl mx-auto text-left shadow-inner">
                   <Info className="w-8 h-8 sm:w-10 sm:h-10 text-[#C17A3A] shrink-0" />
                   <p className="text-[#F5EDE3] font-heading font-medium text-lg leading-snug text-center sm:text-left">
-                    "Menjaga berat badan ideal adalah bentuk investasi jangka
-                    panjang untuk kualitas hidup Anda."
+                    &quot;Menjaga berat badan ideal adalah bentuk investasi
+                    jangka panjang untuk kualitas hidup Anda.&quot;
                   </p>
                 </div>
               </div>

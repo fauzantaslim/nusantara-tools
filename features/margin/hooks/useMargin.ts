@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { MarginInput, MarginResult } from "../types";
 import { calculateMargin } from "../utils";
 
@@ -12,18 +12,6 @@ const initialState: MarginInput = {
   taxRate: 0,
   marketplaceFee: 0,
   quantity: 1,
-};
-
-const initialResult: MarginResult = {
-  isCalculated: false,
-  cost: 0,
-  sellingPrice: 0,
-  profit: 0,
-  margin: 0,
-  markup: 0,
-  totalProfit: 0,
-  totalRevenue: 0,
-  netProfitAfterFees: 0,
 };
 
 export const useMargin = () => {

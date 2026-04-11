@@ -63,8 +63,8 @@ export const useSplitBill = () => {
           setItems(assignedItems);
           setMode("ocr");
         }
-      } catch (err: any) {
-        setOcrError(err.message || "Failed to process image.");
+      } catch (err: unknown) {
+        setOcrError((err as Error).message || "Failed to process image.");
       } finally {
         setIsProcessingOcr(false);
       }

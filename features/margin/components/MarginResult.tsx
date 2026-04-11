@@ -8,7 +8,6 @@ import {
   Target,
   TrendingUp,
   PiggyBank,
-  Activity,
   Calculator,
   CheckCircle2,
 } from "lucide-react";

@@ -28,15 +28,24 @@ class AudioMock {
   volume = 1;
   play = jest.fn().mockResolvedValue(undefined);
 }
-global.Audio = AudioMock as any;
+global.Audio = AudioMock as unknown as typeof Audio;
 
 // Mock Notification
-const notificationMock = jest.fn();
-(global as any).Notification = notificationMock;
-(global.Notification as any).permission = "granted";
-(global.Notification as any).requestPermission = jest
-  .fn()
-  .mockResolvedValue("granted");
+const notificationMock = jest.fn() as unknown as typeof Notification;
+Object.defineProperty(global, "Notification", {
+  value: notificationMock,
+  writable: true,
+});
+
+Object.defineProperty(notificationMock, "permission", {
+  get: () => "granted",
+  configurable: true,
+});
+
+Object.defineProperty(notificationMock, "requestPermission", {
+  value: jest.fn().mockResolvedValue("granted"),
+  writable: true,
+});
 
 describe("usePomodoro Hook", () => {
   beforeEach(() => {

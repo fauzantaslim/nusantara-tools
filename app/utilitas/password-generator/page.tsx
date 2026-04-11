@@ -216,8 +216,8 @@ export default function PasswordGeneratorPage() {
                           Rekomendasi Aman
                         </span>
                         <p className="text-[10px] text-[#EDE0D0] opacity-60 mt-4 leading-relaxed italic">
-                          "Fokus pada meningkatkan panjang sandi dibanding hanya
-                          mencari variasi simbol rumit belaka."
+                          &quot;Fokus pada meningkatkan panjang sandi dibanding
+                          hanya mencari variasi simbol rumit belaka.&quot;
                         </p>
                       </div>
                     </div>

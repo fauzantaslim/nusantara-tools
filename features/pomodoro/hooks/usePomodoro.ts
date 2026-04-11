@@ -27,6 +27,7 @@ export const usePomodoro = () => {
     if (storedSettings) {
       try {
         const parsed = JSON.parse(storedSettings);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setSettings(parsed);
         // Determine preset
         const matchedPreset = (
@@ -67,21 +68,6 @@ export const usePomodoro = () => {
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY_SETTINGS, JSON.stringify(settings));
   }, [settings]);
-
-  // Handle countdown
-  useEffect(() => {
-    if (isActive && timeLeft > 0) {
-      timerRef.current = setInterval(() => {
-        setTimeLeft((prev) => prev - 1);
-      }, 1000);
-    } else if (timeLeft === 0) {
-      handleSessionEnd();
-    }
-
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
-  }, [isActive, timeLeft]);
 
   const playAlarm = useCallback(() => {
     if (settings.soundEnabled && audioRef.current) {
@@ -157,6 +143,22 @@ export const usePomodoro = () => {
     playAlarm,
     showNotification,
   ]);
+
+  // Handle countdown
+  useEffect(() => {
+    if (isActive && timeLeft > 0) {
+      timerRef.current = setInterval(() => {
+        setTimeLeft((prev) => prev - 1);
+      }, 1000);
+    } else if (timeLeft === 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      handleSessionEnd();
+    }
+
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [isActive, timeLeft, handleSessionEnd]);
 
   const toggleTimer = async () => {
     if (!isActive && settings.notificationEnabled) {

@@ -56,9 +56,12 @@ export const useCalorie = (): CalorieContextType => {
   const [result, setResult] = useState<CalorieResult | null>(null);
   const [error, setError] = useState<string>("");
 
-  const updateData = useCallback((key: keyof CalorieData, value: any) => {
-    setData((prev) => ({ ...prev, [key]: value }));
-  }, []);
+  const updateData = useCallback(
+    <K extends keyof CalorieData>(key: K, value: CalorieData[K]) => {
+      setData((prev) => ({ ...prev, [key]: value }));
+    },
+    [],
+  );
 
   const handleCalculate = useCallback(
     (e: React.FormEvent) => {
@@ -106,11 +109,13 @@ export const useCalorie = (): CalorieContextType => {
 
         const res = calculateCalories(input);
         setResult(res);
-      } catch (err: any) {
+      } catch (err: unknown) {
         if (err instanceof z.ZodError) {
           setError(err.issues[0].message);
-        } else {
+        } else if (err instanceof Error) {
           setError(err.message || "Terjadi kesalahan saat menghitung kalori.");
+        } else {
+          setError("Terjadi kesalahan saat menghitung kalori.");
         }
         setResult(null);
       }

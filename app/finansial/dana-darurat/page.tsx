@@ -218,12 +218,12 @@ export default function DanaDaruratPage() {
                         Rumus Dana Darurat
                       </h5>
                       <p className="text-[#EDE0D0] font-body text-sm leading-relaxed opacity-90">
-                        Kami melakukan komputasi bukan sekedar "Pengeluaran x
-                        Durasi Bulan", namun menambahkan "Faktor Penyesuaian".
-                        Di mana pengguna dengan risiko ketidakstabilan pekerjaan
-                        (Freelancer) atau rasio jumlah tanggungan lebih banyak
-                        akan mendapatkan proporsi komputasi target nominal yang
-                        dilipatkan (+5% s.d +20%).
+                        Kami melakukan komputasi bukan sekedar &quot;Pengeluaran
+                        x Durasi Bulan&quot;, namun menambahkan &quot;Faktor
+                        Penyesuaian&quot;. Di mana pengguna dengan risiko
+                        ketidakstabilan pekerjaan (Freelancer) atau rasio jumlah
+                        tanggungan lebih banyak akan mendapatkan proporsi
+                        komputasi target nominal yang dilipatkan (+5% s.d +20%).
                       </p>
                     </div>
                     <div className="flex-1 w-full bg-[#2C1A0E] p-6 rounded-2xl border border-white/10 shadow-inner">

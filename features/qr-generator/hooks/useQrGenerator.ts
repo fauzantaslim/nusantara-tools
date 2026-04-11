@@ -26,13 +26,11 @@ export const useQrGenerator = (initialUrl?: string) => {
 
   const [options, setOptions] = useState<QrOptions>(QR_DEFAULT_OPTIONS);
 
-  const [errors, setErrors] = useState<Record<string, string>>({});
-
   // Memoized derived payload based on the active tab and its data validation
   const qrPayload = useMemo(() => {
     let result = "";
     const activeData: Record<string, string> = {};
-    let currentErrors: Record<string, string> = {};
+    const currentErrors: Record<string, string> = {};
 
     try {
       if (activeTab === QR_MODE.URL) {

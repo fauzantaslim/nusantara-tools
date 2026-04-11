@@ -113,7 +113,7 @@ export default function GrafikBayiCalculator() {
                     tengah distribusi.
                   </p>
                   <p className="text-[#EDE0D0] text-sm font-body leading-relaxed opacity-90">
-                    Tidak ada persentil "terbaik"—yang penting adalah{" "}
+                    Tidak ada persentil &quot;terbaik&quot;—yang penting adalah{" "}
                     <strong>konsistensi dan tren</strong>. Bayi yang stabil di
                     persentil ke-10 jauh lebih sehat dari bayi yang tiba-tiba
                     turun dari P70 ke P20.
@@ -339,8 +339,8 @@ export default function GrafikBayiCalculator() {
                 Setiap Pengukuran Adalah Cerita
               </h4>
               <p className="text-[#EDE0D0] font-body text-sm leading-relaxed relative z-10">
-                Gunakan tombol "Simpan Pengukuran" setelah setiap sesi untuk
-                membangun rekam jejak pertumbuhan si kecil. Data yang
+                Gunakan tombol &quot;Simpan Pengukuran&quot; setelah setiap sesi
+                untuk membangun rekam jejak pertumbuhan si kecil. Data yang
                 terdokumentasi baik adalah aset berharga dalam setiap kunjungan
                 ke dokter anak.
               </p>

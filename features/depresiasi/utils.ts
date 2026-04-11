@@ -230,12 +230,7 @@ export const calculateDepreciation = (
   }
 
   // Generate monthly records from yearly records
-  const monthlyRecords = generateMonthlyRecords(
-    records,
-    startMonth,
-    startYear,
-    input.method,
-  );
+  const monthlyRecords = generateMonthlyRecords(records, startMonth, startYear);
 
   return {
     records,
@@ -251,7 +246,6 @@ function generateMonthlyRecords(
   yearRecords: YearRecord[],
   startMonth: number,
   startYear: number,
-  method: DepreciationMethod,
 ): MonthRecord[] {
   const monthly: MonthRecord[] = [];
   let globalMonth = 0;

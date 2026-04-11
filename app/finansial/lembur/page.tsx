@@ -330,8 +330,8 @@ export default function LemburPage() {
                             Faktor Upah/Jam
                           </span>
                           <p className="text-[10px] text-[#EDE0D0] opacity-60 mt-4 leading-relaxed italic">
-                            "40 jam × 52 minggu ÷ 12 bulan ≈ 173 jam/bulan — PP
-                            35/2021 Pasal 31"
+                            &quot;40 jam × 52 minggu ÷ 12 bulan ≈ 173 jam/bulan
+                            — PP 35/2021 Pasal 31&quot;
                           </p>
                         </div>
                       </div>

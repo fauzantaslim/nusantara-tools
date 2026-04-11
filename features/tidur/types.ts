@@ -40,7 +40,10 @@ export interface SleepFormData {
 
 export interface SleepContextType {
   data: SleepFormData;
-  updateData: (key: keyof SleepFormData, value: any) => void;
+  updateData: <K extends keyof SleepFormData>(
+    key: K,
+    value: SleepFormData[K],
+  ) => void;
   result: SleepResult | null;
   error: string;
   handleCalculate: (e: React.FormEvent) => void;

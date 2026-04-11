@@ -6,7 +6,7 @@ import { Card } from "@/ui/Card";
 import { CalendarDays, Info, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { formatDateId, getDaysInMonth, getDayType } from "../utils";
-import { MasaSuburContextType, CycleResult } from "../types";
+import { MasaSuburContextType } from "../types";
 import { DAY_TYPE } from "@/lib/constants";
 import { getDay, isToday, format, startOfMonth } from "date-fns";
 import { id } from "date-fns/locale";

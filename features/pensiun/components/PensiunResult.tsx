@@ -347,7 +347,17 @@ export const PensiunResultComp: React.FC<PensiunResultProps> = ({
                       color: "#F5EDE3",
                     }}
                     labelStyle={{ color: "#C17A3A", fontWeight: "bold" }}
-                    formatter={(val: any) => formatIDR(Number(val))}
+                    formatter={(
+                      val:
+                        | number
+                        | string
+                        | readonly (number | string)[]
+                        | undefined,
+                    ) =>
+                      val !== undefined && val !== null
+                        ? formatIDR(Number(Array.isArray(val) ? val[0] : val))
+                        : ""
+                    }
                   />
                   {/* Demarcation line for retirement */}
                   <ReferenceLine

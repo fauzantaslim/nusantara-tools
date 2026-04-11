@@ -44,14 +44,18 @@ export const useBloodPressure = (): BPContextType => {
   const [error, setError] = useState<string>("");
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setHistory(loadHistory());
   }, []);
 
   const trend = useMemo(() => analyzeTrend(history), [history]);
 
-  const updateData = useCallback((key: keyof BPFormData, value: any) => {
-    setData((prev) => ({ ...prev, [key]: value }));
-  }, []);
+  const updateData = useCallback(
+    <K extends keyof BPFormData>(key: K, value: BPFormData[K]) => {
+      setData((prev) => ({ ...prev, [key]: value }));
+    },
+    [],
+  );
 
   const handleAnalyze = useCallback(
     (e: React.FormEvent) => {

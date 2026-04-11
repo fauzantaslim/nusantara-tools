@@ -1,5 +1,5 @@
-import { WeightUnit, LengthUnit, GenderType } from "@/lib/constants";
-import { Gender, GrowthIndicator } from "./who-data";
+import { WeightUnit, LengthUnit } from "@/lib/constants";
+import { Gender } from "./who-data";
 
 export type { WeightUnit, LengthUnit };
 
@@ -55,7 +55,10 @@ export interface GrafikBayiData {
 
 export interface GrafikBayiContextType {
   data: GrafikBayiData;
-  updateData: (key: keyof GrafikBayiData, value: any) => void;
+  updateData: <K extends keyof GrafikBayiData>(
+    key: K,
+    value: GrafikBayiData[K],
+  ) => void;
   result: GrowthResult | null;
   error: string;
   history: SavedMeasurement[];

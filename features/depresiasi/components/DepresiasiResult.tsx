@@ -88,7 +88,6 @@ export function DepresiasiResult({
   cost,
   method,
   groupLabel,
-  usefulLife,
 }: DepresiasiResultProps) {
   const [viewMode, setViewMode] = useState<ViewMode>("year");
 
@@ -160,8 +159,6 @@ export function DepresiasiResult({
   const maxDepreciation = Math.max(
     ...result.records.map((r) => r.depreciation),
   );
-  const currentRecords =
-    viewMode === "year" ? result.records : result.monthlyRecords;
 
   return (
     <Card

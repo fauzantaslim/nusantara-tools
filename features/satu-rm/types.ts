@@ -41,7 +41,7 @@ export interface OneRMData {
 
 export interface OneRMContextType {
   data: OneRMData;
-  updateData: (key: keyof OneRMData, value: any) => void;
+  updateData: <K extends keyof OneRMData>(key: K, value: OneRMData[K]) => void;
   result: OneRMResult | null;
   error: string;
   handleCalculate: (e: React.FormEvent) => void;

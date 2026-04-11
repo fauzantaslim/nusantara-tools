@@ -43,7 +43,7 @@ export interface BMIData {
 
 export interface BMIContextType {
   data: BMIData;
-  updateData: (key: keyof BMIData, value: any) => void;
+  updateData: <K extends keyof BMIData>(key: K, value: BMIData[K]) => void;
   result: BMIResult | null;
   error: string;
   handleCalculate: (e: React.FormEvent) => void;

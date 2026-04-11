@@ -53,7 +53,10 @@ export interface CaffeineData {
 
 export interface CaffeineContextType {
   data: CaffeineData;
-  updateData: (key: keyof CaffeineData, value: any) => void;
+  updateData: <K extends keyof CaffeineData>(
+    key: K,
+    value: CaffeineData[K],
+  ) => void;
   result: CaffeineResult | null;
   error: string;
   handleCalculate: (e: React.FormEvent) => void;

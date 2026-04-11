@@ -6,7 +6,7 @@ import { CurrencyInput } from "@/ui/CurrencyInput";
 import { SegmentedControl } from "@/ui/SegmentedControl";
 import { Button } from "@/ui/Button";
 import { Calculator, RefreshCw, ArrowRight, ShieldAlert } from "lucide-react";
-import { ZakatContextType } from "../types";
+import { ZakatContextType, ZakatFormData } from "../types";
 
 export const ZakatForm: React.FC<{ hook: ZakatContextType }> = ({ hook }) => {
   const { data, updateData, error, calculate, handleReset } = hook;
@@ -42,7 +42,7 @@ export const ZakatForm: React.FC<{ hook: ZakatContextType }> = ({ hook }) => {
             { value: "yearly", label: "Tahunan" },
           ]}
           value={data.mode}
-          onChange={(val) => updateData("mode", val as any)}
+          onChange={(val) => updateData("mode", val as ZakatFormData["mode"])}
         />
 
         <div className="h-px bg-muted/60 w-full my-1" />

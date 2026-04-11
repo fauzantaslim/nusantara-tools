@@ -55,7 +55,6 @@ const formatMonth = (monthNum: number) => `Bulan ${monthNum}`;
 function ChartTooltip({
   active,
   payload,
-  label,
 }: {
   active?: boolean;
   payload?: Array<{
@@ -98,9 +97,6 @@ export const DanaDaruratResult: React.FC<DanaDaruratResultProps> = ({
   result,
 }) => {
   const isGoalReached = result?.isGoalReached ?? false;
-  const isWarningMode = result
-    ? result.currentProgressAmount < result.totalMonthlyExpense * 1.5
-    : false;
 
   const chartData = useMemo(() => {
     if (!result || !result.projectionChart) return [];

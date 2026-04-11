@@ -88,14 +88,17 @@ export default function CVATSPage() {
                   <li>
                     <strong>Ganti Grafik dengan Angka Nyata:</strong> Daripada
                     memakai bar grafik untuk rating skill, lebih baik menulis{" "}
-                    <em>"Meningkatkan engagement sosial media hingga 30%"</em>{" "}
+                    <em>
+                      &quot;Meningkatkan engagement sosial media hingga
+                      30%&quot;
+                    </em>{" "}
                     di pengalaman kerja.
                   </li>
                   <li>
                     <strong>Standardisasi Judul Bagian:</strong> Jangan
                     menggunakan judul unik seperti{" "}
-                    <em>"Penjelajahan Karirku"</em>. Gunakan judul standar yang
-                    dikenali sistem: &ldquo;Experience&rdquo;,
+                    <em>&quot;Penjelajahan Karirku&quot;</em>. Gunakan judul
+                    standar yang dikenali sistem: &ldquo;Experience&rdquo;,
                     &ldquo;Education&rdquo;, &ldquo;Skills&rdquo;.
                   </li>
                 </ul>

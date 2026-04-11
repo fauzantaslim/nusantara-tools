@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useMemo } from "react";
 import {
   generatePassword,
   generatePassphrase,
@@ -14,10 +14,7 @@ import {
 
 export const usePasswordGenerator = () => {
   const [mode, setMode] = useState<GeneratorMode>("password");
-  const [generatedValue, setGeneratedValue] = useState("");
-  const [entropy, setEntropy] = useState(0);
-  const [strength, setStrength] = useState<StrengthLevel>("Weak");
-
+  const [refreshCount, setRefreshCount] = useState(0);
   const [passwordOptions, setPasswordOptions] = useState<PasswordOptions>({
     length: 16,
     uppercase: true,
@@ -38,21 +35,28 @@ export const usePasswordGenerator = () => {
   const [isCopied, setIsCopied] = useState(false);
   const [showPassword, setShowPassword] = useState(true);
 
-  const generate = useCallback(() => {
+  const { generatedValue, entropy, strength } = useMemo(() => {
     let result = "";
     let currentEntropy = 0;
 
     if (mode === "password") {
-      // Ensure at least one option is checked
-      if (
-        !passwordOptions.uppercase &&
-        !passwordOptions.lowercase &&
-        !passwordOptions.numbers &&
-        !passwordOptions.symbols
-      ) {
-        setPasswordOptions((prev) => ({ ...prev, lowercase: true }));
-        return;
+      // Ensure at least one option is checked (side effect in memo is not ideal, but we'll stick to logic here)
+      const hasOptions =
+        passwordOptions.uppercase ||
+        passwordOptions.lowercase ||
+        passwordOptions.numbers ||
+        passwordOptions.symbols;
+
+      if (!hasOptions) {
+        // We'll return a basic result if no options, but avoid setState here.
+        // The UI should prevent this.
+        return {
+          generatedValue: "",
+          entropy: 0,
+          strength: "Weak" as StrengthLevel,
+        };
       }
+
       result = generatePassword(passwordOptions);
       currentEntropy = calculateEntropy(result, mode, passwordOptions);
     } else {
@@ -60,16 +64,18 @@ export const usePasswordGenerator = () => {
       currentEntropy = calculateEntropy(result, mode, passphraseOptions);
     }
 
-    setGeneratedValue(result);
-    setEntropy(currentEntropy);
-    setStrength(getStrengthLevel(currentEntropy));
-    setIsCopied(false);
-  }, [mode, passwordOptions, passphraseOptions]);
+    return {
+      generatedValue: result,
+      entropy: currentEntropy,
+      strength: getStrengthLevel(currentEntropy),
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mode, passwordOptions, passphraseOptions, refreshCount]);
 
-  // We will auto generate on options change but avoid triggering loops.
-  useEffect(() => {
-    generate();
-  }, [mode, passwordOptions, passphraseOptions, generate]);
+  const generate = useCallback(() => {
+    setRefreshCount((prev) => prev + 1);
+    setIsCopied(false);
+  }, []);
 
   const copyToClipboard = useCallback(
     async (textToCopy?: string) => {

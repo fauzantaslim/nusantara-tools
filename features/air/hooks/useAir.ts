@@ -48,9 +48,12 @@ export const useAir = (): AirContextType => {
   const [result, setResult] = useState<WaterResult | null>(null);
   const [error, setError] = useState<string>("");
 
-  const updateData = useCallback((key: keyof AirData, value: any) => {
-    setData((prev) => ({ ...prev, [key]: value }));
-  }, []);
+  const updateData = useCallback(
+    <K extends keyof AirData>(key: K, value: AirData[K]) => {
+      setData((prev) => ({ ...prev, [key]: value }));
+    },
+    [],
+  );
 
   const handleCalculate = useCallback(
     (e: React.FormEvent) => {
@@ -84,12 +87,13 @@ export const useAir = (): AirContextType => {
 
         const res = calculateWaterIntake(input);
         setResult(res);
-      } catch (err: any) {
+      } catch (err: unknown) {
         if (err instanceof z.ZodError) {
           setError(err.issues[0].message);
         } else {
           setError(
-            err.message || "Terjadi kesalahan saat menghitung asupan air.",
+            (err as Error).message ||
+              "Terjadi kesalahan saat menghitung asupan air.",
           );
         }
         setResult(null);

@@ -79,10 +79,10 @@ export default function PregnancyCalculator() {
                 <div className="flex p-6 sm:p-8 rounded-3xl bg-[#1A0E07]/40 border border-[#7A5C42]/30 flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 backdrop-blur-sm max-w-2xl mx-auto text-left shadow-inner">
                   <Info className="w-8 h-8 sm:w-10 sm:h-10 text-[#4A7C59] shrink-0" />
                   <p className="text-[#F5EDE3] font-heading font-medium text-lg leading-snug text-center sm:text-left">
-                    "Setiap perjalanan kehamilan memiliki dinamika yang unik.
-                    Jadikan informasi ini sebagai panduan praktis, bukan
+                    &quot;Setiap perjalanan kehamilan memiliki dinamika yang
+                    unik. Jadikan informasi ini sebagai panduan praktis, bukan
                     pengganti diagnosis maupun instruksi ahli tenaga medis
-                    profesional."
+                    profesional.&quot;
                   </p>
                 </div>
               </div>

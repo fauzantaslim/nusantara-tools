@@ -42,9 +42,12 @@ export const useBMI = (): BMIContextType => {
   const [result, setResult] = useState<BMIResult | null>(null);
   const [error, setError] = useState<string>("");
 
-  const updateData = useCallback((key: keyof BMIData, value: any) => {
-    setData((prev) => ({ ...prev, [key]: value }));
-  }, []);
+  const updateData = useCallback(
+    <K extends keyof BMIData>(key: K, value: BMIData[K]) => {
+      setData((prev) => ({ ...prev, [key]: value }));
+    },
+    [],
+  );
 
   const handleCalculate = useCallback(
     (e: React.FormEvent) => {
@@ -74,11 +77,13 @@ export const useBMI = (): BMIContextType => {
 
         const res = calculateBMI(input);
         setResult(res);
-      } catch (err: any) {
+      } catch (err: unknown) {
         if (err instanceof z.ZodError) {
           setError(err.issues[0].message);
         } else {
-          setError(err.message || "Terjadi kesalahan saat menghitung BMI");
+          setError(
+            (err as Error).message || "Terjadi kesalahan saat menghitung BMI",
+          );
         }
         setResult(null);
       }

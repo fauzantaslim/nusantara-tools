@@ -9,7 +9,7 @@
     "lint": "eslint",
     "check": "npm run lint",
     "check-format": "prettier --check .",
-    "check-lint": "npm run lint",
+    "check-lint": "eslint . --ext ts --ext tsx --ext js",
     "check-types": "tsc --noEmit",
     "test": "jest",
     "test:watch": "jest --watch",

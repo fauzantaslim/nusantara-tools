@@ -30,6 +30,7 @@ export const usePrayer = (): PrayerContextType => {
 
   // Sync with client-side only
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsClient(true);
     setData((prev) => ({
       ...prev,
@@ -144,7 +145,7 @@ export const usePrayer = (): PrayerContextType => {
         { name: "Isya", time: prayerTimes.isha.getTime() },
       ];
 
-      let next = times.find((t) => now.getTime() < t.time);
+      const next = times.find((t) => now.getTime() < t.time);
 
       if (next) {
         setCountdown({

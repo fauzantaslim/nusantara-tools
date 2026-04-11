@@ -229,8 +229,8 @@ export default function QrGeneratorPage() {
                           Siap Di Scan
                         </span>
                         <p className="text-[10px] text-[#EDE0D0] opacity-60 mt-4 leading-relaxed italic">
-                          "Integrasikan pemasaran tanpa batas pada setiap materi
-                          promosi produk Anda"
+                          &quot;Integrasikan pemasaran tanpa batas pada setiap
+                          materi promosi produk Anda&quot;
                         </p>
                       </div>
                     </div>

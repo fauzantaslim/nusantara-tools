@@ -36,9 +36,12 @@ export const useSleep = (): SleepContextType => {
   const [result, setResult] = useState<SleepResult | null>(null);
   const [error, setError] = useState<string>("");
 
-  const updateData = useCallback((key: keyof SleepFormData, value: any) => {
-    setData((prev) => ({ ...prev, [key]: value }));
-  }, []);
+  const updateData = useCallback(
+    <K extends keyof SleepFormData>(key: K, value: SleepFormData[K]) => {
+      setData((prev) => ({ ...prev, [key]: value }));
+    },
+    [],
+  );
 
   const handleCalculate = useCallback(
     (e: React.FormEvent) => {
@@ -63,12 +66,13 @@ export const useSleep = (): SleepContextType => {
 
         const res = calculateSleepCycles(input);
         setResult(res);
-      } catch (err: any) {
+      } catch (err: unknown) {
         if (err instanceof z.ZodError) {
           setError(err.issues[0].message);
         } else {
           setError(
-            err.message || "Terjadi kesalahan saat menghitung siklus tidur.",
+            (err as Error).message ||
+              "Terjadi kesalahan saat menghitung siklus tidur.",
           );
         }
         setResult(null);

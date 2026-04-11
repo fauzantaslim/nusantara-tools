@@ -202,8 +202,8 @@ export default function PomodoroPage() {
                           Rasio Fokus
                         </span>
                         <p className="text-[10px] text-[#EDE0D0] opacity-60 mt-4 leading-relaxed italic">
-                          "Empat sesi kerja singkat diselingi istirahat, diikuti
-                          oleh satu istirahat panjang."
+                          &quot;Empat sesi kerja singkat diselingi istirahat,
+                          diikuti oleh satu istirahat panjang.&quot;
                         </p>
                       </div>
                     </div>

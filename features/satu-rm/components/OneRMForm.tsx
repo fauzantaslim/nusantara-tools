@@ -6,14 +6,7 @@ import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
 import { SegmentedControl } from "@/ui/SegmentedControl";
 import { ArrowRight, ShieldAlert, Dumbbell, RefreshCw } from "lucide-react";
-import { cn } from "@/lib/utils";
-import {
-  OneRMContextType,
-  FormulaType,
-  FORMULA_INFO,
-  WEIGHT_UNIT,
-  FORMULA,
-} from "../types";
+import { OneRMContextType, FormulaType, WEIGHT_UNIT, FORMULA } from "../types";
 
 export const OneRMForm: React.FC<{ hook: OneRMContextType }> = ({ hook }) => {
   const {

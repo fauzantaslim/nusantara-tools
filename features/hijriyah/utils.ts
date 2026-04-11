@@ -48,7 +48,7 @@ export function convertToHijri(
       return null;
     }
     return result;
-  } catch (err) {
+  } catch {
     return null;
   }
 }
@@ -67,7 +67,7 @@ export function convertToGregorian(
       return null;
     }
     return result;
-  } catch (err) {
+  } catch {
     return null;
   }
 }

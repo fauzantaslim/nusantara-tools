@@ -53,3 +53,13 @@ export interface PensiunResult {
   durationYears: number | string;
   input: PensiunInput;
 }
+
+export interface PensiunContextType {
+  input: PensiunInput;
+  updateInput: <K extends keyof PensiunInput>(
+    key: K,
+    value: PensiunInput[K],
+  ) => void;
+  result: PensiunResult;
+  resetForm: () => void;
+}

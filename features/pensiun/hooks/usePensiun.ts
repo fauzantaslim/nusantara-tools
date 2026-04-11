@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from "react";
-import { PensiunInput, PensiunResult } from "../types";
+import { useState, useCallback, useMemo } from "react";
+import { PensiunInput, PensiunResult, PensiunContextType } from "../types";
 import { calculatePensiun } from "../utils";
 
 const initialState: PensiunInput = {
@@ -41,34 +41,31 @@ const initialResult: PensiunResult = {
   input: initialState,
 };
 
-export const usePensiun = () => {
-  const [input, setInput] = useState<PensiunInput>(initialState);
-  const [result, setResult] = useState<PensiunResult>(initialResult);
-
+export const usePensiun = (): PensiunContextType => {
+  const [data, setData] = useState<PensiunInput>(initialState);
   // Auto-calculation on input changes
-  useEffect(() => {
+  const result = useMemo(() => {
     try {
-      const calculatedResult = calculatePensiun(input);
-      setResult(calculatedResult);
+      return calculatePensiun(data);
     } catch (e) {
       console.error("Calculation Error", e);
+      return initialResult;
     }
-  }, [input]);
+  }, [data]);
 
   const updateInput = useCallback(
     <K extends keyof PensiunInput>(key: K, value: PensiunInput[K]) => {
-      setInput((prev) => ({ ...prev, [key]: value }));
+      setData((prev) => ({ ...prev, [key]: value }));
     },
     [],
   );
 
   const resetForm = useCallback(() => {
-    setInput(initialState);
-    setResult(initialResult);
+    setData(initialState);
   }, []);
 
   return {
-    input,
+    input: data,
     result,
     updateInput,
     resetForm,

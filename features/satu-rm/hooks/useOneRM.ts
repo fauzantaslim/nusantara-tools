@@ -36,9 +36,12 @@ export const useOneRM = (): OneRMContextType => {
   const [result, setResult] = useState<OneRMResult | null>(null);
   const [error, setError] = useState<string>("");
 
-  const updateData = useCallback((key: keyof OneRMData, value: any) => {
-    setData((prev) => ({ ...prev, [key]: value }));
-  }, []);
+  const updateData = useCallback(
+    <K extends keyof OneRMData>(key: K, value: OneRMData[K]) => {
+      setData((prev) => ({ ...prev, [key]: value }));
+    },
+    [],
+  );
 
   const handleCalculate = useCallback(
     (e: React.FormEvent) => {
@@ -60,11 +63,13 @@ export const useOneRM = (): OneRMContextType => {
         };
 
         setResult(calculateOneRM(input));
-      } catch (err: any) {
+      } catch (err: unknown) {
         if (err instanceof z.ZodError) {
           setError(err.issues[0].message);
         } else {
-          setError(err.message || "Terjadi kesalahan saat menghitung 1RM.");
+          setError(
+            (err as Error).message || "Terjadi kesalahan saat menghitung 1RM.",
+          );
         }
         setResult(null);
       }

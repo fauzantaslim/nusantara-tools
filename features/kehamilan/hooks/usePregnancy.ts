@@ -76,13 +76,15 @@ export const usePregnancy = (): PregnancyContextType => {
 
         const res = calculatePregnancy(input);
         setResult(res);
-      } catch (err: any) {
+      } catch (err: unknown) {
         if (err instanceof z.ZodError) {
           setError(err.issues[0].message);
-        } else {
+        } else if (err instanceof Error) {
           setError(
             err.message || "Terjadi kesalahan saat menghitung kehamilan.",
           );
+        } else {
+          setError("Terjadi kesalahan saat menghitung kehamilan.");
         }
         setResult(null);
       }

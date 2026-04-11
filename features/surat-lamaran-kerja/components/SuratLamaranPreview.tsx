@@ -66,7 +66,7 @@ export const SuratLamaranPreview: React.FC<SuratLamaranPreviewProps> = ({
       printContainer.style.fontFamily = settings.font;
       printContainer.style.fontSize = settings.fontSize;
       printContainer.style.lineHeight = settings.lineHeight;
-      printContainer.style.textAlign = settings.alignment as any;
+      printContainer.style.textAlign = settings.alignment;
       printContainer.style.color = "black";
 
       printContainer.appendChild(cloneContent);
@@ -277,7 +277,7 @@ export const SuratLamaranPreview: React.FC<SuratLamaranPreviewProps> = ({
               fontFamily: settings.font,
               fontSize: settings.fontSize,
               lineHeight: settings.lineHeight,
-              textAlign: settings.alignment as any,
+              textAlign: settings.alignment,
             }}
           >
             <div ref={contentRef} className="text-black">

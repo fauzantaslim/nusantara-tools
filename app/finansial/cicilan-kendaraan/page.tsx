@@ -9,7 +9,6 @@ import { RelatedTools } from "@/components/layout/RelatedTools";
 import { Card } from "@/ui/Card";
 import {
   Car,
-  CheckCircle2,
   Info,
   HelpCircle,
   Lightbulb,

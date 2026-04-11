@@ -153,7 +153,7 @@ export const DiabetesResult: React.FC<{ hook: DiabetesContextType }> = ({
           </h3>
           <p className="text-[#EDE0D0] font-body max-w-[260px] text-base leading-relaxed opacity-90">
             Lengkapi semua pertanyaan di formulir sebelah kiri, lalu klik
-            "Hitung Risiko".
+            &quot;Hitung Risiko&quot;.
           </p>
           <div className="mt-8 bg-[#1A0E07]/60 rounded-2xl p-5 border border-white/10 text-left w-full max-w-[270px]">
             <p className="text-[10px] font-bold text-[#C17A3A] uppercase tracking-widest mb-3">

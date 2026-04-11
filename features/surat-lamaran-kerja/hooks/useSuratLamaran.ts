@@ -27,6 +27,7 @@ export function useSuratLamaran() {
       const savedCompleteness = localStorage.getItem("slk_completeness");
       const savedSettings = localStorage.getItem("slk_settings");
 
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (savedBiodata) setBiodata(JSON.parse(savedBiodata));
       if (savedCompanyData) setCompanyData(JSON.parse(savedCompanyData));
       if (savedCompleteness) setCompleteness(JSON.parse(savedCompleteness));

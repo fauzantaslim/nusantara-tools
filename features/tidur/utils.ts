@@ -4,7 +4,6 @@ import {
   SLEEP_QUALITY,
 } from "@/lib/constants";
 import {
-  SleepCalculationMode,
   SleepTimeFormat,
   SleepQuality,
   SleepInput,

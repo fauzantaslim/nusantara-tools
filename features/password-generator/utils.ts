@@ -27,7 +27,7 @@ const getRandomInt = (min: number, max: number): number => {
 
 export const generatePassword = (options: PasswordOptions): string => {
   let charPool = "";
-  let requiredChars: string[] = [];
+  const requiredChars: string[] = [];
 
   if (options.uppercase) {
     charPool += PASSWORD_CHARS.uppercase;

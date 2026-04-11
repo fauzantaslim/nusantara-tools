@@ -1,8 +1,19 @@
-
-echo "🔍 Running Pre-Commit Checks on Staged Files"
+echo "🔍 Running Pre-Commit Checks..."
 
 echo ""
-echo "✨ 1. Formatting Staged Files"
+echo "🎨 1. Checking Code Format..."
+npm run check-format || { echo "❌ Format Check Failed!"; exit 1; }
+
+echo ""
+echo "🧹 2. Linting Code..."
+npm run check-lint || { echo "❌ Lint Check Failed!"; exit 1; }
+
+echo ""
+echo "📦 3. Checking Types..."
+npm run check-types || { echo "❌ Type Check Failed!"; exit 1; }
+
+echo ""
+echo "✨ 4. Formatting Staged Files..."
 npx pretty-quick --staged || { echo "❌ Pretty Quick Failed!"; exit 1; }
 
 echo ""

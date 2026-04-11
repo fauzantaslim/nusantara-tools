@@ -11,7 +11,6 @@ import {
   GrowthCategory,
   MetricResult,
   GrowthResult,
-  SavedMeasurement,
   GrowthInput,
 } from "./types";
 

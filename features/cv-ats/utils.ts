@@ -37,7 +37,7 @@ export function validateCV(data: CVData): {
  */
 export function getCompletenessScore(data: CVData): number {
   let score = 0;
-  const { personalInfo, experience, education, skills, additional } = data;
+  const { personalInfo, experience, education, skills } = data;
 
   // Base Info (Max 30)
   if (personalInfo.fullName) score += 5;

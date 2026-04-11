@@ -4,16 +4,16 @@ import React from "react";
 import { Card } from "@/ui/Card";
 import { Input } from "@/ui/Input";
 import { Button } from "@/ui/Button";
-import { QrType } from "../types";
+import { QrType, InputData, QrOptions } from "../types";
 import { Link2, Type, Mail, Phone, RefreshCcw, Palette } from "lucide-react";
 
 interface QrFormProps {
   activeTab: QrType;
   setActiveTab: (val: QrType) => void;
-  inputData: any;
-  updateInput: (k: any, v: string) => void;
-  options: any;
-  updateOptions: (k: any, v: string) => void;
+  inputData: InputData;
+  updateInput: (k: keyof InputData, v: string) => void;
+  options: QrOptions;
+  updateOptions: (k: keyof QrOptions, v: string) => void;
   errors: Record<string, string>;
   resetForm: () => void;
 }

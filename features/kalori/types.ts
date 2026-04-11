@@ -58,7 +58,10 @@ export interface CalorieData {
 
 export interface CalorieContextType {
   data: CalorieData;
-  updateData: (key: keyof CalorieData, value: any) => void;
+  updateData: <K extends keyof CalorieData>(
+    key: K,
+    value: CalorieData[K],
+  ) => void;
   result: CalorieResult | null;
   error: string;
   handleCalculate: (e: React.FormEvent) => void;

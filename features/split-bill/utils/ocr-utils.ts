@@ -18,10 +18,14 @@ export const parseReceiptImage = async (
     const ret = await worker.recognize(imageFile);
     await worker.terminate();
 
-    const linesArray = (ret.data as any).lines
-      ? (ret.data as any).lines.map((l: any) => l.text as string)
-      : (ret.data as any).text
-        ? ((ret.data as any).text as string).split("\n")
+    const data = ret.data as unknown as {
+      lines?: { text: string }[];
+      text: string;
+    };
+    const linesArray = data.lines
+      ? data.lines.map((l) => l.text)
+      : data.text
+        ? data.text.split("\n")
         : [];
 
     const items = parseLines(linesArray);

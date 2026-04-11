@@ -113,7 +113,11 @@ export const useCVATS = () => {
   }, []);
 
   const updateExperience = useCallback(
-    (id: string, key: keyof WorkExperience, value: any) => {
+    <K extends keyof WorkExperience>(
+      id: string,
+      key: K,
+      value: WorkExperience[K],
+    ) => {
       setData((prev) => ({
         ...prev,
         experience: prev.experience.map((exp) =>
@@ -170,7 +174,7 @@ export const useCVATS = () => {
   }, []);
 
   const updateEducation = useCallback(
-    (id: string, key: keyof Education, value: any) => {
+    <K extends keyof Education>(id: string, key: K, value: Education[K]) => {
       setData((prev) => ({
         ...prev,
         education: prev.education.map((edu) =>
@@ -268,7 +272,11 @@ export const useCVATS = () => {
   }, []);
 
   const updateAdditional = useCallback(
-    (id: string, key: keyof AdditionalSection, value: any) => {
+    <K extends keyof AdditionalSection>(
+      id: string,
+      key: K,
+      value: AdditionalSection[K],
+    ) => {
       setData((prev) => ({
         ...prev,
         additional: prev.additional.map((item) =>

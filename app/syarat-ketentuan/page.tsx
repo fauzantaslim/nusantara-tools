@@ -79,10 +79,10 @@ export default function TermsPage() {
           <p>
             Meskipun komitmen teknis kami dirancang sepenuh tekad merampungkan
             beban kalkulasi meja Anda, semua alat murni berstempel penyajian
-            "apa adanya". Keputusan akhir penarikan mutasi dana atau pola
-            nutrisi esok hari dipangku dengan mantap oleh sadar pijakan diri
-            Anda pribadi sehingga platform secara definitif terlepas utuh dari
-            aduan salah persepsi.
+            &quot;apa adanya&quot;. Keputusan akhir penarikan mutasi dana atau
+            pola nutrisi esok hari dipangku dengan mantap oleh sadar pijakan
+            diri Anda pribadi sehingga platform secara definitif terlepas utuh
+            dari aduan salah persepsi.
           </p>
         </div>
       </div>

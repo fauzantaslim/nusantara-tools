@@ -16,3 +16,14 @@ export interface PassphraseOptions {
 }
 
 export type StrengthLevel = "Weak" | "Medium" | "Strong" | "Very Strong";
+
+export interface GeneratorResultProps {
+  value: string;
+  entropy: number;
+  strength: StrengthLevel;
+  showPassword: boolean;
+  setShowPassword: (show: boolean) => void;
+  isCopied: boolean;
+  copyToClipboard: (text?: string) => void;
+  generate: () => void;
+}

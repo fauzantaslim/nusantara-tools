@@ -1,5 +1,4 @@
 import {
-  Gender,
   AgeRange,
   BMICategory,
   WaistMale,

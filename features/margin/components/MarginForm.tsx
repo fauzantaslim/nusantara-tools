@@ -5,7 +5,6 @@ import { Card } from "@/ui/Card";
 import { CurrencyInput } from "@/ui/CurrencyInput";
 import { Button } from "@/ui/Button";
 import { MarginInput, MarginMode } from "../types";
-import { cn } from "@/lib/utils";
 import {
   Settings,
   TrendingUp,

@@ -28,9 +28,12 @@ export const useCaffeine = (): CaffeineContextType => {
   const [result, setResult] = useState<CaffeineResult | null>(null);
   const [error, setError] = useState<string>("");
 
-  const updateData = useCallback((key: keyof CaffeineData, value: any) => {
-    setData((prev) => ({ ...prev, [key]: value }));
-  }, []);
+  const updateData = useCallback(
+    <K extends keyof CaffeineData>(key: K, value: CaffeineData[K]) => {
+      setData((prev) => ({ ...prev, [key]: value }));
+    },
+    [],
+  );
 
   const addEntry = useCallback(() => {
     setData((prev) => ({ ...prev, entries: [...prev.entries, newEntry()] }));
@@ -87,7 +90,7 @@ export const useCaffeine = (): CaffeineContextType => {
         entries: data.entries,
         profile: data.profile,
         bodyWeight: data.bodyWeight ? Number(data.bodyWeight) : undefined,
-        bodyWeightUnit: data.bodyWeightUnit as any, // Mapping if needed, but they are same strings
+        bodyWeightUnit: data.bodyWeightUnit,
       };
 
       setResult(calculateCaffeine(input));

@@ -63,13 +63,21 @@ export interface CVATSContextType {
 
   // Experience
   addExperience: () => void;
-  updateExperience: (id: string, key: keyof WorkExperience, value: any) => void;
+  updateExperience: <K extends keyof WorkExperience>(
+    id: string,
+    key: K,
+    value: WorkExperience[K],
+  ) => void;
   removeExperience: (id: string) => void;
   moveExperience: (id: string, direction: "up" | "down") => void;
 
   // Education
   addEducation: () => void;
-  updateEducation: (id: string, key: keyof Education, value: any) => void;
+  updateEducation: <K extends keyof Education>(
+    id: string,
+    key: K,
+    value: Education[K],
+  ) => void;
   removeEducation: (id: string) => void;
   moveEducation: (id: string, direction: "up" | "down") => void;
 
@@ -80,10 +88,10 @@ export interface CVATSContextType {
 
   // Additional
   addAdditional: (type: AdditionalSectionType) => void;
-  updateAdditional: (
+  updateAdditional: <K extends keyof AdditionalSection>(
     id: string,
-    key: keyof AdditionalSection,
-    value: any,
+    key: K,
+    value: AdditionalSection[K],
   ) => void;
   removeAdditional: (id: string) => void;
 

@@ -3,8 +3,6 @@
 import React, { useState } from "react";
 import { Card } from "@/ui/Card";
 import { CurrencyInput } from "@/ui/CurrencyInput";
-import { PensiunInput } from "../types";
-import { cn } from "@/lib/utils";
 import {
   Settings,
   Target,
@@ -14,6 +12,8 @@ import {
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
+
+import { PensiunInput } from "../types";
 
 interface PensiunFormProps {
   input: PensiunInput;
@@ -49,7 +49,7 @@ export const PensiunForm: React.FC<PensiunFormProps> = ({
 
       {/* Header */}
       <div className="relative z-10 flex justify-between items-start">
-        <div>
+        <div className="flex-1">
           <h2 className="text-2xl font-bold font-heading text-primary flex items-center gap-2">
             <Settings className="w-6 h-6 text-[#9C4A2A]" />
             Data Finansial
@@ -59,6 +59,12 @@ export const PensiunForm: React.FC<PensiunFormProps> = ({
             dana pensiun.
           </p>
         </div>
+        <button
+          onClick={onReset}
+          className="text-xs font-bold text-[#9C4A2A] hover:text-[#7A5C42] transition-colors border-b border-dashed border-[#9C4A2A]/40 pb-0.5 mt-2"
+        >
+          Atur Ulang
+        </button>
       </div>
 
       {warnings.length > 0 && (

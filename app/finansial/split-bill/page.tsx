@@ -6,14 +6,7 @@ import { Breadcrumbs } from "@/ui/Breadcrumbs";
 import { useSplitBill } from "@/features/split-bill/hooks/useSplitBill";
 import { SplitBillSettings } from "@/features/split-bill/components/SplitBillSettings";
 import { SplitBillResult } from "@/features/split-bill/components/SplitBillResult";
-import {
-  Info,
-  CheckCircle2,
-  ReceiptText,
-  ShieldCheck,
-  UsersRound,
-  Send,
-} from "lucide-react";
+import { Info, ReceiptText, ShieldCheck, UsersRound, Send } from "lucide-react";
 
 export default function SplitBillPage() {
   const {

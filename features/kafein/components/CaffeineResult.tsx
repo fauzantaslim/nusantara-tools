@@ -82,8 +82,8 @@ export const CaffeineResult: React.FC<{ hook: CaffeineContextType }> = ({
           Kalkulator Siap
         </h3>
         <p className="text-[#EDE0D0] font-body max-w-[280px] text-base leading-relaxed relative z-10 opacity-90">
-          Tambahkan sumber kafein Anda hari ini dan klik "Hitung" untuk melihat
-          status asupan Anda.
+          Tambahkan sumber kafein Anda hari ini dan klik &quot;Hitung&quot;
+          untuk melihat status asupan Anda.
         </p>
       </Card>
     );

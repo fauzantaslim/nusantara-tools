@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { Card } from "@/ui/Card";
-import { Target, Scale, Flame, Activity, Utensils } from "lucide-react";
+import { Target, Scale, Activity, Utensils } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CalorieContextType, GoalType } from "../types";
 

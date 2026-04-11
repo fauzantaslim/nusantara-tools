@@ -23,7 +23,6 @@ import {
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 interface SuratLamaranFormProps {
   biodata: Biodata;
@@ -572,7 +571,11 @@ export const SuratLamaranForm: React.FC<SuratLamaranFormProps> = ({
                   <select
                     value={settings.paperSize}
                     onChange={(e) =>
-                      setSettings({ ...settings, paperSize: e.target.value })
+                      setSettings({
+                        ...settings,
+                        paperSize: e.target
+                          .value as DocumentSettings["paperSize"],
+                      })
                     }
                     className="w-full h-10 bg-white border border-muted rounded-lg px-2 outline-none text-sm font-body"
                   >
@@ -644,7 +647,11 @@ export const SuratLamaranForm: React.FC<SuratLamaranFormProps> = ({
                   <select
                     value={settings.alignment}
                     onChange={(e) =>
-                      setSettings({ ...settings, alignment: e.target.value })
+                      setSettings({
+                        ...settings,
+                        alignment: e.target
+                          .value as DocumentSettings["alignment"],
+                      })
                     }
                     className="w-full h-10 bg-white border border-muted rounded-lg px-2 outline-none text-sm font-body"
                   >
@@ -662,7 +669,11 @@ export const SuratLamaranForm: React.FC<SuratLamaranFormProps> = ({
                   <select
                     value={settings.indentation}
                     onChange={(e) =>
-                      setSettings({ ...settings, indentation: e.target.value })
+                      setSettings({
+                        ...settings,
+                        indentation: e.target
+                          .value as DocumentSettings["indentation"],
+                      })
                     }
                     className="w-full h-10 bg-white border border-muted rounded-lg px-2 outline-none text-sm font-body"
                   >
@@ -682,7 +693,8 @@ export const SuratLamaranForm: React.FC<SuratLamaranFormProps> = ({
                     onChange={(e) =>
                       setSettings({
                         ...settings,
-                        datePlacement: e.target.value,
+                        datePlacement: e.target
+                          .value as DocumentSettings["datePlacement"],
                       })
                     }
                     className="w-full h-10 bg-white border border-muted rounded-lg px-2 outline-none text-sm font-body"
@@ -703,7 +715,8 @@ export const SuratLamaranForm: React.FC<SuratLamaranFormProps> = ({
                     onChange={(e) =>
                       setSettings({
                         ...settings,
-                        signaturePlacement: e.target.value,
+                        signaturePlacement: e.target
+                          .value as DocumentSettings["signaturePlacement"],
                       })
                     }
                     className="w-full h-10 bg-white border border-muted rounded-lg px-2 outline-none text-sm font-body"

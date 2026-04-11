@@ -309,11 +309,11 @@ export default function OneRepMaxCalculator() {
                       Rumus mana yang paling akurat?
                     </summary>
                     <p className="mt-3 text-[#EDE0D0] text-sm leading-relaxed">
-                      Tidak ada rumus yang universal "terbaik" untuk semua
-                      orang. Epley cocok sebagai titik awal. Brzycki cenderung
-                      lebih presisi untuk repetisi rendah. Lombardi lebih stabil
-                      pada repetisi tinggi. Untuk hasil paling konservatif,
-                      bandingkan rata-rata ketiganya.
+                      Tidak ada rumus yang universal &quot;terbaik&quot; untuk
+                      semua orang. Epley cocok sebagai titik awal. Brzycki
+                      cenderung lebih presisi untuk repetisi rendah. Lombardi
+                      lebih stabil pada repetisi tinggi. Untuk hasil paling
+                      konservatif, bandingkan rata-rata ketiganya.
                     </p>
                   </details>
                   <details className="group border-b border-[#7A5C42]/30 pb-4">

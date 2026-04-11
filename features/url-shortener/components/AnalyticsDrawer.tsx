@@ -20,20 +20,9 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  BarChart,
-  Bar,
-  Cell,
-  PieChart,
-  Pie,
 } from "recharts";
 import { cn } from "@/lib/utils";
-import {
-  format,
-  parseISO,
-  startOfDay,
-  eachDayOfInterval,
-  subDays,
-} from "date-fns";
+import { format, parseISO, eachDayOfInterval, subDays } from "date-fns";
 import { id } from "date-fns/locale";
 
 interface AnalyticsDrawerProps {
@@ -42,14 +31,12 @@ interface AnalyticsDrawerProps {
   onClose: () => void;
 }
 
-const COLORS = ["#C17A3A", "#A96930", "#8B572A", "#6D4421", "#4F3218"];
-
 export const AnalyticsDrawer: React.FC<AnalyticsDrawerProps> = ({
   url,
   isOpen,
   onClose,
 }) => {
-  const analytics = url?.analytics || [];
+  const analytics = useMemo(() => url?.analytics || [], [url?.analytics]);
 
   // 1. Process Data for Engagement over Time (Last 7 days)
   const engagementData = useMemo(() => {
@@ -222,7 +209,7 @@ export const AnalyticsDrawer: React.FC<AnalyticsDrawerProps> = ({
                     </h3>
                   </div>
                   <div className="space-y-3">
-                    {locationData.map((item, idx) => (
+                    {locationData.map((item) => (
                       <div key={item.name} className="flex flex-col gap-1.5">
                         <div className="flex justify-between text-xs font-body items-center">
                           <span className="text-primary font-medium">
@@ -254,7 +241,7 @@ export const AnalyticsDrawer: React.FC<AnalyticsDrawerProps> = ({
                     </h3>
                   </div>
                   <div className="space-y-3">
-                    {referrerData.map((item, idx) => (
+                    {referrerData.map((item) => (
                       <div
                         key={item.name}
                         className="flex items-center justify-between p-3 bg-surface/50 border border-muted rounded-xl hover:bg-surface transition-colors"
@@ -282,7 +269,7 @@ export const AnalyticsDrawer: React.FC<AnalyticsDrawerProps> = ({
                   </h3>
                 </div>
                 <div className="flex items-center justify-around py-4 bg-surface/30 rounded-2xl border border-muted">
-                  {deviceData.map((item, idx) => (
+                  {deviceData.map((item) => (
                     <div
                       key={item.name}
                       className="flex flex-col items-center gap-2"

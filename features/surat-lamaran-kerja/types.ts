@@ -27,12 +27,12 @@ export type Completeness = {
 };
 
 export type DocumentSettings = {
-  paperSize: string;
+  paperSize: "a4" | "folio" | string;
   font: string;
   fontSize: string;
   lineHeight: string;
-  alignment: string;
-  indentation: string;
-  datePlacement: string;
-  signaturePlacement: string;
+  alignment: "left" | "center" | "right" | "justify";
+  indentation: "yes" | "no" | string;
+  datePlacement: "top-left" | "top-right" | "bottom" | string;
+  signaturePlacement: "left" | "right" | string;
 };

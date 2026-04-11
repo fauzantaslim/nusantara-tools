@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useId } from "react";
 import { cn } from "@/lib/utils";
 
 interface CurrencyInputProps {
@@ -22,6 +22,7 @@ export function CurrencyInput({
   className,
   variant = "default",
 }: CurrencyInputProps) {
+  const generatedId = useId();
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     // Only allow numeric digits
     const rawValue = e.target.value.replace(/[^0-9]/g, "");
@@ -33,9 +34,7 @@ export function CurrencyInput({
     ? new Intl.NumberFormat("id-ID").format(Number(value))
     : "";
 
-  const id =
-    label?.toLowerCase().replace(/\s+/g, "-") ||
-    Math.random().toString(36).substring(7);
+  const id = label?.toLowerCase().replace(/\s+/g, "-") || generatedId;
 
   if (variant === "mini") {
     return (

@@ -32,7 +32,6 @@ export const useHijri = (): HijriContextType => {
     HIJRI_CONVERSION_MODE.MASEHI_TO_HIJRI,
   );
   const [data, setData] = useState<HijriFormData>(initialData);
-  const [error, setError] = useState<string>("");
 
   const updateData = useCallback((key: keyof HijriFormData, value: string) => {
     setData((prev) => ({ ...prev, [key]: value }));
@@ -63,7 +62,6 @@ export const useHijri = (): HijriContextType => {
 
   const handleReset = useCallback(() => {
     setData(initialData);
-    setError("");
   }, []);
 
   const toggleMode = useCallback(() => {
@@ -76,55 +74,67 @@ export const useHijri = (): HijriContextType => {
   }, [handleReset]);
 
   // Reactive Calculation
-  const result = useMemo((): HijriResult | null => {
-    setError("");
-
+  const { result, error } = useMemo((): {
+    result: HijriResult | null;
+    error: string;
+  } => {
     if (mode === HIJRI_CONVERSION_MODE.MASEHI_TO_HIJRI) {
       const d = parseInt(data.gDay);
       const m = parseInt(data.gMonth);
       const y = parseInt(data.gYear);
 
-      if (!data.gDay || !data.gMonth || !data.gYear) return null;
-      if (isNaN(d) || isNaN(m) || isNaN(y)) return null;
+      if (!data.gDay || !data.gMonth || !data.gYear)
+        return { result: null, error: "" };
+      if (isNaN(d) || isNaN(m) || isNaN(y)) return { result: null, error: "" };
 
       const hijri = convertToHijri(y, m, d);
       if (!hijri) {
-        setError("Tanggal Masehi di luar jangkauan atau tidak valid.");
-        return null;
+        return {
+          result: null,
+          error: "Tanggal Masehi di luar jangkauan atau tidak valid.",
+        };
       }
 
       const dateObj = new Date(y, m - 1, d);
       return {
-        title: `${hijri.hd} ${getHijriMonthName(hijri.hm)} ${hijri.hy} H`,
-        sub: `${d} ${getGregorianMonthName(m)} ${y} M`,
-        day: getDayName(dateObj.getDay()),
-        event: findIslamicEvent(hijri.hm, hijri.hd),
+        result: {
+          title: `${hijri.hd} ${getHijriMonthName(hijri.hm)} ${hijri.hy} H`,
+          sub: `${d} ${getGregorianMonthName(m)} ${y} M`,
+          day: getDayName(dateObj.getDay()),
+          event: findIslamicEvent(hijri.hm, hijri.hd),
+        },
+        error: "",
       };
     } else {
       const d = parseInt(data.hDay);
       const m = parseInt(data.hMonth);
       const y = parseInt(data.hYear);
 
-      if (!data.hDay || !data.hMonth || !data.hYear) return null;
-      if (isNaN(d) || isNaN(m) || isNaN(y)) return null;
+      if (!data.hDay || !data.hMonth || !data.hYear)
+        return { result: null, error: "" };
+      if (isNaN(d) || isNaN(m) || isNaN(y)) return { result: null, error: "" };
 
       if (d < 1 || d > 30) {
-        setError("Tanggal Hijriah maksimal 30 hari.");
-        return null;
+        return { result: null, error: "Tanggal Hijriah maksimal 30 hari." };
       }
 
       const greg = convertToGregorian(y, m, d);
       if (!greg) {
-        setError("Tahun atau tanggal Hijriah di luar jangkauan konversi.");
-        return null;
+        return {
+          result: null,
+          error: "Tahun atau tanggal Hijriah di luar jangkauan konversi.",
+        };
       }
 
       const dateObj = new Date(greg.gy, greg.gm - 1, greg.gd);
       return {
-        title: `${greg.gd} ${getGregorianMonthName(greg.gm)} ${greg.gy} M`,
-        sub: `${d} ${getHijriMonthName(m)} ${y} H`,
-        day: getDayName(dateObj.getDay()),
-        event: findIslamicEvent(m, d),
+        result: {
+          title: `${greg.gd} ${getGregorianMonthName(greg.gm)} ${greg.gy} M`,
+          sub: `${d} ${getHijriMonthName(m)} ${y} H`,
+          day: getDayName(dateObj.getDay()),
+          event: findIslamicEvent(m, d),
+        },
+        error: "",
       };
     }
   }, [mode, data]);
@@ -132,6 +142,7 @@ export const useHijri = (): HijriContextType => {
   // Client-side only strings
   const [todayHijri, setTodayHijri] = useState<string>("");
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTodayHijri(getTodayHijriString());
     handleSetToday();
   }, [handleSetToday]);

@@ -149,7 +149,7 @@ export default function HijriyahPage() {
                   </div>
                   <div className="flex flex-col gap-4 font-body">
                     <h4 className="text-xl font-bold text-[#E8F5E9] font-heading">
-                      Kapan Kalender Memulai "Besok"?
+                      Kapan Kalender Memulai &quot;Besok&quot;?
                     </h4>
                     <p className="text-sm leading-relaxed text-[#EDE0D0] opacity-90">
                       Hari pada <strong>Masehi</strong> berganti administratif

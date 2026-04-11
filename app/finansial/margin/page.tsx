@@ -8,7 +8,6 @@ import { MarginForm } from "@/features/margin/components/MarginForm";
 import { MarginResult } from "@/features/margin/components/MarginResult";
 import { Info, CheckCircle2 } from "lucide-react";
 
-import Image from "next/image";
 import { Card } from "@/ui/Card";
 
 export default function MarginPage() {
@@ -79,8 +78,8 @@ export default function MarginPage() {
                 Siap Untuk Menghitung?
               </h3>
               <p className="text-[#EDE0D0] font-body max-w-[320px] text-base leading-relaxed relative z-10 opacity-90 px-4 mx-auto">
-                Lengkapi parameter di samping dan klik "Hitung" untuk melihat
-                hasil analisis margin Anda.
+                Lengkapi parameter di samping dan klik &quot;Hitung&quot; untuk
+                melihat hasil analisis margin Anda.
               </p>
               <div className="flex gap-3 mt-8 flex-wrap justify-center relative z-10">
                 {["Profitabilitas", "Harga Optimal"].map((t) => (
@@ -364,11 +363,11 @@ export default function MarginPage() {
                           Bisakah alat ini untuk industri layanan jasa?
                         </summary>
                         <p className="mt-3 text-[#EDE0D0] text-sm leading-relaxed">
-                          Sangat bisa. Selama Anda mengetahui nilai "Biaya Per
-                          Jam Pekerja" (termasuk tools/SaaS) plus sarana yang
-                          dikeluarkan, Anda dapat merekayasa biaya proyek/jasa
-                          profitabel untuk disajikan dalam bentuk Proposal
-                          rate-card proyek.
+                          Sangat bisa. Selama Anda mengetahui nilai &quot;Biaya
+                          Per Jam Pekerja&quot; (termasuk tools/SaaS) plus
+                          sarana yang dikeluarkan, Anda dapat merekayasa biaya
+                          proyek/jasa profitabel untuk disajikan dalam bentuk
+                          Proposal rate-card proyek.
                         </p>
                       </details>
                     </div>

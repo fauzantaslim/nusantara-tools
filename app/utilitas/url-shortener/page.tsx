@@ -191,8 +191,8 @@ export default function UrlShortenerPage() {
                           NusantaraTools
                         </span>
                         <p className="text-[10px] text-[#EDE0D0] opacity-60 mt-4 leading-relaxed italic">
-                          "Solusi sederhana untuk memotong panjang URL mencapai
-                          lebih dari 90%."
+                          &quot;Solusi sederhana untuk memotong panjang URL
+                          mencapai lebih dari 90%.&quot;
                         </p>
                       </div>
                     </div>

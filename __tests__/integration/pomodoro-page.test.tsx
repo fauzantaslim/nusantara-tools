@@ -28,14 +28,24 @@ class AudioMock {
   volume = 1;
   play = jest.fn().mockResolvedValue(undefined);
 }
-global.Audio = AudioMock as any;
+global.Audio = AudioMock as unknown as typeof Audio;
 
 // Mock Notification
-(global as any).Notification = jest.fn();
-(global.Notification as any).permission = "granted";
-(global.Notification as any).requestPermission = jest
-  .fn()
-  .mockResolvedValue("granted");
+const notificationMock = jest.fn() as unknown as typeof Notification;
+Object.defineProperty(global, "Notification", {
+  value: notificationMock,
+  writable: true,
+});
+
+Object.defineProperty(notificationMock, "permission", {
+  get: () => "granted",
+  configurable: true,
+});
+
+Object.defineProperty(notificationMock, "requestPermission", {
+  value: jest.fn().mockResolvedValue("granted"),
+  writable: true,
+});
 
 // Mock Lucide icons to avoid render issues in test
 jest.mock("lucide-react", () => ({
@@ -60,7 +70,7 @@ jest.mock("lucide-react", () => ({
 
 // Mock Breadcrumbs
 jest.mock("@/ui/Breadcrumbs", () => ({
-  Breadcrumbs: ({ items }: { items: any[] }) => (
+  Breadcrumbs: ({ items }: { items: { label: string; href?: string }[] }) => (
     <nav data-testid="breadcrumbs">
       {items.map((item) => (
         <span key={item.label}>{item.label}</span>

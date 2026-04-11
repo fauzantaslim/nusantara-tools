@@ -281,9 +281,10 @@ export default function CaffeineCalculator() {
                       Bisakah saya mencatat beberapa minuman sekaligus?
                     </summary>
                     <p className="mt-3 text-[#EDE0D0] text-sm leading-relaxed">
-                      Ya! Gunakan tombol "+ Tambah Sumber Kafein" untuk
-                      menambahkan setiap minuman atau makanan secara terpisah.
-                      Kalkulator akan menjumlahkan semuanya secara otomatis.
+                      Ya! Gunakan tombol &quot;+ Tambah Sumber Kafein&quot;
+                      untuk menambahkan setiap minuman atau makanan secara
+                      terpisah. Kalkulator akan menjumlahkan semuanya secara
+                      otomatis.
                     </p>
                   </details>
                 </div>
@@ -304,9 +305,10 @@ export default function CaffeineCalculator() {
                       Apakah kalkulator ini cocok untuk remaja?
                     </summary>
                     <p className="mt-3 text-[#EDE0D0] text-sm leading-relaxed">
-                      Ya, pilih profil "Remaja" dan kalkulator akan menggunakan
-                      batas yang lebih ketat (100mg). Untuk anak di bawah 12
-                      tahun, kafein sebaiknya tidak dikonsumsi sama sekali.
+                      Ya, pilih profil &quot;Remaja&quot; dan kalkulator akan
+                      menggunakan batas yang lebih ketat (100mg). Untuk anak di
+                      bawah 12 tahun, kafein sebaiknya tidak dikonsumsi sama
+                      sekali.
                     </p>
                   </details>
                 </div>

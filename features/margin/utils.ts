@@ -1,16 +1,8 @@
 import { MarginInput, MarginResult } from "./types";
 
 export const calculateMargin = (input: MarginInput): MarginResult => {
-  let {
-    mode,
-    cost,
-    sellingPrice,
-    desiredMargin,
-    desiredMarkup,
-    taxRate,
-    marketplaceFee,
-    quantity,
-  } = input;
+  const { mode, desiredMargin, taxRate, marketplaceFee, quantity } = input;
+  let { cost, sellingPrice } = input;
 
   let profit = 0;
   let margin = 0;

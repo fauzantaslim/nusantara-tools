@@ -75,7 +75,7 @@ export interface AirData {
 
 export interface AirContextType {
   data: AirData;
-  updateData: (key: keyof AirData, value: any) => void;
+  updateData: <K extends keyof AirData>(key: K, value: AirData[K]) => void;
   result: WaterResult | null;
   error: string;
   handleCalculate: (e: React.FormEvent) => void;

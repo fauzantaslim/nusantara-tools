@@ -1,5 +1,4 @@
 import { useState, useCallback } from "react";
-import { z } from "zod";
 import {
   DiabetesData,
   FindriscResult,
@@ -13,11 +12,7 @@ import {
 } from "../types";
 import { calculateFINDRISC, calcBMI, bmiToCategory } from "../utils";
 
-const diabetesSchema = z.object({
-  // Add validation if needed, for now we mirror the original logic
-  heightCm: z.coerce.number().min(50).max(300).optional(),
-  weightKg: z.coerce.number().min(10).max(500).optional(),
-});
+// Schema moved or removed if not used
 
 const initialData: DiabetesData = {
   gender: GENDER.MALE,
@@ -80,8 +75,10 @@ export const useDiabetes = (): DiabetesContextType => {
           familyHistory: data.familyHistory,
         });
         setResult(res);
-      } catch (err: any) {
-        setError(err.message || "Terjadi kesalahan saat menghitung risiko.");
+      } catch (err: unknown) {
+        setError(
+          (err as Error).message || "Terjadi kesalahan saat menghitung risiko.",
+        );
         setResult(null);
       }
     },

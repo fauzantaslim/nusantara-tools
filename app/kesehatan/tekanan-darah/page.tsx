@@ -8,7 +8,6 @@ import { BloodPressureForm } from "@/features/tekanan-darah/components/BloodPres
 import { BloodPressureResult } from "@/features/tekanan-darah/components/BloodPressureResult";
 import { BloodPressureHistory } from "@/features/tekanan-darah/components/BloodPressureHistory";
 import {
-  Info,
   Stethoscope,
   Droplet,
   HeartPulse,
@@ -89,9 +88,9 @@ export default function TekananDarahPage() {
                   <Stethoscope className="w-8 h-8 sm:w-10 sm:h-10 text-[#C17A3A] shrink-0" />
                   <div className="flex flex-col gap-3">
                     <p className="text-[#F5EDE3] font-heading font-medium text-lg leading-snug">
-                      Hipertensi sering disebut "silent killer" karena biasanya
-                      tidak menimbulkan gejala hingga komplikasi serius sudah
-                      terjadi.
+                      Hipertensi sering disebut &quot;silent killer&quot; karena
+                      biasanya tidak menimbulkan gejala hingga komplikasi serius
+                      sudah terjadi.
                     </p>
                     <p className="text-sm text-[#EDE0D0] font-body opacity-80 leading-relaxed">
                       Pemantauan rutin di rumah—dikombinasikan dengan catatan

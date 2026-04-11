@@ -1,4 +1,3 @@
-import { WeightUnit } from "@/lib/constants";
 import {
   UserProfile,
   CaffeineStatus,

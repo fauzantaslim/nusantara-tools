@@ -2,7 +2,8 @@
 
 import React from "react";
 import { Card } from "@/ui/Card";
-import { StrengthLevel, getStrengthColor } from "../utils";
+import { getStrengthColor } from "../utils";
+import { GeneratorResultProps } from "../types";
 import {
   Eye,
   EyeOff,
@@ -13,17 +14,6 @@ import {
   ShieldAlert,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-interface GeneratorResultProps {
-  value: string;
-  entropy: number;
-  strength: StrengthLevel;
-  showPassword: boolean;
-  setShowPassword: (show: boolean) => void;
-  isCopied: boolean;
-  copyToClipboard: (text?: string) => void;
-  generate: () => void;
-}
 
 export const GeneratorResult: React.FC<GeneratorResultProps> = ({
   value,

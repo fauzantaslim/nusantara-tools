@@ -48,7 +48,10 @@ export interface BPFormData {
 
 export interface BPContextType {
   data: BPFormData;
-  updateData: (key: keyof BPFormData, value: any) => void;
+  updateData: <K extends keyof BPFormData>(
+    key: K,
+    value: BPFormData[K],
+  ) => void;
   result: BPResult | null;
   history: SavedReading[];
   error: string;

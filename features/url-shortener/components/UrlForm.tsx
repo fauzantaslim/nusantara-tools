@@ -5,7 +5,8 @@ import { Card } from "@/ui/Card";
 import { Input } from "@/ui/Input";
 import { Button } from "@/ui/Button";
 import { Link2, Sparkles, AlertCircle } from "lucide-react";
-import { urlSchema, ShortenedUrl } from "../utils";
+import { ShortenedUrl } from "../types";
+import { urlSchema } from "../utils";
 
 interface UrlFormProps {
   onShorten: (url: string, alias?: string) => ShortenedUrl | null;

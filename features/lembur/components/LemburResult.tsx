@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React from "react";
 import { Card } from "@/ui/Card";
 import { LemburResult as LemburResultType } from "../types";
 import { cn } from "@/lib/utils";
