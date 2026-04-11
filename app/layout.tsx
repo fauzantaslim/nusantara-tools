@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, Lora } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import "./globals.css";
+import Script from "next/script";
 
 const jakartaSans = Plus_Jakarta_Sans({
   variable: "--font-jakarta-sans",
@@ -16,7 +17,7 @@ const lora = Lora({
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_BASE_URL || "https://nusantaratools.com",
+    process.env.NEXT_PUBLIC_BASE_URL || "https://nusantaratools.my.id",
   ),
   title: {
     default: "NusantaraTools - Koleksi Alat Digital Gratis Indonesia",
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "id_ID",
-    url: "https://nusantaratools.com",
+    url: "https://nusantaratools.my.id",
     siteName: "NusantaraTools",
     title: "NusantaraTools - Koleksi Alat Digital Gratis Indonesia",
     description:
@@ -63,6 +64,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" className={`${jakartaSans.variable} ${lora.variable}`}>
+      <head>
+        {/* ✅ GOOGLE ADSENSE SCRIPT */}
+        <Script
+          async
+          strategy="afterInteractive"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1737040212074612"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className="font-sans antialiased text-primary selection:bg-accent-1 selection:text-white flex flex-col min-h-screen">
         <Navbar />
         <main className="flex-1 w-full mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl pt-24">

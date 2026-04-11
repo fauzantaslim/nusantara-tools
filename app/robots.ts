@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
   const baseUrl =
-    process.env.NEXT_PUBLIC_BASE_URL || "https://nusantaratools.com";
+    process.env.NEXT_PUBLIC_BASE_URL || "https://nusantaratools.my.id";
 
   return {
     rules: {

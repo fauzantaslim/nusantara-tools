@@ -3,7 +3,7 @@ import { TOOLS, CATEGORIES } from "@/lib/data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl =
-    process.env.NEXT_PUBLIC_BASE_URL || "https://nusantaratools.com";
+    process.env.NEXT_PUBLIC_BASE_URL || "https://nusantaratools.my.id";
 
   // Base routes
   const routes = [
