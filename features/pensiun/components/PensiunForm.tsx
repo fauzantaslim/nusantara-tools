@@ -12,6 +12,7 @@ import {
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
+import { Input } from "@/ui/Input";
 
 import { PensiunInput } from "../types";
 
@@ -84,51 +85,39 @@ export const PensiunForm: React.FC<PensiunFormProps> = ({
             <Target className="w-4 h-4 text-[#C17A3A]" /> Profil Usia
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-bold text-secondary">
-                Usia Saat Ini
-              </label>
-              <input
-                type="number"
-                min="18"
-                max="80"
-                value={input.currentAge || ""}
-                onChange={(e) =>
-                  onChange("currentAge", parseInt(e.target.value) || 0)
-                }
-                className="h-12 bg-surface/50 border border-muted rounded-xl px-4 text-sm font-bold text-primary focus:ring-2 focus:ring-[#9C4A2A]/20 outline-none"
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-bold text-secondary">
-                Usia Pensiun
-              </label>
-              <input
-                type="number"
-                min="30"
-                max="90"
-                value={input.retirementAge || ""}
-                onChange={(e) =>
-                  onChange("retirementAge", parseInt(e.target.value) || 0)
-                }
-                className="h-12 bg-surface/50 border border-muted rounded-xl px-4 text-sm font-bold text-primary focus:ring-2 focus:ring-[#9C4A2A]/20 outline-none"
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-bold text-secondary">
-                Ekspektasi Hidup
-              </label>
-              <input
-                type="number"
-                min="50"
-                max="120"
-                value={input.lifeExpectancy || ""}
-                onChange={(e) =>
-                  onChange("lifeExpectancy", parseInt(e.target.value) || 0)
-                }
-                className="h-12 bg-surface/50 border border-muted rounded-xl px-4 text-sm font-bold text-primary focus:ring-2 focus:ring-[#9C4A2A]/20 outline-none"
-              />
-            </div>
+            <Input
+              label="Usia Saat Ini"
+              type="number"
+              min={18}
+              max={80}
+              value={input.currentAge || ""}
+              onChange={(e) =>
+                onChange("currentAge", parseInt(e.target.value) || 0)
+              }
+              suffix="thn"
+            />
+            <Input
+              label="Usia Pensiun"
+              type="number"
+              min={30}
+              max={90}
+              value={input.retirementAge || ""}
+              onChange={(e) =>
+                onChange("retirementAge", parseInt(e.target.value) || 0)
+              }
+              suffix="thn"
+            />
+            <Input
+              label="Ekspektasi Hidup"
+              type="number"
+              min={50}
+              max={120}
+              value={input.lifeExpectancy || ""}
+              onChange={(e) =>
+                onChange("lifeExpectancy", parseInt(e.target.value) || 0)
+              }
+              suffix="thn"
+            />
           </div>
         </div>
 
@@ -207,71 +196,55 @@ export const PensiunForm: React.FC<PensiunFormProps> = ({
           {showAdvanced && (
             <div className="flex flex-col gap-6 mt-6 animate-in slide-in-from-top-2">
               <div className="grid grid-cols-2 gap-4">
-                <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold text-secondary">
-                    Return Pra-Pensiun (%)
-                  </label>
-                  <input
-                    type="number"
-                    step="0.1"
-                    value={input.preRetirementReturnRate || ""}
-                    onChange={(e) =>
-                      onChange(
-                        "preRetirementReturnRate",
-                        parseFloat(e.target.value) || 0,
-                      )
-                    }
-                    className="h-10 bg-surface/50 border border-muted rounded-xl px-3 text-sm font-bold text-primary outline-none"
-                  />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold text-secondary">
-                    Return Pasca-Pensiun (%)
-                  </label>
-                  <input
-                    type="number"
-                    step="0.1"
-                    value={input.postRetirementReturnRate || ""}
-                    onChange={(e) =>
-                      onChange(
-                        "postRetirementReturnRate",
-                        parseFloat(e.target.value) || 0,
-                      )
-                    }
-                    className="h-10 bg-surface/50 border border-muted rounded-xl px-3 text-sm font-bold text-primary outline-none"
-                  />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold text-secondary">
-                    Tingkat Inflasi (%)
-                  </label>
-                  <input
-                    type="number"
-                    step="0.1"
-                    value={input.inflationRate || ""}
-                    onChange={(e) =>
-                      onChange("inflationRate", parseFloat(e.target.value) || 0)
-                    }
-                    className="h-10 bg-surface/50 border border-muted rounded-xl px-3 text-sm font-bold text-primary outline-none"
-                  />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold text-secondary">
-                    Kenaikan Pemasukan (%)
-                  </label>
-                  <input
-                    type="number"
-                    step="0.1"
-                    value={input.incomeGrowthRate || ""}
-                    onChange={(e) =>
-                      onChange(
-                        "incomeGrowthRate",
-                        parseFloat(e.target.value) || 0,
-                      )
-                    }
-                    className="h-10 bg-surface/50 border border-muted rounded-xl px-3 text-sm font-bold text-primary outline-none"
-                  />
-                </div>
+                <Input
+                  label="Return Pra-Pensiun (%)"
+                  type="number"
+                  step="0.1"
+                  value={input.preRetirementReturnRate || ""}
+                  onChange={(e) =>
+                    onChange(
+                      "preRetirementReturnRate",
+                      parseFloat(e.target.value) || 0,
+                    )
+                  }
+                  suffix="%"
+                />
+                <Input
+                  label="Return Pasca-Pensiun (%)"
+                  type="number"
+                  step="0.1"
+                  value={input.postRetirementReturnRate || ""}
+                  onChange={(e) =>
+                    onChange(
+                      "postRetirementReturnRate",
+                      parseFloat(e.target.value) || 0,
+                    )
+                  }
+                  suffix="%"
+                />
+                <Input
+                  label="Tingkat Inflasi (%)"
+                  type="number"
+                  step="0.1"
+                  value={input.inflationRate || ""}
+                  onChange={(e) =>
+                    onChange("inflationRate", parseFloat(e.target.value) || 0)
+                  }
+                  suffix="%"
+                />
+                <Input
+                  label="Kenaikan Pemasukan (%)"
+                  type="number"
+                  step="0.1"
+                  value={input.incomeGrowthRate || ""}
+                  onChange={(e) =>
+                    onChange(
+                      "incomeGrowthRate",
+                      parseFloat(e.target.value) || 0,
+                    )
+                  }
+                  suffix="%"
+                />
               </div>
 
               <div className="flex flex-col gap-4">
@@ -291,20 +264,16 @@ export const PensiunForm: React.FC<PensiunFormProps> = ({
                   }
                   placeholder="0"
                 />
-                <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold text-secondary font-ui uppercase">
-                    Estimasi Pajak Pensiun (%)
-                  </label>
-                  <input
-                    type="number"
-                    step="0.1"
-                    value={input.taxRate || ""}
-                    onChange={(e) =>
-                      onChange("taxRate", parseFloat(e.target.value) || 0)
-                    }
-                    className="w-full h-12 bg-surface/50 border border-muted rounded-xl px-4 text-sm font-bold text-primary outline-none"
-                  />
-                </div>
+                <Input
+                  label="Estimasi Pajak Pensiun (%)"
+                  type="number"
+                  step="0.1"
+                  value={input.taxRate || ""}
+                  onChange={(e) =>
+                    onChange("taxRate", parseFloat(e.target.value) || 0)
+                  }
+                  suffix="%"
+                />
               </div>
             </div>
           )}
