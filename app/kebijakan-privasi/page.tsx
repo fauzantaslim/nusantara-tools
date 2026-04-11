@@ -16,8 +16,7 @@ export default function PrivacyPage() {
             Keamanan Platform
           </span>
           <h1 className="text-4xl sm:text-5xl font-black text-primary font-heading tracking-tight mb-6">
-            Data Anda adalah{" "}
-            <span className="text-secondary/60">Hak Anda.</span>
+            Data Anda adalah <span className="text-accent-1">Hak Anda.</span>
           </h1>
         </div>
 

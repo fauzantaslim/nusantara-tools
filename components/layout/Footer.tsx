@@ -122,9 +122,8 @@ export function Footer() {
             dilindungi undang-undang.
           </p>
           <p className="font-body text-sm text-[#EDE0D0]/60 flex items-center gap-2">
-            Dirakit dengan{" "}
-            <Heart className="w-4 h-4 text-accent-3 fill-accent-3" /> di
-            Jakarta, Indonesia
+            Created with{" "}
+            <Heart className="w-4 h-4 text-accent-3 fill-accent-3" />
           </p>
         </div>
       </div>

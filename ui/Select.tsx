@@ -51,7 +51,7 @@ export function Select<T extends string = string>({
   return (
     <div className={cn("flex flex-col gap-2", className)} ref={ref}>
       {label && (
-        <label className="text-sm font-bold font-ui text-primary">
+        <label className="text-sm font-medium font-ui text-primary">
           {label}
         </label>
       )}

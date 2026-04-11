@@ -21,7 +21,7 @@ export default function TentangPage() {
           </span>
           <h1 className="text-4xl sm:text-5xl font-black text-primary font-heading tracking-tight mb-6">
             Menghadirkan Alat Sehari-hari yang{" "}
-            <span className="text-secondary/60">Sederhana & Presisi.</span>
+            <span className="text-accent-1">Sederhana & Presisi.</span>
           </h1>
         </div>
 

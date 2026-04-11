@@ -16,7 +16,7 @@ export default function TermsPage() {
           </span>
           <h1 className="text-4xl sm:text-5xl font-black text-primary font-heading tracking-tight mb-6">
             Gunakan Sebagai{" "}
-            <span className="text-secondary/60">Referensi Bebas.</span>
+            <span className="text-accent-1">Referensi Bebas.</span>
           </h1>
         </div>
 
