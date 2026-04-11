@@ -3,7 +3,6 @@ import { Plus_Jakarta_Sans, Lora } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import "./globals.css";
-import Script from "next/script";
 
 const jakartaSans = Plus_Jakarta_Sans({
   variable: "--font-jakarta-sans",
@@ -65,13 +64,7 @@ export default function RootLayout({
   return (
     <html lang="id" className={`${jakartaSans.variable} ${lora.variable}`}>
       <head>
-        {/* ✅ GOOGLE ADSENSE SCRIPT */}
-        <Script
-          async
-          strategy="afterInteractive"
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1737040212074612"
-          crossOrigin="anonymous"
-        />
+        <meta name="google-adsense-account" content="ca-pub-1737040212074612" />
       </head>
       <body className="font-sans antialiased text-primary selection:bg-accent-1 selection:text-white flex flex-col min-h-screen">
         <Navbar />
