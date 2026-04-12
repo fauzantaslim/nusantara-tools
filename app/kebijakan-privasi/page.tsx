@@ -19,7 +19,6 @@ export default function PrivacyPage() {
             Data Anda adalah <span className="text-accent-1">Hak Anda.</span>
           </h1>
         </div>
-
         <div className="prose prose-lg prose-headings:font-heading prose-headings:font-bold prose-headings:text-primary prose-p:font-body prose-p:text-secondary max-w-none prose-p:leading-relaxed prose-a:text-[#C17A3A] hover:prose-a:text-primary transition-colors">
           <p>
             Di NusantaraTools, kami sadar betul betapa risihnya menggunakan
@@ -27,7 +26,6 @@ export default function PrivacyPage() {
             atau memaksa Anda membuat akun demi melihat sebuah hasil hitungan
             sederhana.
           </p>
-
           <p>
             Pendekatan kami berbeda. Kami merancang hampir seluruh alat kami
             agar{" "}
@@ -62,13 +60,25 @@ export default function PrivacyPage() {
             Anda di sini.
           </p>
 
-          <h2 className="text-2xl mt-10 mb-4">Fitur Berbagi Tautan Cepat</h2>
+          <h2 className="text-2xl mt-10 mb-4">Fitur Pemendekan Tautan</h2>
           <p>
-            Jika Anda menemui utilitas yang menciptakan fitur membagikan tautan{" "}
-            <em>(Share Link URL)</em>, sistem hanya mencangkok variabel angka
-            sementara kepada akhir <em>link bar</em> peramban supaya Anda bisa
-            berkirim skema biaya pada sahabat; dan tegas sekali lagi, tidak ada
-            unggahan database rahasia dalam server kami di baliknya.
+            Fitur <em>URL Shortener</em> kami bekerja berbeda dari alat
+            kalkulasi lainnya. Saat Anda membuat tautan pendek, data berikut{" "}
+            <strong>disimpan di server kami</strong>: URL asli, kode pendek yang
+            dihasilkan, jumlah klik, serta data analitik agregat seperti negara,
+            kota, peramban, perangkat, dan sumber rujukan pengunjung.
+          </p>
+          <p>
+            Data ini diperlukan agar tautan pendek Anda tetap berfungsi dan
+            dapat Anda pantau statistiknya. Kami{" "}
+            <strong>tidak mengaitkan</strong> data tautan dengan identitas
+            pribadi Anda — tidak ada akun, tidak ada nama, tidak ada email.
+            Kepemilikan tautan hanya dikenali melalui <em>token</em> unik yang
+            tersimpan di perangkat Anda.
+          </p>
+          <p>
+            Jika Anda tidak menggunakan fitur ini, tidak ada data apa pun yang
+            disimpan ke server kami.
           </p>
 
           <div className="mt-16 pt-8 border-t border-[#EDE0D0] bg-[#FFF0EB]/50 p-6 rounded-2xl">
