@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+}
+
+model ShortLink {
+  id          String         @id @default(cuid())
+  shortCode   String         @unique
+  originalUrl String
+  clickCount  Int            @default(0)
+  ownerToken  String         @unique
+  createdAt   DateTime       @default(now())
+  analytics   LinkAnalytic[]
+}
+
+model LinkAnalytic {
+  id          String    @id @default(cuid())
+  shortLinkId String
+  shortLink   ShortLink @relation(fields: [shortLinkId], references: [id], onDelete: Cascade)
+  timestamp   DateTime  @default(now())
+  country     String?
+  city        String?
+  referrer    String?
+  browser     String?
+  device      String?
+  os          String?
+}

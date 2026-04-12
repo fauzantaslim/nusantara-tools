@@ -9,34 +9,40 @@ import { ShortenedUrl } from "../types";
 import { urlSchema } from "../utils";
 
 interface UrlFormProps {
-  onShorten: (url: string, alias?: string) => ShortenedUrl | null;
+  onShorten: (
+    url: string,
+    alias?: string,
+  ) => Promise<{ ok: true; data: ShortenedUrl } | { ok: false; error: string }>;
 }
 
 export const UrlForm: React.FC<UrlFormProps> = ({ onShorten }) => {
   const [url, setUrl] = useState("");
   const [alias, setAlias] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [pending, setPending] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
-    // Validate
     const result = urlSchema.safeParse({ url, alias });
     if (!result.success) {
       setError(result.error.issues[0].message);
       return;
     }
 
-    const shortened = onShorten(url, alias ? alias : undefined);
-
-    if (!shortened) {
-      setError("Alias khusus sudah digunakan. Silakan pilih yang lain.");
-      return;
+    setPending(true);
+    try {
+      const out = await onShorten(url, alias ? alias : undefined);
+      if (!out.ok) {
+        setError(out.error);
+        return;
+      }
+      setUrl("");
+      setAlias("");
+    } finally {
+      setPending(false);
     }
-
-    setUrl("");
-    setAlias("");
   };
 
   return (
@@ -109,10 +115,11 @@ export const UrlForm: React.FC<UrlFormProps> = ({ onShorten }) => {
           type="submit"
           variant="primary"
           fullWidth
-          className="h-12 bg-[#C17A3A] hover:bg-[#A96930] text-white font-bold font-ui rounded-xl shadow-lg shadow-[#C17A3A]/20 transition-all flex items-center justify-center gap-2 active:scale-[0.98] border-none"
+          disabled={pending}
+          className="h-12 bg-[#C17A3A] hover:bg-[#A96930] text-white font-bold font-ui rounded-xl shadow-lg shadow-[#C17A3A]/20 transition-all flex items-center justify-center gap-2 active:scale-[0.98] border-none disabled:opacity-60 disabled:pointer-events-none"
         >
           <Sparkles className="w-4 h-4" />
-          Singkatkan URL
+          {pending ? "Menyimpan…" : "Singkatkan URL"}
         </Button>
       </form>
     </Card>

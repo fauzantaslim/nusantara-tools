@@ -16,8 +16,14 @@ import {
 } from "lucide-react";
 
 export default function UrlShortenerPage() {
-  const { urls, shortenUrl, deleteUrl, copyToClipboard, isCopied } =
-    useUrlShortener();
+  const {
+    urls,
+    shortenUrl,
+    deleteUrl,
+    copyToClipboard,
+    fetchAnalytics,
+    isCopied,
+  } = useUrlShortener();
 
   return (
     <div className="flex flex-col gap-12 w-full pb-20">
@@ -52,6 +58,7 @@ export default function UrlShortenerPage() {
             urls={urls}
             onCopy={copyToClipboard}
             onDelete={deleteUrl}
+            fetchAnalytics={fetchAnalytics}
             copiedCode={isCopied}
           />
         </div>

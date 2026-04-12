@@ -3,7 +3,7 @@
 import React from "react";
 import { Card } from "@/ui/Card";
 import { getBaseUrl } from "../utils";
-import { ShortenedUrl } from "../types";
+import { ShortenedUrl, AnalyticEntry } from "../types";
 import { cn } from "@/lib/utils";
 import {
   Copy,
@@ -22,7 +22,11 @@ import { AnalyticsDrawer } from "./AnalyticsDrawer";
 interface UrlListProps {
   urls: ShortenedUrl[];
   onCopy: (code: string) => void;
-  onDelete: (id: string) => void;
+  onDelete: (id: string) => void | Promise<void>;
+  fetchAnalytics: (
+    shortCode: string,
+    ownerToken: string,
+  ) => Promise<AnalyticEntry[] | null>;
   copiedCode: string | null;
 }
 
@@ -30,6 +34,7 @@ export const UrlList: React.FC<UrlListProps> = ({
   urls,
   onCopy,
   onDelete,
+  fetchAnalytics,
   copiedCode,
 }) => {
   const [selectedUrl, setSelectedUrl] = React.useState<ShortenedUrl | null>(
@@ -40,6 +45,9 @@ export const UrlList: React.FC<UrlListProps> = ({
   const handleShowStats = (url: ShortenedUrl) => {
     setSelectedUrl(url);
     setIsDrawerOpen(true);
+    if (url.ownerToken) {
+      fetchAnalytics(url.shortCode, url.ownerToken);
+    }
   };
   return (
     <Card
@@ -90,7 +98,8 @@ export const UrlList: React.FC<UrlListProps> = ({
                   {/* Action buttons top right */}
                   <div className="absolute top-4 right-4 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                     <button
-                      onClick={() => onDelete(url.id)}
+                      type="button"
+                      onClick={() => void onDelete(url.id)}
                       className="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20 hover:text-red-300 transition-colors"
                       title="Hapus Link"
                     >

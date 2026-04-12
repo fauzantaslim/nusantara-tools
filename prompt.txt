@@ -1,0 +1,89 @@
+fauza@fauzntaslm MINGW64 ~/Documents/About Me/nusantara-tools (feat/url-shortener-global)
+$ npm run check-lint
+
+> nusantara-tools@0.1.0 check-lint
+> eslint . --ext ts --ext tsx --ext js
+
+
+C:\Users\fauza\Documents\About Me\nusantara-tools\features\url-shortener\components\UrlList.tsx
+  26:70  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\fauza\Documents\About Me\nusantara-tools\features\url-shortener\hooks\useUrlShortener.ts
+  11:3  error    Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+C:\Users\fauza\Documents\About Me\nusantara-tools\features\url-shortener\hooks\useUrlShortener.ts:11:3
+   9 |   const [urls, setUrls] = useState<ShortenedUrl[]>([]);
+  10 |   const urlsRef = useRef(urls);
+> 11 |   urlsRef.current = urls;
+     |   ^^^^^^^^^^^^^^^ Cannot update ref during render
+  12 |   const [isCopied, setIsCopied] = useState<string | null>(null);
+  13 |   const [storageReady, setStorageReady] = useState(false);
+  14 |  react-hooks/refs
+  20:9  warning  Unused eslint-disable directive (no problems were reported from 'react-hooks/set-state-in-effect')
+
+C:\Users\fauza\Documents\About Me\nusantara-tools\lib\prisma.ts
+  8:3  warning  Unused eslint-disable directive (no problems were reported from 'no-var')
+
+C:\Users\fauza\Documents\About Me\nusantara-tools\lib\supabase\middleware.ts
+  15:9   warning  'supabase' is assigned a value but never used  @typescript-eslint/no-unused-vars    
+  21:46  warning  'options' is defined but never used            @typescript-eslint/no-unused-vars    
+
+✖ 6 problems (2 errors, 4 warnings)
+  0 errors and 2 warnings potentially fixable with the `--fix` option.
+
+
+fauza@fauzntaslm MINGW64 ~/Documents/About Me/nusantara-tools (feat/url-shortener-global)
+$ npm run check-types
+
+> nusantara-tools@0.1.0 check-types
+> tsc --noEmit
+
+app/api/short-links/[code]/analytics/route.ts:35:34 - error TS2339: Property 'linkAnalytic' does not exist on type 'PrismaClient<PrismaClientOptions, never, $Extensions.DefaultArgs>'.
+
+35   const analytics = await prisma.linkAnalytic.findMany({
+                                    ~~~~~~~~~~~~
+
+app/api/short-links/[code]/analytics/route.ts:43:31 - error TS7006: Parameter 'a' implicitly has an 'any' type.
+
+43     analytics: analytics.map((a) => ({
+                                 ~
+
+app/api/short-links/route.ts:2:47 - error TS2307: Cannot find module '@prisma/client/runtime/library' or its corresponding type declarations.
+
+2 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+app/api/short-links/route.ts:33:25 - error TS2304: Cannot find name 'MAX_RANDOM_ATTEMPTS'.
+
+33     for (let i = 0; i < MAX_RANDOM_ATTEMPTS; i++) {
+                           ~~~~~~~~~~~~~~~~~~~
+
+app/api/short-links/route.ts:84:55 - error TS18046: 'e' is of type 'unknown'.
+
+84     if (e instanceof PrismaClientKnownRequestError && e.code === "P2002") {
+                                                         ~
+
+app/s/[code]/page.tsx:41:14 - error TS2339: Property 'linkAnalytic' does not exist on type 'PrismaClient<PrismaClientOptions, never, $Extensions.DefaultArgs>'.
+
+41       prisma.linkAnalytic.create({
+                ~~~~~~~~~~~~
+
+features/url-shortener/hooks/useUrlShortener.ts:121:57 - error TS2304: Cannot find name 'AnalyticEntry'.
+
+121         const data = (await res.json()) as { analytics: AnalyticEntry[] };
+                                                            ~~~~~~~~~~~~~
+
+
+Found 7 errors in 4 files.
+
+Errors  Files
+     2  app/api/short-links/[code]/analytics/route.ts:35
+     3  app/api/short-links/route.ts:2
+     1  app/s/[code]/page.tsx:41
+     1  features/url-shortener/hooks/useUrlShortener.ts:121
+
+fauza@fauzntaslm MINGW64 ~/Documents/About Me/nusantara-tools (feat/url-shortener-global)
+$
+ini masih ada error fix error nya dulu
