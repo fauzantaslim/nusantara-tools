@@ -32,6 +32,50 @@ export const useUrlShortener = () => {
 
   useEffect(() => {
     if (!storageReady) return;
+
+    // Use current list from ref or state to find links to sync
+    const currentUrls = urlsRef.current;
+    if (currentUrls.length === 0) return;
+
+    const validUrls = currentUrls.filter((u) => u.ownerToken);
+    if (validUrls.length === 0) return;
+
+    const codes = validUrls
+      .map((u) => encodeURIComponent(u.shortCode))
+      .join(",");
+    const tokens = validUrls
+      .map((u) => encodeURIComponent(u.ownerToken!))
+      .join(",");
+
+    const syncCounts = async () => {
+      try {
+        const res = await fetch(
+          `/api/short-links?codes=${codes}&tokens=${tokens}`,
+        );
+        if (!res.ok) return;
+
+        const data = (await res.json()) as {
+          links: Array<{ shortCode: string; clickCount: number }>;
+        };
+
+        if (data.links && data.links.length > 0) {
+          setUrls((prev) =>
+            prev.map((u) => {
+              const match = data.links.find((l) => l.shortCode === u.shortCode);
+              return match ? { ...u, clicks: match.clickCount } : u;
+            }),
+          );
+        }
+      } catch (e) {
+        console.error("Failed to sync click counts", e);
+      }
+    };
+
+    syncCounts();
+  }, [storageReady]);
+
+  useEffect(() => {
+    if (!storageReady) return;
     localStorage.setItem(URL_SHORTENER_STORAGE_KEY, JSON.stringify(urls));
   }, [urls, storageReady]);
 
@@ -122,10 +166,19 @@ export const useUrlShortener = () => {
           },
         );
         if (!res.ok) return null;
-        const data = (await res.json()) as { analytics: AnalyticEntry[] };
+        const data = (await res.json()) as {
+          analytics: AnalyticEntry[];
+          clickCount?: number;
+        };
         setUrls((prev) =>
           prev.map((u) =>
-            u.shortCode === shortCode ? { ...u, analytics: data.analytics } : u,
+            u.shortCode === shortCode
+              ? {
+                  ...u,
+                  analytics: data.analytics,
+                  clicks: data.clickCount ?? u.clicks,
+                }
+              : u,
           ),
         );
         return data.analytics;

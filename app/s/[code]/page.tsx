@@ -27,8 +27,29 @@ export default async function ShortLinkPage({
   const headerList = await headers();
   const userAgent = headerList.get("user-agent") || "";
   const referrer = headerList.get("referer") || "Direct";
-  const country = headerList.get("x-vercel-ip-country") || "Unknown";
-  const city = headerList.get("x-vercel-ip-city") || "Unknown";
+
+  // Vercel-specific headers for geolocation
+  let country = headerList.get("x-vercel-ip-country");
+  let city = headerList.get("x-vercel-ip-city");
+
+  // Fallback for development/local testing
+  if (!country || country === "Unknown") {
+    const isLocal =
+      headerList.get("host")?.includes("localhost") ||
+      headerList.get("host")?.includes("127.0.0.1");
+    country = isLocal ? "Indonesia (Local)" : "Unknown";
+  }
+
+  if (!city || city === "Unknown") {
+    const isLocal =
+      headerList.get("host")?.includes("localhost") ||
+      headerList.get("host")?.includes("127.0.0.1");
+    city = isLocal ? "Jakarta (Local)" : "Unknown";
+  }
+
+  // Ensure they are not null/undefined
+  const finalCountry = country || "Unknown";
+  const finalCity = city || "Unknown";
 
   const parser = new UAParser(userAgent);
   const browser = parser.getBrowser().name || "Unknown";
@@ -41,8 +62,8 @@ export default async function ShortLinkPage({
       prisma.linkAnalytic.create({
         data: {
           shortLinkId: link.id,
-          country,
-          city,
+          country: finalCountry,
+          city: finalCity,
           referrer,
           browser,
           device: deviceType,

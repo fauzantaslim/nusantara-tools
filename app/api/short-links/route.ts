@@ -11,6 +11,36 @@ export const dynamic = "force-dynamic";
 
 const MAX_RANDOM_ATTEMPTS = 8;
 
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const codes = searchParams.get("codes")?.split(",") || [];
+  const tokens = searchParams.get("tokens")?.split(",") || [];
+
+  if (codes.length === 0) {
+    return NextResponse.json({ links: [] });
+  }
+
+  // To keep it simple and somewhat secure, we only return links where the token matches.
+  // Note: This isn't perfect but better than returning anyone's click counts.
+  const links = await prisma.shortLink.findMany({
+    where: {
+      shortCode: { in: codes },
+      ownerToken: { in: tokens },
+    },
+    select: {
+      shortCode: true,
+      clickCount: true,
+    },
+  });
+
+  return NextResponse.json({
+    links: links.map((l) => ({
+      shortCode: l.shortCode,
+      clickCount: l.clickCount,
+    })),
+  });
+}
+
 export async function POST(request: Request) {
   let json: unknown;
   try {

@@ -18,7 +18,7 @@ export async function GET(request: Request, context: RouteContext) {
 
   const link = await prisma.shortLink.findUnique({
     where: { shortCode },
-    select: { id: true, ownerToken: true },
+    select: { id: true, ownerToken: true, clickCount: true },
   });
 
   if (!link) {
@@ -40,6 +40,7 @@ export async function GET(request: Request, context: RouteContext) {
 
   return NextResponse.json({
     shortCode,
+    clickCount: link.clickCount,
     analytics: analytics.map(
       (a: {
         timestamp: Date;
