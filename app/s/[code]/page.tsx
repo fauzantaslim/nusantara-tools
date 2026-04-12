@@ -27,31 +27,39 @@ export default async function ShortLinkPage({
   const headerList = await headers();
   const userAgent = headerList.get("user-agent") || "";
   const referrer = headerList.get("referer") || "Direct";
+  const ip =
+    headerList.get("x-forwarded-for")?.split(",")[0] ||
+    headerList.get("x-real-ip") ||
+    "";
 
-  // Vercel-specific headers for geolocation
-  let country = headerList.get("x-vercel-ip-country");
-  let city = headerList.get("x-vercel-ip-city");
+  let country = "Unknown";
+  let city = "Unknown";
 
-  // Fallback for development/local testing
-  if (!country || country === "Unknown") {
+  // Fetch geolocation from ipapi.co
+  if (ip && ip !== "127.0.0.1" && ip !== "::1") {
+    try {
+      const geoRes = await fetch(`https://ipapi.co/${ip}/json/`, {
+        next: { revalidate: 3600 }, // Cache for 1 hour to stay within rate limits
+      });
+      if (geoRes.ok) {
+        const geoData = await geoRes.json();
+        country = geoData.country_name || "Unknown";
+        city = geoData.city || "Unknown";
+      }
+    } catch (e) {
+      console.error("[Geolocation Fetch Error]", e);
+    }
+  } else {
+    // Fallback for development/local testing
     const isLocal =
       headerList.get("host")?.includes("localhost") ||
       headerList.get("host")?.includes("127.0.0.1");
     country = isLocal ? "Indonesia (Local)" : "Unknown";
-  }
-
-  if (!city || city === "Unknown") {
-    const isLocal =
-      headerList.get("host")?.includes("localhost") ||
-      headerList.get("host")?.includes("127.0.0.1");
     city = isLocal ? "Jakarta (Local)" : "Unknown";
   }
 
-  // Ensure they are not null/undefined
-  const finalCountry = country || "Unknown";
-  const finalCity = city || "Unknown";
-
   const parser = new UAParser(userAgent);
+
   const browser = parser.getBrowser().name || "Unknown";
   const deviceType = parser.getDevice().type || "desktop";
   const os = parser.getOS().name || "Unknown";
@@ -62,8 +70,8 @@ export default async function ShortLinkPage({
       prisma.linkAnalytic.create({
         data: {
           shortLinkId: link.id,
-          country: finalCountry,
-          city: finalCity,
+          country,
+          city,
           referrer,
           browser,
           device: deviceType,
