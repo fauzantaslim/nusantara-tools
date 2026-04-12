@@ -99,7 +99,15 @@ export const UrlList: React.FC<UrlListProps> = ({
                   <div className="absolute top-4 right-4 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                     <button
                       type="button"
-                      onClick={() => void onDelete(url.id)}
+                      onClick={() => {
+                        if (
+                          window.confirm(
+                            "Apakah Anda yakin ingin menghapus tautan ini? Tindakan ini tidak dapat dibatalkan.",
+                          )
+                        ) {
+                          void onDelete(url.id);
+                        }
+                      }}
                       className="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20 hover:text-red-300 transition-colors"
                       title="Hapus Link"
                     >
