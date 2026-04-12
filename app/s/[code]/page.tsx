@@ -1,8 +1,8 @@
-import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import { isSafeRedirectUrl } from "@/features/url-shortener/short-link-server";
 import { ShortLinkRedirectError } from "@/features/url-shortener/components/ShortLinkRedirectError";
+import { ShortLinkRedirecting } from "@/features/url-shortener/components/ShortLinkRedirecting";
 import { UAParser } from "ua-parser-js";
 
 export const dynamic = "force-dynamic";
@@ -56,8 +56,8 @@ export default async function ShortLinkPage({
     ]);
   } catch (e) {
     console.error("[ShortLink Analytics Error]", e);
-    // If analytics fails, we still want to redirect the user
+    // If analytics fails, we still want to show the redirecting page
   }
 
-  redirect(link.originalUrl);
+  return <ShortLinkRedirecting targetUrl={link.originalUrl} />;
 }
