@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { generateShortCode } from "@/features/url-shortener/utils";
 import {
@@ -20,8 +19,6 @@ export async function GET(request: Request) {
     return NextResponse.json({ links: [] });
   }
 
-  // To keep it simple and somewhat secure, we only return links where the token matches.
-  // Note: This isn't perfect but better than returning anyone's click counts.
   const links = await prisma.shortLink.findMany({
     where: {
       shortCode: { in: codes },
@@ -114,8 +111,10 @@ export async function POST(request: Request) {
     );
   } catch (e) {
     if (
-      e instanceof Prisma.PrismaClientKnownRequestError &&
-      e.code === "P2002"
+      typeof e === "object" &&
+      e !== null &&
+      "code" in e &&
+      (e as { code: string }).code === "P2002"
     ) {
       return NextResponse.json(
         { error: "Alias khusus sudah digunakan. Silakan pilih yang lain." },
