@@ -8,6 +8,7 @@ import {
 
 export const dynamic = "force-dynamic";
 
+type ShortLinkSummary = { shortCode: string; clickCount: number };
 const MAX_RANDOM_ATTEMPTS = 8;
 
 export async function GET(request: Request) {
@@ -31,7 +32,7 @@ export async function GET(request: Request) {
   });
 
   return NextResponse.json({
-    links: links.map((l) => ({
+    links: links.map((l: ShortLinkSummary) => ({
       shortCode: l.shortCode,
       clickCount: l.clickCount,
     })),
