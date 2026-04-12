@@ -62,7 +62,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`${jakartaSans.variable} ${lora.variable}`}>
+    <html
+      lang="id"
+      className={`${jakartaSans.className} ${lora.className}`}
+      suppressHydrationWarning
+    >
       <head>
         <meta name="google-adsense-account" content="ca-pub-1737040212074612" />
       </head>
