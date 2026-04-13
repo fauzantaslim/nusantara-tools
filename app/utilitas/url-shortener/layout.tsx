@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "URL Shortener | NusantaraTools",
+  title: "URL Shortener",
   description:
     "Persingkat link Anda, bagikan dengan mudah, dan pantau penggunaannya.",
 };

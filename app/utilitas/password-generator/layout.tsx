@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Password Generator | NusantaraTools",
+  title: "Password Generator",
   description:
     "Buat kata sandi yang kuat dan aman menggunakan kombinasi karakter atau passphrase.",
 };

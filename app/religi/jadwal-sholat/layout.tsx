@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Kalkulator Jadwal Sholat | NusantaraTools",
+  title: "Kalkulator Jadwal Sholat",
   description:
     "Dapatkan jadwal waktu sholat otomatis berbasis lokasi secara akurat dengan dukungan metode MWL, ISNA, Egypt, dan konfigurasi Hanafi/Standard. Dilengkapi penunjuk Arah Kiblat.",
 };

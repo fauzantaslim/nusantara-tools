@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Kalkulator Kalori Harian (TDEE) | NusantaraTools",
+  title: "Kalkulator Kalori Harian (TDEE)",
   description:
     "Hitung kebutuhan kalori harian Anda berdasarkan Basal Metabolic Rate (BMR) dan tingkat aktivitas untuk mempertahankan, menurunkan, atau menambah berat badan.",
 };

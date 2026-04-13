@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Kalkulator Depresiasi Aset | NusantaraTools",
+  title: "Kalkulator Depresiasi Aset",
   description:
     "Hitung penyusutan dan amortisasi aset pajak sesuai standar DJP Indonesia (PMK No.72/2023). Metode Garis Lurus dan Saldo Menurun.",
 };

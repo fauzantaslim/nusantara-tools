@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Kalkulator Kebutuhan Air | NusantaraTools",
+  title: "Kalkulator Kebutuhan Air",
   description:
     "Gunakan kalkulator kebutuhan air kami untuk menghitung berapa banyak air minum yang Anda perlukan setiap hari berdasarkan berat badan, tingkat aktivitas, dan faktor lingkungan.",
 };

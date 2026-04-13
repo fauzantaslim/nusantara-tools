@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Kalkulator Kafein | NusantaraTools",
+  title: "Kalkulator Kafein Aman",
   description:
     "Hitung total asupan kafein harian Anda dari kopi, teh, minuman energi, dan sumber lainnya. Bandingkan dengan batas aman berdasarkan profil kesehatan Anda.",
 };

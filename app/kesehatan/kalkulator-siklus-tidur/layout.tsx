@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Kalkulator Siklus Tidur | NusantaraTools",
+  title: "Kalkulator Siklus Tidur",
   description:
     "Temukan jam tidur atau jam bangun terbaik berdasarkan siklus tidur 90 menit. Hindari sleep inertia dan bangun lebih segar setiap hari dengan Kalkulator Siklus Tidur NusantaraTools.",
 };

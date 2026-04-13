@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Split Bill Calculator (OCR) | NusantaraTools",
+  title: "Kalkulator Split Bill (OCR)",
   description:
     "Hitung patungan secara cerdas dan otomatis dengan bukti struk (OCR) atau input manual. Bagikan total langsung ke teman-teman Anda.",
 };

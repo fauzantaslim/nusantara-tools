@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Kalkulator Pensiun — Perencanaan Finansial Masa Tua | NusantaraTools",
+  title: "Kalkulator Pensiun",
   description:
     "Hitung estimasi kebutuhan dana pensiun, proyeksi nilai tabungan Anda di masa depan dengan Return Investment & Inflasi, serta cari tahu kapan tabungan Anda akan habis memakai Kalkulator Pensiun.",
   keywords: [

@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Kalkulator Masa Subur & Ovulasi | NusantaraTools",
+  title: "Kalkulator Masa Subur & Ovulasi",
   description:
     "Prediksi masa subur, hari ovulasi, dan siklus menstruasi berikutnya dengan akurat menggunakan kalkulator canggih dari NusantaraTools.",
 };

@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Kalkulator Tekanan Darah | NusantaraTools",
+  title: "Kalkulator Tekanan Darah",
   description:
     "Analisis pembacaan tekanan darah Anda berdasarkan standar medis AHA. Pantau tren sistolik & diastolik dari waktu ke waktu dan dapatkan rekomendasi kesehatan kardiovaskular yang tepat.",
 };

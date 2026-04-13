@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Kalkulator Lembur — Hitung Gaji Overtime | NusantaraTools",
+  title: "Kalkulator Lembur",
   description:
     "Hitung gaji lembur dengan mudah berdasarkan tarif per jam, jam reguler, dan berbagai tier lembur (1.5×, 2×, 2.5×, 3×, kustom). Estimasi gaji kotor dan bersih setelah pajak.",
   keywords: [

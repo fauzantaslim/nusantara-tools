@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Kalkulator Konversi Masehi ↔ Hijriyah | NusantaraTools",
+  title: "Kalkulator Konversi Penanggalan Masehi ↔ Hijriyah",
   description:
     "Ubah penanggalan kalender Masehi ke Hijriyah atau sebaliknya. Pantau hari libur nasional agama Islam dan hari besar keagamaan secara otomatis dan lebih presisi.",
 };

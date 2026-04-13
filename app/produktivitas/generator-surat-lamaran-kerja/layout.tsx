@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Surat Lamaran Kerja Generator | NusantaraTools",
+  title: "Surat Lamaran Kerja Generator",
   description:
     "Buat surat lamaran kerja profesional secara otomatis. Sesuaikan biodata, data perusahaan, dan format dokumen dengan mudah dan cepat.",
 };

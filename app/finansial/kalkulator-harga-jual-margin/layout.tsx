@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Kalkulator Harga Jual & Margin | NusantaraTools",
+  title: "Kalkulator Harga Jual & Margin",
   description:
     "Hitung margin keuntungan, markup, harga jual, dan biaya produk Anda secara instan. Alat esensial untuk penetapan harga bisnis yang akurat.",
 };

@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Kalkulator BMI | NusantaraTools",
+  title: "Kalkulator BMI",
   description:
     "Hitung Body Mass Index (BMI) secara akurat berdasarkan standar Asia-Pasifik untuk mengetahui idealitas berat badan Anda.",
 };

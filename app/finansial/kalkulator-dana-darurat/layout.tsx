@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Kalkulator Dana Darurat - NusantaraTools",
+  title: "Kalkulator Dana Darurat",
   description:
     "Hitung ekspektasi dan target dana darurat khusus untuk profil finansial Anda dengan parameter terukur, inflasi, dan investasi.",
 };
