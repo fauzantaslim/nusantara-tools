@@ -1,7 +1,7 @@
 import React from "react";
 
 export const metadata = {
-  title: "Syarat & Ketentuan - NusantaraTools",
+  title: "Syarat & Ketentuan",
   description:
     "Ketentuan layanan dan penafian (disclaimer) untuk pengguna alat simulasi finansial dan medis NusantaraTools.",
 };

@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Tentang Kami - NusantaraTools",
+  title: "Tentang Kami",
   description:
     "Mengenal lebih dekat visi dan misi NusantaraTools sebagai platform alat esensial masyarakat digital Indonesia.",
 };

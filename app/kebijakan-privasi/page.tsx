@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Kebijakan Privasi - NusantaraTools",
+  title: "Kebijakan Privasi",
   description:
     "Komitmen kami terhadap perlindungan data Anda. Semuanya diproses aman di sisi klien tanpa penyimpanan server yang melacak Anda.",
 };
