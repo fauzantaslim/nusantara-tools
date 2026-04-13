@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useId } from "react";
 import { Card } from "@/ui/Card";
 import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
@@ -19,6 +19,7 @@ import { SLEEP_CALCULATION_MODE, SLEEP_TIME_FORMAT } from "@/lib/constants";
 
 export const SleepForm: React.FC<{ hook: SleepContextType }> = ({ hook }) => {
   const { data, updateData, error, handleCalculate, handleReset } = hook;
+  const targetTimeId = useId();
 
   return (
     <Card
@@ -117,29 +118,20 @@ export const SleepForm: React.FC<{ hook: SleepContextType }> = ({ hook }) => {
           </div>
 
           {/* Time Input */}
-          <div className="flex flex-col gap-2">
-            <label className="text-sm font-bold font-ui text-primary">
-              {data.mode === SLEEP_CALCULATION_MODE.WAKE_AT
+          <Input
+            id={targetTimeId}
+            label={
+              data.mode === SLEEP_CALCULATION_MODE.WAKE_AT
                 ? "Jam Bangun yang Diinginkan"
-                : "Jam Rencana Tidur"}
-            </label>
-            <div className="relative flex items-center border-2 border-muted bg-white rounded-2xl shadow-sm h-14 focus-within:border-[#4A7C59] focus-within:ring-2 focus-within:ring-[#4A7C59]/20 overflow-hidden transition-all">
-              <div className="pl-4 pr-2 flex items-center">
-                {data.mode === SLEEP_CALCULATION_MODE.WAKE_AT ? (
-                  <Sun className="w-5 h-5 text-[#C17A3A]" />
-                ) : (
-                  <Moon className="w-5 h-5 text-[#4A7C59]" />
-                )}
-              </div>
-              <input
-                type="time"
-                value={data.targetTime}
-                onChange={(e) => updateData("targetTime", e.target.value)}
-                required
-                className="flex-1 h-full bg-transparent px-2 text-lg font-black text-primary outline-none font-heading tracking-tight"
-              />
-            </div>
-          </div>
+                : "Jam Rencana Tidur"
+            }
+            type="time"
+            value={data.targetTime}
+            onChange={(e) => updateData("targetTime", e.target.value)}
+            required
+            className="rounded-2xl h-14"
+            labelClassName="text-sm font-bold font-ui text-primary"
+          />
 
           {/* Time Format Toggle */}
           <SegmentedControl

@@ -152,6 +152,7 @@ export const SplitBillResult: React.FC<SplitBillResultProps> = ({
                           autoFocus
                           type="text"
                           defaultValue={item.name}
+                          aria-label={`Nama item ${item.name}`}
                           className="w-full px-4 py-3 bg-[#1A0E07] text-white border border-[#C17A3A]/30 rounded-xl text-base outline-none focus:border-[#C17A3A]"
                           onBlur={(e) => {
                             updateItem(item.id, { name: e.target.value });

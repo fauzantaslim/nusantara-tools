@@ -34,7 +34,10 @@ export const metadata: Metadata = {
     "zakat",
     "split bill",
   ],
-  authors: [{ name: "NusantaraTools" }],
+  authors: [{ name: "Fauzan Taslim Hidayat" }],
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     type: "website",
     locale: "id_ID",

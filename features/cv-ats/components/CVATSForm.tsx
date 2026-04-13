@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Card } from "@/ui/Card";
 import { Input } from "@/ui/Input";
 import { Button } from "@/ui/Button";
+import { Textarea } from "@/ui/Textarea";
 import { CVATSContextType } from "../types";
 import { cn } from "@/lib/utils";
 import {
@@ -234,17 +235,17 @@ export const CVATSForm: React.FC<{ cvHook: CVATSContextType }> = ({
                   />
                 </div>
                 <div className="space-y-1.5" style={{ gridColumn: "1 / -1" }}>
-                  <label className="text-xs font-bold text-secondary">
-                    Website / Portfolio (Opsional)
-                  </label>
-                  <input
+                  <Input
+                    id="cv-portfolio"
+                    label="Website / Portfolio (Opsional)"
                     type="text"
                     value={data.personalInfo.portfolio}
                     onChange={(e) =>
                       updatePersonalInfo("portfolio", e.target.value)
                     }
                     placeholder="budisantoso.com"
-                    className="w-full h-11 bg-white border border-muted rounded-xl px-3 outline-none focus:border-[#C17A3A]"
+                    className="h-11 rounded-xl"
+                    labelClassName="text-xs font-bold text-secondary"
                   />
                 </div>
               </div>
@@ -276,17 +277,17 @@ export const CVATSForm: React.FC<{ cvHook: CVATSContextType }> = ({
           {activeTab === "summary" && (
             <div className="p-4 sm:p-5 border-t border-muted space-y-4">
               <div className="space-y-2">
-                <label className="text-xs font-bold text-secondary">
-                  Professional Summary
-                </label>
-                <textarea
+                <Textarea
+                  id="cv-professional-summary"
+                  label="Professional Summary"
                   rows={5}
                   value={data.personalInfo.summary}
                   onChange={(e) =>
                     updatePersonalInfo("summary", e.target.value)
                   }
                   placeholder="Seorang Software Engineer dengan pengalaman 3 tahun dalam mendesain dan mengembangkan..."
-                  className="w-full py-3 bg-surface/50 border border-muted rounded-xl px-3 outline-none focus:border-[#C17A3A]"
+                  className="rounded-xl"
+                  labelClassName="text-xs font-bold text-secondary"
                 />
                 <p className="text-[10px] text-secondary">
                   Tulis 3-4 kalimat kuat yang mencakup peran Anda dengan keyword

@@ -4,12 +4,12 @@ import React from "react";
 import { Card } from "@/ui/Card";
 import { CurrencyInput } from "@/ui/CurrencyInput";
 import { Button } from "@/ui/Button";
+import { Input } from "@/ui/Input";
+import { SegmentedControl } from "@/ui/SegmentedControl";
 import { CicilanInput, VehicleType } from "../types";
 import { DP_GUIDANCE } from "../utils";
 import { cn } from "@/lib/utils";
 import {
-  Car,
-  Bike,
   RefreshCw,
   ArrowRight,
   Calculator,
@@ -31,10 +31,9 @@ interface CicilanFormProps {
 const VEHICLE_TABS: {
   label: string;
   value: VehicleType;
-  icon: React.ReactNode;
 }[] = [
-  { label: "Mobil", value: "mobil", icon: <Car className="w-4 h-4" /> },
-  { label: "Motor", value: "motor", icon: <Bike className="w-4 h-4" /> },
+  { label: "Mobil", value: "mobil" },
+  { label: "Motor", value: "motor" },
 ];
 
 const TENOR_OPTIONS = [12, 24, 36, 48, 60, 72, 84, 96];
@@ -72,27 +71,13 @@ export const CicilanForm: React.FC<CicilanFormProps> = ({
 
       {/* Vehicle Type Toggle */}
       <div className="relative z-10 flex flex-col gap-2">
-        <label className="text-xs font-bold text-secondary uppercase tracking-wider">
-          Jenis Kendaraan
-        </label>
-        <div className="grid grid-cols-2 gap-2 p-1 bg-surface/60 rounded-2xl border border-muted">
-          {VEHICLE_TABS.map((tab) => (
-            <button
-              key={tab.value}
-              type="button"
-              onClick={() => onChange("vehicleType", tab.value)}
-              className={cn(
-                "flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl font-bold text-sm transition-all duration-200",
-                input.vehicleType === tab.value
-                  ? "bg-[#9C4A2A] text-white shadow-md"
-                  : "text-secondary hover:text-primary hover:bg-white/60",
-              )}
-            >
-              {tab.icon}
-              {tab.label}
-            </button>
-          ))}
-        </div>
+        <SegmentedControl
+          label="Jenis Kendaraan"
+          options={VEHICLE_TABS}
+          value={input.vehicleType}
+          onChange={(val) => onChange("vehicleType", val)}
+          className="[&>label]:text-xs [&>label]:font-bold [&>label]:text-secondary [&>label]:uppercase [&>label]:tracking-wider [&>div]:rounded-2xl [&>div]:border [&>div]:border-muted [&>div]:bg-surface/60 [&>div]:p-1"
+        />
 
         {/* DP Guidance Chip */}
         <div className="flex items-center gap-2 px-3 py-2 bg-[#9C4A2A]/8 rounded-xl border border-[#9C4A2A]/20 mt-1">
@@ -130,19 +115,9 @@ export const CicilanForm: React.FC<CicilanFormProps> = ({
 
         {/* DP */}
         <div className="flex flex-col gap-2">
-          <div className="flex justify-between items-center">
-            <label className="text-xs font-bold text-secondary uppercase tracking-wider">
-              Uang Muka / DP
-            </label>
-            <span className="text-xs font-bold text-[#9C4A2A] bg-[#9C4A2A]/10 px-2 py-0.5 rounded-full">
-              {input.uangMukaPercent}% ≈{" "}
-              {new Intl.NumberFormat("id-ID", {
-                notation: "compact",
-                maximumFractionDigits: 1,
-              }).format(uangMukaValue)}
-            </span>
-          </div>
-          <input
+          <Input
+            label="Uang Muka / DP"
+            id="uang-muka-percent"
             type="range"
             min={0}
             max={80}
@@ -151,7 +126,7 @@ export const CicilanForm: React.FC<CicilanFormProps> = ({
             onChange={(e) =>
               onChange("uangMukaPercent", parseFloat(e.target.value))
             }
-            className="w-full accent-[#9C4A2A]"
+            className="w-full accent-[#9C4A2A] px-0 py-0 border-0 focus:ring-0"
           />
           <div className="flex justify-between text-[10px] text-secondary font-ui">
             <span>0%</span>
@@ -172,31 +147,35 @@ export const CicilanForm: React.FC<CicilanFormProps> = ({
               ⚠ DP mobil minimal 20% sesuai aturan OJK.
             </p>
           )}
+          <div className="text-right">
+            <span className="text-xs font-bold text-[#9C4A2A] bg-[#9C4A2A]/10 px-2 py-0.5 rounded-full">
+              {input.uangMukaPercent}% ≈{" "}
+              {new Intl.NumberFormat("id-ID", {
+                notation: "compact",
+                maximumFractionDigits: 1,
+              }).format(uangMukaValue)}
+            </span>
+          </div>
         </div>
 
         {/* Suku Bunga */}
         <div className="flex flex-col gap-2">
-          <label className="text-xs font-bold text-secondary uppercase tracking-wider">
-            Suku Bunga Tahunan (%)
-          </label>
-          <div className="relative">
-            <input
-              type="number"
-              step="0.1"
-              min="0"
-              max="30"
-              value={input.sukuBungaTahunan || ""}
-              onChange={(e) =>
-                onChange("sukuBungaTahunan", parseFloat(e.target.value) || 0)
-              }
-              required
-              className="w-full h-12 bg-surface/50 border border-muted rounded-xl px-4 pr-10 text-sm font-bold text-primary focus:ring-2 focus:ring-[#9C4A2A]/20 outline-none"
-              placeholder="6"
-            />
-            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-secondary font-bold text-sm">
-              %
-            </span>
-          </div>
+          <Input
+            label="Suku Bunga Tahunan (%)"
+            id="suku-bunga-tahunan"
+            type="number"
+            step="0.1"
+            min={0}
+            max={30}
+            value={input.sukuBungaTahunan || ""}
+            onChange={(e) =>
+              onChange("sukuBungaTahunan", parseFloat(e.target.value) || 0)
+            }
+            required
+            className="h-12 rounded-xl"
+            placeholder="6"
+            suffix="%"
+          />
           <p className="text-[10px] text-secondary font-body">
             Rata-rata bunga leasing kendaraan di Indonesia berkisar 3–15% per
             tahun.

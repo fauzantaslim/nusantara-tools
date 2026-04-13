@@ -1,17 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useId } from "react";
 import { Card } from "@/ui/Card";
 import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
 import { Select } from "@/ui/Select";
-import {
-  ArrowRight,
-  ShieldAlert,
-  HeartPulse,
-  RefreshCw,
-  Clock,
-} from "lucide-react";
+import { Textarea } from "@/ui/Textarea";
+import { ArrowRight, ShieldAlert, HeartPulse, RefreshCw } from "lucide-react";
 import { BPContextType } from "../types";
 import { BODY_POSITION, BP_ARM } from "@/lib/constants";
 
@@ -19,6 +14,8 @@ export const BloodPressureForm: React.FC<{ hook: BPContextType }> = ({
   hook,
 }) => {
   const { data, updateData, error, handleAnalyze, handleReset } = hook;
+  const timeId = useId();
+  const notesId = useId();
 
   const positionOptions = [
     { value: BODY_POSITION.SITTING, label: "Duduk" },
@@ -102,22 +99,15 @@ export const BloodPressureForm: React.FC<{ hook: BPContextType }> = ({
           max={250}
         />
 
-        <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-bold font-ui text-secondary uppercase tracking-wider">
-            Waktu Pengukuran
-          </label>
-          <div className="relative border-2 border-muted rounded-xl h-11 focus-within:border-[#C17A3A] focus-within:ring-2 focus-within:ring-[#C17A3A]/20 overflow-hidden transition-all">
-            <div className="absolute left-3 top-1/2 -translate-y-1/2">
-              <Clock className="w-4 h-4 text-secondary opacity-40" />
-            </div>
-            <input
-              type="datetime-local"
-              value={data.datetime}
-              onChange={(e) => updateData("datetime", e.target.value)}
-              className="w-full h-full bg-transparent pl-9 pr-3 text-sm font-bold text-primary outline-none"
-            />
-          </div>
-        </div>
+        <Input
+          id={timeId}
+          label="Waktu Pengukuran"
+          type="datetime-local"
+          value={data.datetime}
+          onChange={(e) => updateData("datetime", e.target.value)}
+          className="rounded-xl h-11"
+          labelClassName="text-xs font-bold font-ui text-secondary uppercase tracking-wider"
+        />
 
         <div className="grid grid-cols-2 gap-3">
           <Select
@@ -134,18 +124,16 @@ export const BloodPressureForm: React.FC<{ hook: BPContextType }> = ({
           />
         </div>
 
-        <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-bold font-ui text-secondary uppercase tracking-wider">
-            Catatan (Opsional)
-          </label>
-          <textarea
-            value={data.notes}
-            onChange={(e) => updateData("notes", e.target.value)}
-            rows={2}
-            placeholder="Contoh: Setelah olahraga, sedang stres, dll."
-            className="w-full border-2 border-muted rounded-xl px-3 py-2.5 text-sm font-body text-primary placeholder:opacity-40 outline-none focus:border-[#C17A3A] focus:ring-2 focus:ring-[#C17A3A]/20 resize-none bg-white transition-all shadow-inner"
-          />
-        </div>
+        <Textarea
+          id={notesId}
+          label="Catatan (Opsional)"
+          value={data.notes}
+          onChange={(e) => updateData("notes", e.target.value)}
+          rows={2}
+          placeholder="Contoh: Setelah olahraga, sedang stres, dll."
+          className="rounded-xl"
+          labelClassName="text-xs font-bold font-ui text-secondary uppercase tracking-wider"
+        />
 
         {error && (
           <div className="bg-accent-3-light text-accent-3 text-sm px-4 py-3 rounded-2xl border border-accent-3/20 font-bold flex items-center gap-2 shadow-sm animate-in fade-in">

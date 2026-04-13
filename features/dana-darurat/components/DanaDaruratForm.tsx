@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { Card } from "@/ui/Card";
 import { CurrencyInput } from "@/ui/CurrencyInput";
 import { Button } from "@/ui/Button";
+import { Input } from "@/ui/Input";
+import { Select } from "@/ui/Select";
 import { DanaDaruratInput, TargetDuration, JobStability } from "../types";
 import { cn } from "@/lib/utils";
 import {
@@ -146,19 +148,19 @@ export const DanaDaruratForm: React.FC<DanaDaruratFormProps> = ({
 
           {input.targetDuration === "custom" && (
             <div className="flex items-center gap-3 bg-[#FFF0EB]/30 border-2 border-[#9C4A2A]/30 rounded-xl px-4 h-12 transition-all mt-1 animate-in slide-in-from-top-2">
-              <input
+              <Input
+                id="custom-duration-months"
                 type="number"
-                min="1"
+                min={1}
+                aria-label="Durasi target dana darurat kustom dalam bulan"
                 value={input.customDuration || ""}
                 onChange={(e) =>
                   updateCustomDuration(parseInt(e.target.value) || 0)
                 }
                 placeholder="Jumlah Bulan"
-                className="w-full bg-transparent text-sm font-bold text-[#9C4A2A] outline-none placeholder:text-[#9C4A2A]/40"
+                className="w-full text-sm font-bold text-[#9C4A2A] placeholder:text-[#9C4A2A]/40 border-0 focus:ring-0 bg-transparent"
+                suffix="Bulan"
               />
-              <span className="text-xs font-bold text-[#9C4A2A] shrink-0 uppercase tracking-wider">
-                Bulan
-              </span>
             </div>
           )}
         </div>
@@ -167,43 +169,47 @@ export const DanaDaruratForm: React.FC<DanaDaruratFormProps> = ({
 
         {/* Stabilitas Pekerjaan */}
         <div className="flex flex-col gap-3">
-          <label className="text-xs font-bold font-ui text-secondary uppercase tracking-wider flex items-center gap-2">
+          <label
+            htmlFor="job-stability"
+            className="text-xs font-bold font-ui text-secondary uppercase tracking-wider flex items-center gap-2"
+          >
             <Briefcase className="w-3.5 h-3.5" /> Stabilitas Pemasukan
           </label>
-          <div className="relative group">
-            <select
-              value={input.lifeAdjustments.jobStability}
-              onChange={(e) =>
-                updateLifeAdjustment(
-                  "jobStability",
-                  e.target.value as JobStability,
-                )
-              }
-              className="w-full h-14 bg-white hover:bg-surface/30 border-2 border-muted rounded-xl px-4 text-sm font-bold text-primary focus:border-[#C17A3A] focus:ring-2 focus:ring-[#C17A3A]/20 outline-none appearance-none cursor-pointer transition-all shadow-sm"
-            >
-              <option value="high">
-                Sangat Stabil (PNS / BUMN / Karyawan Tetap)
-              </option>
-              <option value="medium">Moderat (Kontrak / Swasta)</option>
-              <option value="low">Rendah (Harian / Musiman)</option>
-              <option value="freelance">
-                Freelance / Usaha Sendiri (+20% Buffer)
-              </option>
-            </select>
-            <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-secondary pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity" />
-          </div>
+          <Select
+            id="job-stability"
+            value={input.lifeAdjustments.jobStability}
+            onChange={(val) =>
+              updateLifeAdjustment("jobStability", val as JobStability)
+            }
+            options={[
+              {
+                value: "high",
+                label: "Sangat Stabil (PNS / BUMN / Karyawan Tetap)",
+              },
+              { value: "medium", label: "Moderat (Kontrak / Swasta)" },
+              { value: "low", label: "Rendah (Harian / Musiman)" },
+              {
+                value: "freelance",
+                label: "Freelance / Usaha Sendiri (+20% Buffer)",
+              },
+            ]}
+          />
         </div>
 
         {/* Jumlah Tanggungan & Sumber Pemasukan */}
         <div className="grid grid-cols-2 gap-4">
           <div className="flex flex-col gap-2">
-            <label className="text-xs font-bold font-ui text-secondary uppercase tracking-wider flex items-center gap-2">
+            <label
+              htmlFor="dependents-count"
+              className="text-xs font-bold font-ui text-secondary uppercase tracking-wider flex items-center gap-2"
+            >
               <Users className="w-3.5 h-3.5" /> Tanggungan
             </label>
             <div className="relative flex items-center border-2 rounded-xl h-12 overflow-hidden transition-all shadow-sm bg-white border-muted focus-within:border-[#C17A3A] focus-within:ring-2 focus-within:ring-[#C17A3A]/20">
-              <input
+              <Input
+                id="dependents-count"
                 type="number"
-                min="0"
+                min={1}
                 value={input.lifeAdjustments.dependents || ""}
                 onChange={(e) =>
                   updateLifeAdjustment(
@@ -212,7 +218,7 @@ export const DanaDaruratForm: React.FC<DanaDaruratFormProps> = ({
                   )
                 }
                 placeholder="0"
-                className="w-full h-full bg-transparent px-4 text-sm font-bold text-primary outline-none"
+                className="w-full h-full px-4 text-sm font-bold border-0 focus:ring-0"
               />
               <span className="pr-4 text-[10px] font-bold text-secondary uppercase">
                 Orang
@@ -220,13 +226,17 @@ export const DanaDaruratForm: React.FC<DanaDaruratFormProps> = ({
             </div>
           </div>
           <div className="flex flex-col gap-2">
-            <label className="text-xs font-bold font-ui text-secondary uppercase tracking-wider flex items-center gap-2">
+            <label
+              htmlFor="income-sources-count"
+              className="text-xs font-bold font-ui text-secondary uppercase tracking-wider flex items-center gap-2"
+            >
               <Wallet className="w-3.5 h-3.5" /> Sumber Dana
             </label>
             <div className="relative flex items-center border-2 rounded-xl h-12 overflow-hidden transition-all shadow-sm bg-white border-muted focus-within:border-[#C17A3A] focus-within:ring-2 focus-within:ring-[#C17A3A]/20">
-              <input
+              <Input
+                id="income-sources-count"
                 type="number"
-                min="1"
+                min={1}
                 value={input.lifeAdjustments.incomeSources || ""}
                 onChange={(e) =>
                   updateLifeAdjustment(
@@ -235,7 +245,7 @@ export const DanaDaruratForm: React.FC<DanaDaruratFormProps> = ({
                   )
                 }
                 placeholder="1"
-                className="w-full h-full bg-transparent px-4 text-sm font-bold text-primary outline-none"
+                className="w-full h-full px-4 text-sm font-bold border-0 focus:ring-0"
               />
               <span className="pr-4 text-[10px] font-bold text-secondary uppercase">
                 Aliran
@@ -292,11 +302,15 @@ export const DanaDaruratForm: React.FC<DanaDaruratFormProps> = ({
           {showAdvanced && (
             <div className="grid grid-cols-2 gap-4 mt-4 animate-in slide-in-from-top-2">
               <div className="flex flex-col gap-1.5">
-                <label className="text-[10px] font-bold text-secondary uppercase tracking-widest">
+                <label
+                  htmlFor="interest-rate"
+                  className="text-[10px] font-bold text-secondary uppercase tracking-widest"
+                >
                   Return (%/Thn)
                 </label>
                 <div className="relative">
-                  <input
+                  <Input
+                    id="interest-rate"
                     type="number"
                     step="0.1"
                     value={input.advanced.interestRate || ""}
@@ -306,7 +320,7 @@ export const DanaDaruratForm: React.FC<DanaDaruratFormProps> = ({
                         parseFloat(e.target.value) || 0,
                       )
                     }
-                    className="w-full h-11 bg-white border-2 border-muted rounded-xl pl-3 pr-8 text-sm font-bold text-primary outline-none focus:border-[#C17A3A]"
+                    className="w-full h-11 rounded-xl pl-3 pr-8 text-sm font-bold"
                   />
                   <span className="absolute right-3 top-1/2 -translate-y-1/2 text-secondary font-bold text-sm opacity-50">
                     %
@@ -314,11 +328,15 @@ export const DanaDaruratForm: React.FC<DanaDaruratFormProps> = ({
                 </div>
               </div>
               <div className="flex flex-col gap-1.5">
-                <label className="text-[10px] font-bold text-secondary uppercase tracking-widest">
+                <label
+                  htmlFor="inflation-rate"
+                  className="text-[10px] font-bold text-secondary uppercase tracking-widest"
+                >
                   Inflasi (%/Thn)
                 </label>
                 <div className="relative">
-                  <input
+                  <Input
+                    id="inflation-rate"
                     type="number"
                     step="0.1"
                     value={input.advanced.inflationRate || ""}
@@ -328,7 +346,7 @@ export const DanaDaruratForm: React.FC<DanaDaruratFormProps> = ({
                         parseFloat(e.target.value) || 0,
                       )
                     }
-                    className="w-full h-11 bg-white border-2 border-muted rounded-xl pl-3 pr-8 text-sm font-bold text-primary outline-none focus:border-[#C17A3A]"
+                    className="w-full h-11 rounded-xl pl-3 pr-8 text-sm font-bold"
                   />
                   <span className="absolute right-3 top-1/2 -translate-y-1/2 text-secondary font-bold text-sm opacity-50">
                     %

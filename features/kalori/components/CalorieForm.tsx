@@ -4,6 +4,8 @@ import React from "react";
 import { Card } from "@/ui/Card";
 import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
+import { SegmentedControl } from "@/ui/SegmentedControl";
+import { Select } from "@/ui/Select";
 import { Mars, Venus, ShieldAlert, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CalorieContextType, ActivityLevel, BMRFormula } from "../types";
@@ -42,32 +44,16 @@ export const CalorieForm: React.FC<{ hook: CalorieContextType }> = ({
       >
         <div className="space-y-6">
           {/* System Toggle */}
-          <div className="bg-surface p-1.5 rounded-xl flex items-center max-w-sm">
-            <button
-              type="button"
-              onClick={() => updateData("system", SYSTEM.METRIC)}
-              className={cn(
-                "flex-1 py-2 text-sm font-bold rounded-lg transition-all",
-                data.system === SYSTEM.METRIC
-                  ? "bg-white text-primary shadow-sm"
-                  : "text-secondary hover:text-primary",
-              )}
-            >
-              Metrik (kg, cm)
-            </button>
-            <button
-              type="button"
-              onClick={() => updateData("system", SYSTEM.IMPERIAL)}
-              className={cn(
-                "flex-1 py-2 text-sm font-bold rounded-lg transition-all",
-                data.system === SYSTEM.IMPERIAL
-                  ? "bg-white text-primary shadow-sm"
-                  : "text-secondary hover:text-primary",
-              )}
-            >
-              Imperial (lb, ft)
-            </button>
-          </div>
+          <SegmentedControl
+            label="Satuan Perhitungan"
+            options={[
+              { value: SYSTEM.METRIC, label: "Metrik (kg, cm)" },
+              { value: SYSTEM.IMPERIAL, label: "Imperial (lb, ft)" },
+            ]}
+            value={data.system}
+            onChange={(val) => updateData("system", val)}
+            className="w-full [&>label]:text-xs [&>label]:font-bold [&>label]:text-secondary [&>label]:uppercase [&>label]:tracking-wider [&>div]:rounded-xl [&>div]:bg-surface [&>div]:p-1.5"
+          />
 
           {/* Gender & Age */}
           <div className="flex gap-4">
@@ -177,94 +163,49 @@ export const CalorieForm: React.FC<{ hook: CalorieContextType }> = ({
 
           {/* Activity Level */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm font-bold font-ui text-primary">
-              Tingkat Aktivitas
-            </label>
-            <div className="relative">
-              <select
-                value={data.activityLevel}
-                onChange={(e) =>
-                  updateData("activityLevel", e.target.value as ActivityLevel)
-                }
-                className="w-full flex h-12 rounded-xl border bg-white px-4 text-[15px] transition-colors border-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-1 text-primary font-ui font-medium appearance-none shadow-sm"
-              >
-                <option value={ACTIVITY_LEVEL.SEDENTARY}>
-                  Jarang Berolahraga (Sedentary)
-                </option>
-                <option value={ACTIVITY_LEVEL.LIGHT}>
-                  Aktivitas Ringan (1-3 hari/minggu)
-                </option>
-                <option value={ACTIVITY_LEVEL.MODERATE}>
-                  Aktivitas Sedang (3-5 hari/minggu)
-                </option>
-                <option value={ACTIVITY_LEVEL.ACTIVE}>
-                  Aktivitas Tinggi (6-7 hari/minggu)
-                </option>
-                <option value={ACTIVITY_LEVEL.VERY_ACTIVE}>
-                  Aktivitas Ekstra (Atlet / Fisik Berat)
-                </option>
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-4 flex items-center">
-                <svg
-                  className="h-4 w-4 text-secondary opacity-50"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-              </div>
-            </div>
+            <Select
+              label="Tingkat Aktivitas"
+              value={data.activityLevel}
+              onChange={(val) =>
+                updateData("activityLevel", val as ActivityLevel)
+              }
+              options={[
+                {
+                  value: ACTIVITY_LEVEL.SEDENTARY,
+                  label: "Jarang Berolahraga (Sedentary)",
+                },
+                {
+                  value: ACTIVITY_LEVEL.LIGHT,
+                  label: "Aktivitas Ringan (1-3 hari/minggu)",
+                },
+                {
+                  value: ACTIVITY_LEVEL.MODERATE,
+                  label: "Aktivitas Sedang (3-5 hari/minggu)",
+                },
+                {
+                  value: ACTIVITY_LEVEL.ACTIVE,
+                  label: "Aktivitas Tinggi (6-7 hari/minggu)",
+                },
+                {
+                  value: ACTIVITY_LEVEL.VERY_ACTIVE,
+                  label: "Aktivitas Ekstra (Atlet / Fisik Berat)",
+                },
+              ]}
+            />
           </div>
 
           {/* Goal Selection */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm font-bold font-ui text-primary">
-              Target Fisik
-            </label>
-            <div className="grid grid-cols-3 gap-2 bg-surface p-1.5 rounded-xl">
-              <button
-                type="button"
-                onClick={() => updateData("goal", CALORIE_GOAL.LOSE)}
-                className={cn(
-                  "py-2 px-1 text-xs md:text-sm font-bold rounded-lg transition-all text-center",
-                  data.goal === CALORIE_GOAL.LOSE
-                    ? "bg-white text-primary shadow-sm"
-                    : "text-secondary hover:text-primary",
-                )}
-              >
-                Turunkan
-              </button>
-              <button
-                type="button"
-                onClick={() => updateData("goal", CALORIE_GOAL.MAINTAIN)}
-                className={cn(
-                  "py-2 px-1 text-xs md:text-sm font-bold rounded-lg transition-all text-center",
-                  data.goal === CALORIE_GOAL.MAINTAIN
-                    ? "bg-white text-primary shadow-sm"
-                    : "text-secondary hover:text-primary",
-                )}
-              >
-                Pertahankan
-              </button>
-              <button
-                type="button"
-                onClick={() => updateData("goal", CALORIE_GOAL.GAIN)}
-                className={cn(
-                  "py-2 px-1 text-xs md:text-sm font-bold rounded-lg transition-all text-center",
-                  data.goal === CALORIE_GOAL.GAIN
-                    ? "bg-white text-primary shadow-sm"
-                    : "text-secondary hover:text-primary",
-                )}
-              >
-                Tingkatkan
-              </button>
-            </div>
+            <SegmentedControl
+              label="Target Fisik"
+              options={[
+                { value: CALORIE_GOAL.LOSE, label: "Turunkan" },
+                { value: CALORIE_GOAL.MAINTAIN, label: "Pertahankan" },
+                { value: CALORIE_GOAL.GAIN, label: "Tingkatkan" },
+              ]}
+              value={data.goal}
+              onChange={(val) => updateData("goal", val)}
+            />
           </div>
 
           {/* Target Rate */}
@@ -331,26 +272,25 @@ export const CalorieForm: React.FC<{ hook: CalorieContextType }> = ({
 
             <div className="mt-4 px-4 space-y-4">
               <div className="flex flex-col gap-2">
-                <label className="text-sm font-bold font-ui text-primary">
-                  Rumus BMR
-                </label>
-                <select
+                <Select
+                  label="Rumus BMR"
                   value={data.formula}
-                  onChange={(e) =>
-                    updateData("formula", e.target.value as BMRFormula)
-                  }
-                  className="w-full flex h-11 rounded-lg border bg-white px-3 text-sm transition-colors border-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-1 text-primary font-ui appearance-none"
-                >
-                  <option value={CALORIE_FORMULA.MIFFLIN}>
-                    Mifflin-St Jeor (Akurat & Default)
-                  </option>
-                  <option value={CALORIE_FORMULA.HARRIS}>
-                    Harris-Benedict (Klasik)
-                  </option>
-                  <option value={CALORIE_FORMULA.KATCH}>
-                    Katch-McArdle (Perlu Lemak Tubuh)
-                  </option>
-                </select>
+                  onChange={(val) => updateData("formula", val as BMRFormula)}
+                  options={[
+                    {
+                      value: CALORIE_FORMULA.MIFFLIN,
+                      label: "Mifflin-St Jeor (Akurat & Default)",
+                    },
+                    {
+                      value: CALORIE_FORMULA.HARRIS,
+                      label: "Harris-Benedict (Klasik)",
+                    },
+                    {
+                      value: CALORIE_FORMULA.KATCH,
+                      label: "Katch-McArdle (Perlu Lemak Tubuh)",
+                    },
+                  ]}
+                />
               </div>
               <Input
                 id="bodyfat"
@@ -374,11 +314,10 @@ export const CalorieForm: React.FC<{ hook: CalorieContextType }> = ({
             </div>
           )}
         </div>
-
         <Button
           type="submit"
           variant="primary"
-          className="py-5 text-lg mt-auto shadow-lg hover:shadow-xl group rounded-2xl w-full"
+          className="py-4 text-base flex-1 rounded-2xl !bg-[#C17A3A] hover:!bg-[#9C4A2A] text-[#FFF8F0] outline-none ring-0 border-b-4 border-[#7A5C42] hover:translate-y-[2px] hover:border-b-2 active:border-b-0 active:translate-y-[4px] shadow-sm transition-all group font-ui"
         >
           Hitung Kalori
           <ArrowRight className="w-5 h-5 inline-block ml-2 group-hover:translate-x-1.5 transition-transform" />

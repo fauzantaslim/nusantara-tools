@@ -12,6 +12,7 @@ interface SegmentedControlProps<T extends string = string> {
   onChange: (value: T) => void;
   label?: string;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export function SegmentedControl<T extends string = string>({
@@ -20,6 +21,7 @@ export function SegmentedControl<T extends string = string>({
   onChange,
   label,
   className,
+  style,
 }: SegmentedControlProps<T>) {
   return (
     <div className={cn("flex flex-col gap-2", className)}>
@@ -30,7 +32,10 @@ export function SegmentedControl<T extends string = string>({
       )}
       <div
         className="grid gap-1 bg-surface p-1.5 rounded-xl"
-        style={{ gridTemplateColumns: `repeat(${options.length}, 1fr)` }}
+        style={{
+          gridTemplateColumns: `repeat(${options.length}, 1fr)`,
+          ...style,
+        }}
       >
         {options.map((option) => (
           <button

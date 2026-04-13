@@ -92,6 +92,8 @@ export const ReceiptUploader: React.FC<ReceiptUploaderProps> = ({
             ref={fileInputRef}
             className="hidden"
             accept="image/jpeg, image/png, image/webp"
+            aria-label="Upload file struk"
+            title="Upload file struk"
             onChange={handleFileChange}
             disabled={isProcessing}
           />
@@ -101,6 +103,8 @@ export const ReceiptUploader: React.FC<ReceiptUploaderProps> = ({
             className="hidden"
             accept="image/*"
             capture="environment"
+            aria-label="Ambil foto struk dari kamera"
+            title="Ambil foto struk dari kamera"
             onChange={handleFileChange}
             disabled={isProcessing}
           />

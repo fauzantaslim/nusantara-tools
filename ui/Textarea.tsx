@@ -1,4 +1,4 @@
-import React, { TextareaHTMLAttributes } from "react";
+import React, { TextareaHTMLAttributes, useId } from "react";
 import { cn } from "@/lib/utils";
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -18,14 +18,14 @@ export function Textarea({
   rows = 4,
   ...props
 }: TextareaProps) {
-  const generatedId =
-    id || (label ? label.toLowerCase().replace(/\s+/g, "-") : undefined);
+  const reactId = useId();
+  const inputId = id || reactId;
 
   return (
     <div className={cn("flex flex-col gap-1.5", fullWidth ? "w-full" : "")}>
       {label && (
         <label
-          htmlFor={generatedId}
+          htmlFor={inputId}
           className={cn(
             "text-sm font-ui font-medium text-primary",
             labelClassName,
@@ -35,9 +35,10 @@ export function Textarea({
         </label>
       )}
       <textarea
-        id={generatedId}
+        id={inputId}
         rows={rows}
         {...props}
+        aria-label={props["aria-label"] || label || props.placeholder}
         className={cn(
           "w-full px-4 py-3 rounded-md border",
           "bg-white text-primary font-ui text-base",
@@ -48,9 +49,16 @@ export function Textarea({
             : "border-[#E2E8F0] hover:border-secondary",
           className,
         )}
+        aria-invalid={!!error}
+        aria-describedby={error ? `${inputId}-error` : undefined}
       />
       {error && (
-        <span className="text-xs font-ui text-accent-3 mt-1">{error}</span>
+        <span
+          id={`${inputId}-error`}
+          className="text-xs font-ui text-accent-3 mt-1"
+        >
+          {error}
+        </span>
       )}
     </div>
   );

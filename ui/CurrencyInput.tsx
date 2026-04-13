@@ -55,6 +55,7 @@ export function CurrencyInput({
           type="text"
           inputMode="numeric"
           placeholder={placeholder}
+          aria-label={label || placeholder || "Nominal rupiah"}
           value={displayValue}
           onChange={handleInput}
           autoComplete="off"
@@ -93,6 +94,7 @@ export function CurrencyInput({
           type="text"
           inputMode="numeric"
           placeholder={placeholder}
+          aria-label={label || placeholder || "Nominal rupiah"}
           value={displayValue}
           onChange={handleInput}
           autoComplete="off"

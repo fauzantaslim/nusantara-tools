@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { Card } from "@/ui/Card";
 import { CurrencyInput } from "@/ui/CurrencyInput";
 import { Button } from "@/ui/Button";
+import { Input } from "@/ui/Input";
+import { Select } from "@/ui/Select";
 import { MarginInput, MarginMode } from "../types";
 import {
   Settings,
@@ -82,22 +84,19 @@ export const MarginForm: React.FC<MarginFormProps> = ({
       )}
 
       {/* Select Control for Mode */}
-      <div className="relative z-10 flex flex-col gap-2">
-        <label className="text-xs font-bold text-secondary">
-          Mode Kalkulasi Target
-        </label>
-        <div className="relative">
-          <select
-            value={input.mode}
-            onChange={(e) => onModeChange(e.target.value as MarginMode)}
-            className="w-full h-12 bg-surface/50 hover:bg-white border border-muted rounded-xl px-4 text-sm font-bold text-primary focus:ring-2 focus:ring-[#9C4A2A]/20 outline-none appearance-none cursor-pointer transition-colors"
-          >
-            <option value="marginMarkup">Margin & Markup</option>
-            <option value="sellingPrice">Hitung Harga Jual</option>
-            <option value="costPrice">Hitung Biaya</option>
-          </select>
-          <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-secondary pointer-events-none" />
-        </div>
+      <div className="relative z-20 flex flex-col gap-2">
+        <Select
+          id="margin-mode"
+          label="Mode Kalkulasi Target"
+          value={input.mode}
+          onChange={(val) => onModeChange(val as MarginMode)}
+          options={[
+            { value: "marginMarkup", label: "Margin & Markup" },
+            { value: "sellingPrice", label: "Hitung Harga Jual" },
+            { value: "costPrice", label: "Hitung Biaya" },
+          ]}
+          className="text-xs font-bold text-secondary"
+        />
       </div>
 
       <form
@@ -129,27 +128,27 @@ export const MarginForm: React.FC<MarginFormProps> = ({
 
             {(input.mode === "sellingPrice" || input.mode === "costPrice") && (
               <div className="flex flex-col gap-2">
-                <label className="text-xs font-bold text-secondary">
+                <label
+                  htmlFor="desired-margin"
+                  className="text-xs font-bold text-secondary"
+                >
                   Target Margin Keuntungan (%)
                 </label>
-                <div className="relative">
-                  <input
-                    type="number"
-                    step="1"
-                    min="1"
-                    max="99"
-                    value={input.desiredMargin || ""}
-                    onChange={(e) =>
-                      onChange("desiredMargin", parseFloat(e.target.value) || 0)
-                    }
-                    required
-                    className="w-full h-12 bg-surface/50 border border-muted rounded-xl px-4 text-sm font-bold text-primary focus:ring-2 focus:ring-[#9C4A2A]/20 outline-none"
-                    placeholder="20"
-                  />
-                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-secondary font-bold text-sm">
-                    %
-                  </span>
-                </div>
+                <Input
+                  id="desired-margin"
+                  type="number"
+                  step="1"
+                  min={1}
+                  max={99}
+                  value={input.desiredMargin || ""}
+                  onChange={(e) =>
+                    onChange("desiredMargin", parseFloat(e.target.value) || 0)
+                  }
+                  required
+                  placeholder="20"
+                  className="h-12 rounded-xl"
+                  suffix="%"
+                />
               </div>
             )}
           </div>
@@ -163,17 +162,16 @@ export const MarginForm: React.FC<MarginFormProps> = ({
           </h3>
           <div className="grid grid-cols-1 gap-4">
             <div className="flex flex-col gap-2">
-              <label className="text-xs font-bold text-secondary">
-                Kuantitas Penjualan (Unit)
-              </label>
-              <input
+              <Input
+                label="Kuantitas Penjualan (Unit)"
+                id="sales-quantity"
                 type="number"
-                min="1"
+                min={1}
                 value={input.quantity || ""}
                 onChange={(e) =>
                   onChange("quantity", parseInt(e.target.value) || 1)
                 }
-                className="w-full h-12 bg-surface/50 border border-muted rounded-xl px-4 text-sm font-bold text-primary focus:ring-2 focus:ring-[#9C4A2A]/20 outline-none"
+                className="h-12 rounded-xl"
                 placeholder="1"
               />
             </div>
@@ -202,28 +200,26 @@ export const MarginForm: React.FC<MarginFormProps> = ({
             <div className="flex flex-col gap-6 mt-6 animate-in slide-in-from-top-2">
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold text-secondary">
-                    Pajak / PPN (%)
-                  </label>
-                  <input
+                  <Input
+                    label="Pajak / PPN (%)"
+                    id="tax-rate"
                     type="number"
                     step="0.1"
-                    min="0"
+                    min={0}
                     value={input.taxRate || ""}
                     onChange={(e) =>
                       onChange("taxRate", parseFloat(e.target.value) || 0)
                     }
-                    className="h-10 bg-surface/50 border border-muted rounded-xl px-3 text-sm font-bold text-primary outline-none"
+                    className="h-10 rounded-xl"
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold text-secondary">
-                    Fee Marketplace (%)
-                  </label>
-                  <input
+                  <Input
+                    label="Fee Marketplace (%)"
+                    id="marketplace-fee"
                     type="number"
                     step="0.1"
-                    min="0"
+                    min={0}
                     value={input.marketplaceFee || ""}
                     onChange={(e) =>
                       onChange(
@@ -231,25 +227,23 @@ export const MarginForm: React.FC<MarginFormProps> = ({
                         parseFloat(e.target.value) || 0,
                       )
                     }
-                    className="h-10 bg-surface/50 border border-muted rounded-xl px-3 text-sm font-bold text-primary outline-none"
+                    className="h-10 rounded-xl"
                   />
                 </div>
               </div>
               <div className="flex flex-col gap-2">
-                <label className="text-xs font-bold text-secondary">
-                  Presisi Desimal Hasil
-                </label>
-                <select
-                  value={input.decimalPrecision}
+                <Input
+                  label="Presisi Desimal Hasil"
+                  id="decimal-precision"
+                  type="number"
+                  step="1"
+                  min={0}
+                  value={input.decimalPrecision || ""}
                   onChange={(e) =>
                     onChange("decimalPrecision", parseInt(e.target.value) || 0)
                   }
-                  className="h-10 bg-surface/50 border border-muted rounded-xl px-3 text-sm font-bold text-primary outline-none"
-                >
-                  <option value={0}>Tidak ada (Dibulatkan)</option>
-                  <option value={1}>1 Desimal</option>
-                  <option value={2}>2 Desimal</option>
-                </select>
+                  className="h-10 rounded-xl"
+                />
               </div>
             </div>
           )}

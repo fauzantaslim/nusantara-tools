@@ -1,9 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useId } from "react";
 import { Card } from "@/ui/Card";
+import { Input } from "@/ui/Input";
+import { SegmentedControl } from "@/ui/SegmentedControl";
 import { GeneratorMode, PasswordOptions, PassphraseOptions } from "../types";
-import { KeyRound, Type, ShieldAlert, Hash } from "lucide-react";
+import { KeyRound, ShieldAlert } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface GeneratorSettingsProps {
@@ -23,6 +25,8 @@ export const GeneratorSettings: React.FC<GeneratorSettingsProps> = ({
   passphraseOptions,
   setPassphraseOptions,
 }) => {
+  const passwordLengthId = useId();
+  const passphraseWordCountId = useId();
   const togglePasswordOption = (key: keyof PasswordOptions) => {
     setPasswordOptions((prev) => {
       const next = { ...prev, [key]: !prev[key] };
@@ -52,37 +56,26 @@ export const GeneratorSettings: React.FC<GeneratorSettingsProps> = ({
       <div className="absolute top-0 right-0 w-48 h-48 bg-surface rounded-full blur-[60px] opacity-60 -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
       {/* Mode Switcher */}
-      <div className="flex bg-surface/50 p-1.5 rounded-2xl border border-muted relative z-10">
-        <button
-          onClick={() => setMode("password")}
-          className={cn(
-            "flex-1 flex justify-center items-center gap-2 py-3 px-4 rounded-xl font-bold font-ui text-sm transition-all duration-300",
-            mode === "password"
-              ? "bg-white shadow-sm text-primary"
-              : "text-secondary hover:text-primary hover:bg-white/50",
-          )}
-        >
-          <Hash className="w-4 h-4" /> Karakter Acak
-        </button>
-        <button
-          onClick={() => setMode("passphrase")}
-          className={cn(
-            "flex-1 flex justify-center items-center gap-2 py-3 px-4 rounded-xl font-bold font-ui text-sm transition-all duration-300",
-            mode === "passphrase"
-              ? "bg-white shadow-sm text-primary"
-              : "text-secondary hover:text-primary hover:bg-white/50",
-          )}
-        >
-          <Type className="w-4 h-4" /> Passphrase
-        </button>
-      </div>
+      <SegmentedControl
+        label="Mode Generator"
+        options={[
+          { value: "password", label: "Karakter Acak" },
+          { value: "passphrase", label: "Passphrase" },
+        ]}
+        value={mode}
+        onChange={(val) => setMode(val as GeneratorMode)}
+        className="relative z-10 [&>label]:text-xs [&>label]:font-bold [&>label]:text-secondary [&>label]:uppercase [&>label]:tracking-wider [&>div]:rounded-2xl [&>div]:border [&>div]:border-muted [&>div]:bg-surface/50 [&>div]:p-1.5"
+      />
 
       {mode === "password" ? (
         <div className="flex flex-col gap-8 relative z-10 animate-in fade-in slide-in-from-right-4 duration-300">
           {/* Length Slider */}
           <div className="flex flex-col gap-4">
             <div className="flex justify-between items-center">
-              <label className="text-sm font-bold font-ui text-primary flex items-center gap-2">
+              <label
+                htmlFor={passwordLengthId}
+                className="text-sm font-bold font-ui text-primary flex items-center gap-2"
+              >
                 <KeyRound className="w-4 h-4 text-[#C17A3A]" />
                 Panjang Sandi
               </label>
@@ -90,7 +83,8 @@ export const GeneratorSettings: React.FC<GeneratorSettingsProps> = ({
                 {passwordOptions.length}
               </div>
             </div>
-            <input
+            <Input
+              id={passwordLengthId}
               type="range"
               min={4}
               max={64}
@@ -101,7 +95,7 @@ export const GeneratorSettings: React.FC<GeneratorSettingsProps> = ({
                   length: parseInt(e.target.value),
                 })
               }
-              className="w-full h-2 bg-surface rounded-lg appearance-none cursor-pointer accent-[#C17A3A]"
+              className="w-full h-2 bg-surface rounded-lg appearance-none cursor-pointer accent-[#C17A3A] px-0 py-0 border-0 focus:ring-0"
             />
           </div>
 
@@ -179,7 +173,10 @@ export const GeneratorSettings: React.FC<GeneratorSettingsProps> = ({
           {/* Word Count Slider */}
           <div className="flex flex-col gap-4">
             <div className="flex justify-between items-center">
-              <label className="text-sm font-bold font-ui text-primary flex items-center gap-2">
+              <label
+                htmlFor={passphraseWordCountId}
+                className="text-sm font-bold font-ui text-primary flex items-center gap-2"
+              >
                 <ShieldAlert className="w-4 h-4 text-[#C17A3A]" />
                 Jumlah Kata
               </label>
@@ -187,7 +184,8 @@ export const GeneratorSettings: React.FC<GeneratorSettingsProps> = ({
                 {passphraseOptions.wordCount}
               </div>
             </div>
-            <input
+            <Input
+              id={passphraseWordCountId}
               type="range"
               min={3}
               max={15}
@@ -198,7 +196,7 @@ export const GeneratorSettings: React.FC<GeneratorSettingsProps> = ({
                   wordCount: parseInt(e.target.value),
                 })
               }
-              className="w-full h-2 bg-surface rounded-lg appearance-none cursor-pointer accent-[#C17A3A]"
+              className="w-full h-2 bg-surface rounded-lg appearance-none cursor-pointer accent-[#C17A3A] px-0 py-0 border-0 focus:ring-0"
             />
           </div>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useId } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -63,6 +63,8 @@ export function Navbar() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileCategoriesOpen, setIsMobileCategoriesOpen] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
+  const desktopSearchId = useId();
+  const mobileSearchId = useId();
 
   // Initialize Fuse for fuzzy search
   const fuse = React.useMemo(() => {
@@ -147,8 +149,12 @@ export function Navbar() {
               ref={searchRef}
             >
               <div className="relative">
+                <label htmlFor={desktopSearchId} className="sr-only">
+                  Cari alat digital NusantaraTools
+                </label>
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-secondary/50" />
                 <input
+                  id={desktopSearchId}
                   type="text"
                   placeholder="Pencarian alat..."
                   value={searchQuery}
@@ -300,8 +306,12 @@ export function Navbar() {
         >
           <div className="p-4 flex flex-col gap-6">
             <div className="relative w-full">
+              <label htmlFor={mobileSearchId} className="sr-only">
+                Cari alat kebutuhan utama
+              </label>
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-secondary/50" />
               <input
+                id={mobileSearchId}
                 type="text"
                 placeholder="Cari alat kebutuhan utama..."
                 value={searchQuery}

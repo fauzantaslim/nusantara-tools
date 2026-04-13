@@ -3,6 +3,9 @@
 import React from "react";
 import { Card } from "@/ui/Card";
 import { Button } from "@/ui/Button";
+import { Input } from "@/ui/Input";
+import { Select } from "@/ui/Select";
+import { SegmentedControl } from "@/ui/SegmentedControl";
 import {
   Coffee,
   User,
@@ -12,7 +15,6 @@ import {
   RefreshCw,
   ArrowRight,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { CaffeineContextType, UserProfile } from "../types";
 import { CAFFEINE_SOURCES, PROFILE_LABELS } from "../utils";
 import { WEIGHT_UNIT } from "@/lib/constants";
@@ -55,30 +57,16 @@ export const CaffeineForm: React.FC<{ hook: CaffeineContextType }> = ({
       >
         {/* Profile */}
         <div className="flex flex-col gap-2">
-          <label className="text-sm font-bold font-ui text-primary flex items-center gap-1.5">
-            <User className="w-4 h-4" /> Profil Pengguna
-          </label>
-          <div className="grid grid-cols-3 gap-2 bg-surface p-1.5 rounded-xl">
-            {(["adult", "pregnant", "teen"] as UserProfile[]).map((p) => (
-              <button
-                key={p}
-                type="button"
-                onClick={() => updateData("profile", p)}
-                className={cn(
-                  "py-2 px-1 text-xs font-bold rounded-lg transition-all text-center",
-                  data.profile === p
-                    ? "bg-white text-primary shadow-sm"
-                    : "text-secondary hover:text-primary",
-                )}
-              >
-                {p === "adult"
-                  ? "Dewasa"
-                  : p === "pregnant"
-                    ? "Hamil/Menyusui"
-                    : "Remaja"}
-              </button>
-            ))}
-          </div>
+          <SegmentedControl
+            label="Profil Pengguna"
+            options={[
+              { value: "adult", label: "Dewasa" },
+              { value: "pregnant", label: "Hamil/Menyusui" },
+              { value: "teen", label: "Remaja" },
+            ]}
+            value={data.profile}
+            onChange={(val) => updateData("profile", val as UserProfile)}
+          />
           <p className="text-[11px] text-secondary opacity-70 font-body">
             Batas harian: {PROFILE_LABELS[data.profile]}
           </p>
@@ -111,46 +99,32 @@ export const CaffeineForm: React.FC<{ hook: CaffeineContextType }> = ({
                 </div>
 
                 {/* Source dropdown */}
-                <div className="relative">
-                  <select
-                    value={entry.sourceId}
-                    onChange={(e) =>
-                      updateEntry(entry.id, {
-                        sourceId: e.target.value,
-                        customMg: undefined,
-                      })
-                    }
-                    className="w-full h-11 rounded-xl border bg-white px-3 text-sm text-primary font-ui font-medium appearance-none border-muted focus:ring-2 focus:ring-[#C17A3A]/40 focus:outline-none"
-                  >
-                    {CAFFEINE_SOURCES.map((s) => (
-                      <option key={s.id} value={s.id}>
-                        {s.name} {s.mgPerUnit > 0 ? `(${s.mgPerUnit}mg)` : ""}
-                      </option>
-                    ))}
-                  </select>
-                  <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
-                    <svg
-                      className="h-4 w-4 text-secondary opacity-40"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                </div>
+                <Select
+                  value={entry.sourceId}
+                  onChange={(val) =>
+                    updateEntry(entry.id, {
+                      sourceId: val,
+                      customMg: undefined,
+                    })
+                  }
+                  options={CAFFEINE_SOURCES.map((s) => ({
+                    value: s.id,
+                    label: `${s.name}${s.mgPerUnit > 0 ? ` (${s.mgPerUnit}mg)` : ""}`,
+                  }))}
+                  className="[&>label]:sr-only"
+                  label={`Pilih sumber kafein ke-${idx + 1}`}
+                  size="sm"
+                />
 
                 <div className="flex gap-3">
                   {/* Quantity */}
                   <div className="flex-1">
                     <div className="relative flex items-center border border-muted bg-white rounded-xl h-11 focus-within:ring-2 focus-within:ring-[#C17A3A]/40 overflow-hidden transition-colors shadow-sm">
-                      <input
+                      <Input
                         type="number"
+                        aria-label={`Jumlah konsumsi sumber kafein ke-${idx + 1}`}
                         placeholder="1"
-                        min="0.5"
+                        min={0.5}
                         step="0.5"
                         value={entry.quantity}
                         onChange={(e) =>
@@ -158,7 +132,7 @@ export const CaffeineForm: React.FC<{ hook: CaffeineContextType }> = ({
                             quantity: Number(e.target.value),
                           })
                         }
-                        className="flex-1 h-full bg-transparent px-3 text-sm font-bold text-primary outline-none"
+                        className="flex-1 h-full px-3 py-2 text-sm font-bold border-0 focus:ring-0"
                         required
                       />
                       <span className="pr-3 text-xs text-secondary font-bold select-none opacity-50">
@@ -171,17 +145,18 @@ export const CaffeineForm: React.FC<{ hook: CaffeineContextType }> = ({
                   {entry.sourceId === "custom" && (
                     <div className="flex-1">
                       <div className="relative flex items-center border border-muted bg-white rounded-xl h-11 focus-within:ring-2 focus-within:ring-[#C17A3A]/40 overflow-hidden transition-colors shadow-sm">
-                        <input
+                        <Input
                           type="number"
+                          aria-label={`Kafein kustom dalam miligram untuk sumber ke-${idx + 1}`}
                           placeholder="Kafein (mg)"
-                          min="1"
+                          min={1}
                           value={entry.customMg ?? ""}
                           onChange={(e) =>
                             updateEntry(entry.id, {
                               customMg: Number(e.target.value),
                             })
                           }
-                          className="flex-1 h-full bg-transparent px-3 text-sm font-bold text-primary outline-none"
+                          className="flex-1 h-full px-3 py-2 text-sm font-bold border-0 focus:ring-0"
                           required
                         />
                         <span className="pr-3 text-xs text-secondary font-bold select-none opacity-50">
@@ -217,7 +192,7 @@ export const CaffeineForm: React.FC<{ hook: CaffeineContextType }> = ({
         </div>
 
         {/* Optional: Body Weight */}
-        <details className="group [&_summary::-webkit-details-marker]:hidden bg-surface rounded-2xl border border-muted/50 overflow-hidden">
+        <details className="group [&_summary::-webkit-details-marker]:hidden bg-white rounded-2xl border border-muted/50 overflow-hidden">
           <summary className="flex cursor-pointer items-center justify-between gap-1.5 p-4 font-bold hover:bg-white/50 transition-colors">
             <div className="flex items-center gap-2">
               <User className="w-5 h-5 text-[#C17A3A]" />
@@ -245,32 +220,25 @@ export const CaffeineForm: React.FC<{ hook: CaffeineContextType }> = ({
               Masukkan berat badan untuk mendapatkan analisis kafein per
               kilogram berat badan (batas aman: 6mg/kg).
             </p>
-            <div className="flex gap-3">
-              <div className="bg-surface p-1 rounded-lg flex items-center shrink-0">
-                {Object.values(WEIGHT_UNIT).map((u) => (
-                  <button
-                    key={u}
-                    type="button"
-                    onClick={() => updateData("bodyWeightUnit", u)}
-                    className={cn(
-                      "py-1.5 px-3 text-xs font-bold rounded transition-all uppercase",
-                      data.bodyWeightUnit === u
-                        ? "bg-white text-primary shadow-sm"
-                        : "text-secondary hover:text-primary",
-                    )}
-                  >
-                    {u}
-                  </button>
-                ))}
-              </div>
-              <div className="relative flex items-center border border-muted bg-white rounded-xl h-10 focus-within:ring-2 focus-within:ring-[#C17A3A]/40 overflow-hidden flex-1 transition-colors shadow-sm">
-                <input
+            <div className="">
+              <SegmentedControl
+                label="Satuan Berat"
+                options={Object.values(WEIGHT_UNIT).map((u) => ({
+                  value: u,
+                  label: u.toUpperCase(),
+                }))}
+                value={data.bodyWeightUnit}
+                onChange={(val) => updateData("bodyWeightUnit", val)}
+              />
+              <div className="mt-2 relative flex items-center border border-muted bg-white rounded-xl h-10 focus-within:ring-2 focus-within:ring-[#C17A3A]/40 overflow-hidden flex-1 transition-colors shadow-sm">
+                <Input
                   type="number"
+                  aria-label="Berat badan pengguna"
                   placeholder={data.bodyWeightUnit === "kg" ? "65" : "145"}
-                  min="1"
+                  min={1}
                   value={data.bodyWeight}
                   onChange={(e) => updateData("bodyWeight", e.target.value)}
-                  className="flex-1 h-full bg-transparent px-3 text-sm font-bold text-primary outline-none"
+                  className="flex-1 h-full px-3 py-2 text-sm font-bold border-0 focus:ring-0"
                 />
                 <span className="pr-3 text-xs text-secondary font-bold select-none opacity-50">
                   {data.bodyWeightUnit}

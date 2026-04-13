@@ -96,7 +96,7 @@ export const TOOLS: Tool[] = [
     icon: Activity,
     color: "text-[#4A7C59]",
     bg: "bg-[#E8F5E9]",
-    path: "/kesehatan/bmi",
+    path: "/kesehatan/kalkulator-bmi",
     desc: "Hitung tingkat ideal massa tubuh secara akurat berdasarkan standar metrik Asia-Pasifik.",
     hot: true,
     keywords: [
@@ -118,7 +118,7 @@ export const TOOLS: Tool[] = [
     icon: Activity,
     color: "text-[#4A7C59]",
     bg: "bg-[#E8F5E9]",
-    path: "/kesehatan/masa-subur",
+    path: "/kesehatan/kalkulator-masa-subur",
     desc: "Kalkulasi siklus menstruasi dan prediksi jendela masa subur wanita.",
     hot: true,
     keywords: [
@@ -140,7 +140,7 @@ export const TOOLS: Tool[] = [
     icon: Activity,
     color: "text-[#4A7C59]",
     bg: "bg-[#E8F5E9]",
-    path: "/kesehatan/kalori",
+    path: "/kesehatan/kalkulator-kalori-harian",
     desc: "Hitung kebutuhan kalori harian (TDEE) untuk mencapai target berat badan.",
     hot: false,
     keywords: [
@@ -161,7 +161,7 @@ export const TOOLS: Tool[] = [
     icon: Activity,
     color: "text-[#4A7C59]",
     bg: "bg-[#E8F5E9]",
-    path: "/kesehatan/air",
+    path: "/kesehatan/kalkulator-kebutuhan-air",
     desc: "Estimasi asupan cairan yang wajib dipenuhi per hari berdasarkan level rutinitas.",
     hot: false,
     keywords: [
@@ -174,14 +174,14 @@ export const TOOLS: Tool[] = [
     ],
   },
   {
-    id: "sleep",
-    name: "Sleep Cycle Calculator",
+    id: "kalkulator-siklus-tidur",
+    name: "Kalkulator Siklus Tidur",
     category: "Kesehatan",
     categoryId: "kesehatan",
     icon: Moon,
     color: "text-[#4A7C59]",
     bg: "bg-[#E8F5E9]",
-    path: "/kesehatan/tidur",
+    path: "/kesehatan/kalkulator-siklus-tidur",
     desc: "Temukan jam tidur dan bangun ideal untuk menghindari rasa lelah.",
     hot: true,
     keywords: [
@@ -202,7 +202,7 @@ export const TOOLS: Tool[] = [
     icon: Activity,
     color: "text-[#4A7C59]",
     bg: "bg-[#E8F5E9]",
-    path: "/kesehatan/1rm",
+    path: "/kesehatan/kalkulator-1rm",
     desc: "Hitung porsi beban maksimum untuk satu repetisi latihan angkat beban.",
     hot: false,
     keywords: [
@@ -222,7 +222,7 @@ export const TOOLS: Tool[] = [
     icon: Activity,
     color: "text-[#4A7C59]",
     bg: "bg-[#E8F5E9]",
-    path: "/kesehatan/kafein",
+    path: "/kesehatan/kalkulator-kafein-aman",
     desc: "Batas asupan kopi dan minuman berkafein harian sesuai kondisi tubuh.",
     hot: false,
     keywords: [
@@ -242,7 +242,7 @@ export const TOOLS: Tool[] = [
     icon: Activity,
     color: "text-[#4A7C59]",
     bg: "bg-[#E8F5E9]",
-    path: "/kesehatan/kehamilan",
+    path: "/kesehatan/kalkulator-hari-perkiraan-lahir",
     desc: "Kalkulator Hari Perkiraan Lahir untuk memantau kehamilan.",
     hot: true,
     keywords: [
@@ -262,7 +262,7 @@ export const TOOLS: Tool[] = [
     icon: Activity,
     color: "text-[#4A7C59]",
     bg: "bg-[#E8F5E9]",
-    path: "/kesehatan/grafik-bayi",
+    path: "/kesehatan/grafik-pertumbuhan-bayi",
     desc: "Pantau kurva pertumbuhan tinggi dan berat badan anak sesuai standar WHO.",
     hot: false,
     keywords: [
@@ -283,7 +283,7 @@ export const TOOLS: Tool[] = [
     icon: Activity,
     color: "text-[#4A7C59]",
     bg: "bg-[#E8F5E9]",
-    path: "/kesehatan/tekanan-darah",
+    path: "/kesehatan/kalkulator-tekanan-darah",
     desc: "Evaluasi hasil tensi darah dan pahami kategori kesehatannya.",
     hot: false,
     keywords: [
@@ -303,7 +303,7 @@ export const TOOLS: Tool[] = [
     icon: Activity,
     color: "text-[#4A7C59]",
     bg: "bg-[#E8F5E9]",
-    path: "/kesehatan/diabetes",
+    path: "/kesehatan/risiko-diabetes",
     desc: "Skrining awal tingkat risiko diabetes berdasarkan gaya hidup dan keturunan.",
     hot: false,
     keywords: [
@@ -318,14 +318,14 @@ export const TOOLS: Tool[] = [
   // Religi
   {
     id: "sholat",
-    name: "Kalkulator Sholat",
+    name: "Jadwal Sholat",
     category: "Religi",
     categoryId: "religi",
     icon: Moon,
     color: "text-[#4A7C59]",
     bg: "bg-[#E8F5E9]",
-    path: "/religi/sholat",
-    desc: "Kalkulasi waktu masuk ibadah tersinkronisasi lintang bujur otomatis.",
+    path: "/religi/jadwal-sholat",
+    desc: "Dapatkan jadwal waktu sholat otomatis berbasis lokasi secara akurat dengan dukungan metode MWL, ISNA, Egypt, dan konfigurasi Hanafi/Standard. Dilengkapi penunjuk Arah Kiblat.",
     hot: true,
     keywords: [
       "adzan",
@@ -338,13 +338,13 @@ export const TOOLS: Tool[] = [
   },
   {
     id: "zakat",
-    name: "Kalkulator Zakat",
+    name: "Kalkulator Zakat Pendapatan",
     category: "Religi",
     categoryId: "religi",
     icon: Calculator,
     color: "text-[#4A7C59]",
     bg: "bg-[#E8F5E9]",
-    path: "/religi/zakat",
+    path: "/religi/kalkulator-zakat-pendapatan",
     desc: "Simulasikan tercapainya batas minimum nisab harta maal & persentase penghasilan.",
     hot: true,
     keywords: [
@@ -365,7 +365,7 @@ export const TOOLS: Tool[] = [
     icon: Moon,
     color: "text-[#4A7C59]",
     bg: "bg-[#E8F5E9]",
-    path: "/religi/hijriyah",
+    path: "/religi/konversi-hijriyah",
     desc: "Konversi penanggalan kalender Masehi ke Hijriyah and sebaliknya.",
     hot: false,
     keywords: [
@@ -387,7 +387,7 @@ export const TOOLS: Tool[] = [
     icon: Calculator,
     color: "text-[#9C4A2A]",
     bg: "bg-[#FFF0EB]",
-    path: "/finansial/depresiasi",
+    path: "/finansial/kalkulator-depresiasi-aset",
     desc: "Kalkulasi penyusutan aset pajak sesuai standar DJP (PMK No.72/2023).",
     hot: true,
     keywords: [
@@ -410,7 +410,7 @@ export const TOOLS: Tool[] = [
     icon: Wallet,
     color: "text-[#9C4A2A]",
     bg: "bg-[#FFF0EB]",
-    path: "/finansial/lembur",
+    path: "/finansial/kalkulator-lembur",
     desc: "Hitung upah jam lembur (overtime) sesuai regulasi Depnaker terbaru.",
     hot: false,
     keywords: [
@@ -431,7 +431,7 @@ export const TOOLS: Tool[] = [
     icon: Wallet,
     color: "text-[#9C4A2A]",
     bg: "bg-[#FFF0EB]",
-    path: "/finansial/pensiun",
+    path: "/finansial/kalkulator-pensiun",
     desc: "Simulasi target dana pensiun dan proyeksi pertumbuhan investasi.",
     hot: false,
     keywords: [
@@ -444,13 +444,13 @@ export const TOOLS: Tool[] = [
   },
   {
     id: "splitbill",
-    name: "Split Bill Nongkrong",
+    name: "Kalkulator Split Bill",
     category: "Finansial",
     categoryId: "finansial",
     icon: Wallet,
     color: "text-[#9C4A2A]",
     bg: "bg-[#FFF0EB]",
-    path: "/finansial/split-bill",
+    path: "/finansial/kalkulator-split-bill",
     desc: "Sistem bagi tagihan nongkrong bareng otomatis dari foto struk (OCR).",
     hot: true,
     keywords: [
@@ -465,13 +465,13 @@ export const TOOLS: Tool[] = [
   },
   {
     id: "nikah",
-    name: "Anggaran Pernikahan",
+    name: "Kalkulator Anggaran Pernikahan",
     category: "Finansial",
     categoryId: "finansial",
     icon: Wallet,
     color: "text-[#9C4A2A]",
     bg: "bg-[#FFF0EB]",
-    path: "/finansial/pernikahan",
+    path: "/finansial/kalkulator-anggaran-pernikahan",
     desc: "Rencanakan budget resepsi impian dari vendor hingga ongkos tak terduga.",
     hot: false,
     keywords: [
@@ -484,14 +484,14 @@ export const TOOLS: Tool[] = [
     ],
   },
   {
-    id: "cicilan-kendaraan",
+    id: "kalkulator-cicilan-kendaraan",
     name: "Kalkulator Cicilan Kendaraan",
     category: "Finansial",
     categoryId: "finansial",
     icon: Calculator,
     color: "text-[#9C4A2A]",
     bg: "bg-[#FFF0EB]",
-    path: "/finansial/cicilan-kendaraan",
+    path: "/finansial/kalkulator-cicilan-kendaraan",
     desc: "Simulasi cicilan kredit motor atau mobil dengan jadwal angsuran lengkap per bulan.",
     hot: true,
     keywords: [
@@ -508,13 +508,13 @@ export const TOOLS: Tool[] = [
 
   {
     id: "darurat",
-    name: "Dana Darurat",
+    name: "Kalkulator Dana Darurat",
     category: "Finansial",
     categoryId: "finansial",
     icon: Wallet,
     color: "text-[#9C4A2A]",
     bg: "bg-[#FFF0EB]",
-    path: "/finansial/dana-darurat",
+    path: "/finansial/kalkulator-dana-darurat",
     desc: "Target minimal dana aman sesuai status pernikahan dan tanggungan.",
     hot: false,
     keywords: [
@@ -527,13 +527,13 @@ export const TOOLS: Tool[] = [
   },
   {
     id: "margin",
-    name: "Harga Jual & Margin",
+    name: "Kalkulator Harga Jual & Margin",
     category: "Finansial",
     categoryId: "finansial",
     icon: Calculator,
     color: "text-[#9C4A2A]",
     bg: "bg-[#FFF0EB]",
-    path: "/finansial/margin",
+    path: "/finansial/kalkulator-harga-jual-margin",
     desc: "Tentukan harga jual produk e-commerce dengan margin dan markup yang tepat.",
     hot: true,
     keywords: [
@@ -546,6 +546,48 @@ export const TOOLS: Tool[] = [
       "Калькулятор маржи",
     ],
   },
+  {
+    id: "kalkulator-kpr",
+    name: "Kalkulator KPR",
+    category: "Finansial",
+    categoryId: "finansial",
+    icon: Calculator,
+    color: "text-[#9C4A2A]",
+    bg: "bg-[#FFF0EB]",
+    path: "/finansial/kalkulator-kpr",
+    desc: "Simulasi cicilan kredit pemilikan rumah (KPR) dengan tenor dan suku bunga.",
+    hot: true,
+    keywords: [
+      "kpr",
+      "cicilan rumah",
+      "kredit rumah",
+      "cicilan KPR",
+      "kredit KPR",
+      "kalkulator KPR",
+      "Калькулятор маржи",
+    ],
+  },
+  {
+    id: "kalkulator-investasi",
+    name: "Kalkulator Investasi",
+    category: "Finansial",
+    categoryId: "finansial",
+    icon: Calculator,
+    color: "text-[#9C4A2A]",
+    bg: "bg-[#FFF0EB]",
+    path: "/finansial/kalkulator-investasi",
+    desc: "Simulasi pertumbuhan investasi dengan tenor dan suku bunga.",
+    hot: true,
+    keywords: [
+      "investasi",
+      "investation",
+      "tabungan",
+      "proyeksi",
+      "bunga",
+      "kalkulator investasi",
+      "Калькулятор инвестиций",
+    ],
+  },
 
   // Produktivitas
   {
@@ -556,7 +598,7 @@ export const TOOLS: Tool[] = [
     icon: Activity,
     color: "text-[#C17A3A]",
     bg: "bg-[#FFF3E0]",
-    path: "/produktivitas/cv",
+    path: "/produktivitas/generator-cv-ats",
     desc: "Buat resume profesional anti-kick sistem Applicant Tracking System.",
     hot: true,
     keywords: [
@@ -576,7 +618,7 @@ export const TOOLS: Tool[] = [
     icon: Activity,
     color: "text-[#C17A3A]",
     bg: "bg-[#FFF3E0]",
-    path: "/produktivitas/surat-lamaran-kerja",
+    path: "/produktivitas/generator-surat-lamaran-kerja",
     desc: "Template cover letter instan terstruktur untuk berbagai bidang profesi.",
     hot: false,
     keywords: [
@@ -595,7 +637,7 @@ export const TOOLS: Tool[] = [
     icon: Timer,
     color: "text-[#C17A3A]",
     bg: "bg-[#FFF3E0]",
-    path: "/produktivitas/pomodoro",
+    path: "/produktivitas/pomodoro-timer",
     desc: "Tingkatkan retensi fokus kerja tanpa distraksi menggunakan interval waktu sains.",
     hot: true,
     keywords: [

@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import PomodoroPage from "@/app/produktivitas/pomodoro/page";
+import PomodoroPage from "@/app/produktivitas/pomodoro-timer/page";
 
 // Mock localStorage
 const localStorageMock = (() => {

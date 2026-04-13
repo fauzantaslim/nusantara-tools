@@ -3,18 +3,11 @@
 import React from "react";
 import { Card } from "@/ui/Card";
 import { CurrencyInput } from "@/ui/CurrencyInput";
+import { Input } from "@/ui/Input";
+import { SegmentedControl } from "@/ui/SegmentedControl";
 import { ReceiptUploader } from "./ReceiptUploader";
 import { Person, SplitMode } from "../types";
-import { cn } from "@/lib/utils";
-import {
-  Settings,
-  Users,
-  Camera,
-  Edit3,
-  Plus,
-  Trash2,
-  Percent,
-} from "lucide-react";
+import { Settings, Users, Plus, Trash2 } from "lucide-react";
 
 interface SplitBillSettingsProps {
   mode: SplitMode;
@@ -82,32 +75,16 @@ export const SplitBillSettings: React.FC<SplitBillSettingsProps> = ({
 
       <div className="flex flex-col gap-8 relative z-10">
         {/* Mode Toggles */}
-        <div className="grid grid-cols-2 gap-3 bg-surface p-1.5 rounded-2xl border border-muted/50">
-          <button
-            onClick={() => setMode("manual")}
-            className={cn(
-              "px-4 py-3 rounded-xl transition-all text-sm font-bold font-ui flex items-center justify-center gap-2",
-              mode === "manual"
-                ? "bg-white text-[#C17A3A] shadow-sm"
-                : "text-secondary hover:text-primary",
-            )}
-            disabled={isProcessingOcr}
-          >
-            <Edit3 className="w-4 h-4" /> Input Manual
-          </button>
-          <button
-            onClick={() => setMode("ocr")}
-            className={cn(
-              "px-4 py-3 rounded-xl transition-all text-sm font-bold font-ui flex items-center justify-center gap-2",
-              mode === "ocr"
-                ? "bg-[#C17A3A] text-white shadow-sm shadow-[#C17A3A]/20"
-                : "text-secondary hover:text-primary",
-            )}
-            disabled={isProcessingOcr}
-          >
-            <Camera className="w-4 h-4 border-current" /> Scan Struk
-          </button>
-        </div>
+        <SegmentedControl
+          label="Mode Perhitungan"
+          options={[
+            { value: "manual", label: "Input Manual" },
+            { value: "ocr", label: "Scan Struk" },
+          ]}
+          value={mode}
+          onChange={(val) => !isProcessingOcr && setMode(val as SplitMode)}
+          className="[&>label]:text-xs [&>label]:font-bold [&>label]:text-secondary [&>label]:uppercase [&>label]:tracking-wider [&>div]:rounded-2xl [&>div]:border [&>div]:border-muted/50 [&>div]:bg-surface [&>div]:p-1.5"
+        />
 
         {/* Dynamic Section based on Mode */}
         {mode === "ocr" ? (
@@ -131,31 +108,29 @@ export const SplitBillSettings: React.FC<SplitBillSettingsProps> = ({
         {/* Global Taxes & Fees */}
         <div className="grid grid-cols-2 gap-4">
           <div className="flex flex-col gap-2">
-            <label className="text-xs font-bold font-ui text-secondary flex items-center gap-2">
-              <Percent className="w-3 h-3 text-red-500" /> PB1 / Pajak (%)
-            </label>
-            <input
+            <Input
+              label="PB1 / Pajak (%)"
+              id="tax-percent"
               type="number"
-              min="0"
-              max="100"
+              min={0}
+              max={100}
               value={taxPercent}
               onChange={(e) => setTaxPercent(parseFloat(e.target.value) || 0)}
-              className="w-full h-12 bg-white border border-muted rounded-xl px-4 text-sm font-bold text-primary focus:ring-2 focus:ring-red-500/20 outline-none"
+              className="h-12 rounded-xl"
             />
           </div>
           <div className="flex flex-col gap-2">
-            <label className="text-xs font-bold font-ui text-secondary flex items-center gap-2">
-              <Percent className="w-3 h-3 text-blue-500" /> Service Charge (%)
-            </label>
-            <input
+            <Input
+              label="Service Charge (%)"
+              id="service-percent"
               type="number"
-              min="0"
-              max="100"
+              min={0}
+              max={100}
               value={servicePercent}
               onChange={(e) =>
                 setServicePercent(parseFloat(e.target.value) || 0)
               }
-              className="w-full h-12 bg-white border border-muted rounded-xl px-4 text-sm font-bold text-primary focus:ring-2 focus:ring-blue-500/20 outline-none"
+              className="h-12 rounded-xl"
             />
           </div>
         </div>
@@ -178,11 +153,13 @@ export const SplitBillSettings: React.FC<SplitBillSettingsProps> = ({
           </div>
 
           <form onSubmit={handleAddPerson} className="flex gap-2">
-            <input
+            <Input
+              label="Nama Teman"
+              id="person-name"
               type="text"
               name="name"
               placeholder="Nama Teman"
-              className="flex-1 h-12 bg-white border border-muted rounded-xl px-4 text-sm focus:ring-2 focus:ring-[#C17A3A]/20 outline-none"
+              className="flex-1 h-12 rounded-xl"
               autoComplete="off"
               disabled={people.length >= 50}
             />

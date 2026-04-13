@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from "react";
+import React, { InputHTMLAttributes, useId } from "react";
 import { cn } from "@/lib/utils";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -23,14 +23,14 @@ export function Input({
   labelClassName,
   ...props
 }: InputProps) {
-  const generatedId =
-    id || (label ? label.toLowerCase().replace(/\s+/g, "-") : undefined);
+  const reactId = useId();
+  const inputId = id || reactId;
 
   return (
     <div className={cn("flex flex-col gap-1.5", fullWidth ? "w-full" : "")}>
       {label && (
         <label
-          htmlFor={generatedId}
+          htmlFor={inputId}
           className={cn(
             "text-sm font-ui font-medium text-primary",
             labelClassName,
@@ -41,10 +41,11 @@ export function Input({
       )}
       <div className="relative">
         <input
-          id={generatedId}
+          id={inputId}
           max={max}
           min={min}
           {...props}
+          aria-label={props["aria-label"] || label || props.placeholder}
           className={cn(
             "w-full px-4 py-3 rounded-md border",
             "bg-white text-primary font-ui text-base",
@@ -56,6 +57,8 @@ export function Input({
             suffix && "pr-12",
             className,
           )}
+          aria-invalid={!!error}
+          aria-describedby={error ? `${inputId}-error` : undefined}
         />
         {suffix && (
           <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-ui font-medium text-secondary">
@@ -64,7 +67,12 @@ export function Input({
         )}
       </div>
       {error && (
-        <span className="text-xs font-ui text-accent-3 mt-1">{error}</span>
+        <span
+          id={`${inputId}-error`}
+          className="text-xs font-ui text-accent-3 mt-1"
+        >
+          {error}
+        </span>
       )}
     </div>
   );

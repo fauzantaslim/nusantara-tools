@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useId } from "react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -18,6 +18,7 @@ interface SelectProps<T extends string = string> {
   icon?: React.ReactNode;
   className?: string;
   size?: "sm" | "md";
+  id?: string;
 }
 
 export function Select<T extends string = string>({
@@ -29,9 +30,12 @@ export function Select<T extends string = string>({
   icon,
   className,
   size = "md",
+  id,
 }: SelectProps<T>) {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const reactId = useId();
+  const selectId = id || reactId;
 
   const selected = options.find((o) => o.value === value);
 
@@ -51,13 +55,20 @@ export function Select<T extends string = string>({
   return (
     <div className={cn("flex flex-col gap-2", className)} ref={ref}>
       {label && (
-        <label className="text-sm font-medium font-ui text-primary">
+        <label
+          htmlFor={selectId}
+          className="text-sm font-medium font-ui text-primary"
+        >
           {label}
         </label>
       )}
       <div className="relative">
         <button
+          id={selectId}
           type="button"
+          aria-haspopup="listbox"
+          aria-expanded={isOpen}
+          aria-label={label || placeholder}
           onClick={() => setIsOpen((o) => !o)}
           className={cn(
             "w-full flex items-center justify-between px-4 rounded-xl border bg-white transition-colors font-ui font-medium shadow-sm",
@@ -86,12 +97,17 @@ export function Select<T extends string = string>({
 
         {/* Dropdown Panel */}
         {isOpen && (
-          <div className="absolute top-[calc(100%+0.375rem)] left-0 w-full bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.10)] border border-[#EDE0D0] overflow-hidden z-[100] animate-in fade-in slide-in-from-top-1">
+          <div
+            role="listbox"
+            className="absolute top-[calc(100%+0.375rem)] left-0 w-full bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.10)] border border-[#EDE0D0] overflow-hidden z-[100] animate-in fade-in slide-in-from-top-1"
+          >
             <div className="py-1.5 max-h-48 overflow-y-auto custom-scrollbar">
               {options.map((option) => (
                 <button
                   key={option.value}
                   type="button"
+                  role="option"
+                  aria-selected={option.value === value}
                   onClick={() => {
                     onChange(option.value);
                     setIsOpen(false);
